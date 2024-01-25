@@ -4,11 +4,13 @@ package auth;
 
 option go_package = "auth.v1;authv1";
 
+// Сервис авторизации пользователей.
 service Auth {
     rpc Register (RegisterRequest) returns (RegisterResponse);
     rpc Login (LoginRequest) returns (LoginResponse);
 }
 
+// ----------        Регистрация          ----------
 message RegisterRequest {
     string email = 1;
     string password = 2;
@@ -18,6 +20,7 @@ message RegisterResponse {
     uint64 user_id = 1;
 }
 
+// ----------        Логин          ----------
 message LoginRequest {
     string email = 1;
     string password = 2;
