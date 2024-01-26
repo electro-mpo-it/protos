@@ -1,0 +1,41 @@
+// User
+{
+    "id": 1,
+    "first_name": "sfgsdf",
+    "last_name": "sfgsdgssdf",
+    "отчество": "sfgsdgssdf",
+    "телефон": "35325124251",
+    "email": "sdgasag@yandex.ru",
+    "is_superuser": true,
+    "is_email_confirmed": true,
+    "password": "sdgasdsdfgfgh23twetg"
+}
+
+// Staff info
+{
+    "id": 1,
+    "user_id": 1,
+    "должность_ID": 2,
+    "отдел_ID": 2,
+    "телефон": "353251251",
+    "email": "sdgasag@yandex.ru",
+    "уволен ли?": false, 
+}
+
+// Companies
+{
+    "id": "388611",
+    "name": "ЗАКРЫТОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО \"МПО ЭЛЕКТРОМОНТАЖ\"",
+    "legalAddress": "г Москва, р-н Северное Тушино, ул Планерная, д 6 к 2",
+    "postalAddress": "г Москва, р-н Северное Тушино, ул Планерная, д 6 к 2",
+    "inn": "7719079370",
+    "kpp": "773301001",
+    "ogrn": "1037700089052",
+    "settlementAccount": "40702810900000006035",
+    "correspondentAccount": "30101810200000000700",
+    "bankBik": "044525700",
+    "bankName": "АО \"РАЙФФАЙЗЕНБАНК\" Г МОСКВА",
+    "crmId": "6894c641-39b6-11e9-99d9-c69417c43c93",
+    "extendedAccessEnabled": true,
+    "currentUserRole": null,
+}

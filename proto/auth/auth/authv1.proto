@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package authv1;
+
+option go_package = "auth.v1;authv1";
+
+// Сервис авторизации пользователей.
+service Auth {
+    rpc CreateUserToken (CreateTokenRequest) returns (CreateTokenResponse);
+    rpc RefreshUserToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+    rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+// ----------        Создание токена пользователя          ----------
+message CreateTokenRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message CreateTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+// ----------        Обновление токена пользователя          ----------
+message RefreshTokenRequest {
+    string refresh_token = 1;
+}
+
+message RefreshTokenResponse {
+    string access_token = 1;
+    string refresh_token = 2;
+}
+
+// ----------        Валидирование токена пользователя          ----------
+message ValidateTokenRequest {
+    string access_token = 1;
+}
+
+message ValidateTokenResponse {
+    uint32 code = 1;
+    string message = 2;
+    uint64 user_id = 3;
+    bool is_superuser = 4;
+}
