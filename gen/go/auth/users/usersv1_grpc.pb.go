@@ -22,10 +22,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersClient interface {
-	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*UserIDResponse, error)
+	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
+	GetCurrentUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	FindUsers(ctx context.Context, in *FindUsersRequest, opts ...grpc.CallOption) (*FindUsersResponse, error)
-	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UserIDResponse, error)
+	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*SetSuperuserStatusResponse, error)
 }
 
@@ -37,9 +38,18 @@ func NewUsersClient(cc grpc.ClientConnInterface) UsersClient {
 	return &usersClient{cc}
 }
 
-func (c *usersClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*UserIDResponse, error) {
-	out := new(UserIDResponse)
+func (c *usersClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
+	out := new(CreateUserResponse)
 	err := c.cc.Invoke(ctx, "/usersv1.Users/CreateUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *usersClient) GetCurrentUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error) {
+	out := new(GetCurrentUserResponse)
+	err := c.cc.Invoke(ctx, "/usersv1.Users/GetCurrentUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -64,8 +74,8 @@ func (c *usersClient) FindUsers(ctx context.Context, in *FindUsersRequest, opts 
 	return out, nil
 }
 
-func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UserIDResponse, error) {
-	out := new(UserIDResponse)
+func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
+	out := new(UpdateUserResponse)
 	err := c.cc.Invoke(ctx, "/usersv1.Users/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -86,10 +96,11 @@ func (c *usersClient) SetSuperuserStatus(ctx context.Context, in *SetSuperuserSt
 // All implementations must embed UnimplementedUsersServer
 // for forward compatibility
 type UsersServer interface {
-	CreateUser(context.Context, *CreateUserRequest) (*UserIDResponse, error)
+	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
+	GetCurrentUser(context.Context, *GetUserRequest) (*GetCurrentUserResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	FindUsers(context.Context, *FindUsersRequest) (*FindUsersResponse, error)
-	UpdateUser(context.Context, *UpdateUserRequest) (*UserIDResponse, error)
+	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*SetSuperuserStatusResponse, error)
 	mustEmbedUnimplementedUsersServer()
 }
@@ -98,8 +109,11 @@ type UsersServer interface {
 type UnimplementedUsersServer struct {
 }
 
-func (UnimplementedUsersServer) CreateUser(context.Context, *CreateUserRequest) (*UserIDResponse, error) {
+func (UnimplementedUsersServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+}
+func (UnimplementedUsersServer) GetCurrentUser(context.Context, *GetUserRequest) (*GetCurrentUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentUser not implemented")
 }
 func (UnimplementedUsersServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUser not implemented")
@@ -107,7 +121,7 @@ func (UnimplementedUsersServer) GetUser(context.Context, *GetUserRequest) (*GetU
 func (UnimplementedUsersServer) FindUsers(context.Context, *FindUsersRequest) (*FindUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindUsers not implemented")
 }
-func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateUserRequest) (*UserIDResponse, error) {
+func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
 func (UnimplementedUsersServer) SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*SetSuperuserStatusResponse, error) {
@@ -140,6 +154,24 @@ func _Users_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).CreateUser(ctx, req.(*CreateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Users_GetCurrentUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UsersServer).GetCurrentUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/usersv1.Users/GetCurrentUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UsersServer).GetCurrentUser(ctx, req.(*GetUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -226,6 +258,10 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateUser",
 			Handler:    _Users_CreateUser_Handler,
+		},
+		{
+			MethodName: "GetCurrentUser",
+			Handler:    _Users_GetCurrentUser_Handler,
 		},
 		{
 			MethodName: "GetUser",

@@ -8,7 +8,11 @@ option go_package = "auth.v1;authv1";
 service Auth {
     rpc CreateUserToken (CreateTokenRequest) returns (CreateTokenResponse);
     rpc RefreshUserToken (RefreshTokenRequest) returns (RefreshTokenResponse);
-    rpc ValidateToken (ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+message Token {
+    string access_token = 1;
+    string refresh_token = 2;
 }
 
 // ----------        Создание токена пользователя          ----------
@@ -18,8 +22,9 @@ message CreateTokenRequest {
 }
 
 message CreateTokenResponse {
-    string access_token = 1;
-    string refresh_token = 2;
+    uint32 code = 1;
+    string message = 2;
+    Token data = 3;
 }
 
 // ----------        Обновление токена пользователя          ----------
@@ -28,18 +33,7 @@ message RefreshTokenRequest {
 }
 
 message RefreshTokenResponse {
-    string access_token = 1;
-    string refresh_token = 2;
-}
-
-// ----------        Валидирование токена пользователя          ----------
-message ValidateTokenRequest {
-    string access_token = 1;
-}
-
-message ValidateTokenResponse {
     uint32 code = 1;
     string message = 2;
-    uint64 user_id = 3;
-    bool is_superuser = 4;
+    Token data = 3;
 }
