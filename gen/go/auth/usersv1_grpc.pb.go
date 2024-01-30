@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.25.0
-// source: auth/users/usersv1.proto
+// source: auth/usersv1.proto
 
 package usersv1
 
@@ -23,10 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UsersClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
-	GetCurrentUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error)
+	GetCurrentUser(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	FindUsers(ctx context.Context, in *FindUsersRequest, opts ...grpc.CallOption) (*FindUsersResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
+	// TODO: изменение пароля
+	// TODO: подтверждение емейла
 	SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*SetSuperuserStatusResponse, error)
 }
 
@@ -47,7 +49,7 @@ func (c *usersClient) CreateUser(ctx context.Context, in *CreateUserRequest, opt
 	return out, nil
 }
 
-func (c *usersClient) GetCurrentUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error) {
+func (c *usersClient) GetCurrentUser(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error) {
 	out := new(GetCurrentUserResponse)
 	err := c.cc.Invoke(ctx, "/usersv1.Users/GetCurrentUser", in, out, opts...)
 	if err != nil {
@@ -97,10 +99,12 @@ func (c *usersClient) SetSuperuserStatus(ctx context.Context, in *SetSuperuserSt
 // for forward compatibility
 type UsersServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
-	GetCurrentUser(context.Context, *GetUserRequest) (*GetCurrentUserResponse, error)
+	GetCurrentUser(context.Context, *GetCurrentUserRequest) (*GetCurrentUserResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	FindUsers(context.Context, *FindUsersRequest) (*FindUsersResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
+	// TODO: изменение пароля
+	// TODO: подтверждение емейла
 	SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*SetSuperuserStatusResponse, error)
 	mustEmbedUnimplementedUsersServer()
 }
@@ -112,7 +116,7 @@ type UnimplementedUsersServer struct {
 func (UnimplementedUsersServer) CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
 }
-func (UnimplementedUsersServer) GetCurrentUser(context.Context, *GetUserRequest) (*GetCurrentUserResponse, error) {
+func (UnimplementedUsersServer) GetCurrentUser(context.Context, *GetCurrentUserRequest) (*GetCurrentUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentUser not implemented")
 }
 func (UnimplementedUsersServer) GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error) {
@@ -159,7 +163,7 @@ func _Users_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 func _Users_GetCurrentUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetUserRequest)
+	in := new(GetCurrentUserRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -171,7 +175,7 @@ func _Users_GetCurrentUser_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: "/usersv1.Users/GetCurrentUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UsersServer).GetCurrentUser(ctx, req.(*GetUserRequest))
+		return srv.(UsersServer).GetCurrentUser(ctx, req.(*GetCurrentUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -281,5 +285,5 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "auth/users/usersv1.proto",
+	Metadata: "auth/usersv1.proto",
 }

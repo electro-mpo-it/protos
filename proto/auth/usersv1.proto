@@ -8,10 +8,12 @@ option go_package = "users.v1;usersv1";
 // Сервис пользователей
 service Users {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
-    rpc GetCurrentUser (GetUserRequest) returns (GetCurrentUserResponse);
+    rpc GetCurrentUser (GetCurrentUserRequest) returns (GetCurrentUserResponse);
     rpc GetUser (GetUserRequest) returns (GetUserResponse);
     rpc FindUsers (FindUsersRequest) returns (FindUsersResponse);
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse);
+    // TODO: изменение пароля
+    // TODO: подтверждение емейла
     rpc SetSuperuserStatus (SetSuperuserStatusRequest) returns (SetSuperuserStatusResponse);
 }
 
@@ -24,19 +26,17 @@ message User {
     uint64 id = 1;
     string first_name = 2;
     string last_name = 3;
-    string phone = 4;
-    string email = 5;
-    string main_image = 6;
-    bool is_email_confirmed = 7;
+    string middle_name = 4;
+    string phone = 5;
 }
 
 message CurrentUser {
     uint64 id = 1;
     string first_name = 2;
     string last_name = 3;
-    string phone = 4;
-    string email = 5;
-    string main_image = 6;
+    string middle_name = 4;
+    string phone = 5;
+    string email = 6;
     bool is_email_confirmed = 7;
     bool is_superuser = 8;
 }
@@ -46,9 +46,10 @@ message CurrentUser {
 message CreateUserRequest {
     string first_name = 1;
     string last_name = 2;
-    string phone = 3;
-    string email = 4;
-    string password = 5;
+    string middle_name = 3;
+    string phone = 4;
+    string email = 5;
+    string password = 6;
 }
 
 message CreateUserResponse {
@@ -58,6 +59,11 @@ message CreateUserResponse {
 }
 
 // Получение текущего пользователя
+
+message GetCurrentUserRequest {
+    string token = 1;
+}
+
 message GetCurrentUserResponse {
     uint32 code = 1;
     string message = 2;
@@ -77,11 +83,13 @@ message GetUserResponse {
 }
 
 // Найти пользователей
+
 message FindUsersRequest {
     string search = 1;
-    string order_by = 2;
-    uint64 limit = 3;
-    uint64 offset = 4;
+    repeated uint64 user_ids = 2;
+    string order_by = 3;
+    uint64 limit = 4;
+    uint64 offset = 5;
 }
 
 message FindUsersResponse {
@@ -89,16 +97,19 @@ message FindUsersResponse {
 }
 
 // Обновление данных о пользователе
+
 message UpdateUserRequest {
-    uint64 user_id = 1;
+    string access_token = 1;
+    uint64 user_id = 2;
 
     message UpdateUserData {
         string first_name = 1;
         string last_name = 2;
-        string phone = 3;
-        string password = 5;
+        string middle_name = 3;
+        string email = 4;
+        string phone = 5;
     };
-    UpdateUserData data = 2;
+    UpdateUserData data = 3;
 }
 
 message UpdateUserResponse {
@@ -111,8 +122,9 @@ message UpdateUserResponse {
 // Установить статус суперюзера
 
 message SetSuperuserStatusRequest {
-    uint64 user_id = 1;
-    bool is_superuser = 2;
+    string access_token = 1;
+    uint64 user_id = 2;
+    bool is_superuser = 3;
 }
 
 message SetSuperuserStatusResponse {
