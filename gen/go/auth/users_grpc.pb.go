@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.25.0
-// source: auth/usersv1.proto
+// source: auth/users.proto
 
-package usersv1
+package authpb
 
 import (
 	context "context"
@@ -42,7 +42,7 @@ func NewUsersClient(cc grpc.ClientConnInterface) UsersClient {
 
 func (c *usersClient) CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	out := new(CreateUserResponse)
-	err := c.cc.Invoke(ctx, "/usersv1.Users/CreateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Users/CreateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *usersClient) CreateUser(ctx context.Context, in *CreateUserRequest, opt
 
 func (c *usersClient) GetCurrentUser(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error) {
 	out := new(GetCurrentUserResponse)
-	err := c.cc.Invoke(ctx, "/usersv1.Users/GetCurrentUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Users/GetCurrentUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (c *usersClient) GetCurrentUser(ctx context.Context, in *GetCurrentUserRequ
 
 func (c *usersClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
 	out := new(GetUserResponse)
-	err := c.cc.Invoke(ctx, "/usersv1.Users/GetUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Users/GetUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -69,7 +69,7 @@ func (c *usersClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...g
 
 func (c *usersClient) FindUsers(ctx context.Context, in *FindUsersRequest, opts ...grpc.CallOption) (*FindUsersResponse, error) {
 	out := new(FindUsersResponse)
-	err := c.cc.Invoke(ctx, "/usersv1.Users/FindUsers", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Users/FindUsers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (c *usersClient) FindUsers(ctx context.Context, in *FindUsersRequest, opts 
 
 func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
 	out := new(UpdateUserResponse)
-	err := c.cc.Invoke(ctx, "/usersv1.Users/UpdateUser", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Users/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +87,7 @@ func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opt
 
 func (c *usersClient) SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*SetSuperuserStatusResponse, error) {
 	out := new(SetSuperuserStatusResponse)
-	err := c.cc.Invoke(ctx, "/usersv1.Users/SetSuperuserStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Users/SetSuperuserStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -154,7 +154,7 @@ func _Users_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/usersv1.Users/CreateUser",
+		FullMethod: "/authpb.Users/CreateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).CreateUser(ctx, req.(*CreateUserRequest))
@@ -172,7 +172,7 @@ func _Users_GetCurrentUser_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/usersv1.Users/GetCurrentUser",
+		FullMethod: "/authpb.Users/GetCurrentUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).GetCurrentUser(ctx, req.(*GetCurrentUserRequest))
@@ -190,7 +190,7 @@ func _Users_GetUser_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/usersv1.Users/GetUser",
+		FullMethod: "/authpb.Users/GetUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).GetUser(ctx, req.(*GetUserRequest))
@@ -208,7 +208,7 @@ func _Users_FindUsers_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/usersv1.Users/FindUsers",
+		FullMethod: "/authpb.Users/FindUsers",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).FindUsers(ctx, req.(*FindUsersRequest))
@@ -226,7 +226,7 @@ func _Users_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/usersv1.Users/UpdateUser",
+		FullMethod: "/authpb.Users/UpdateUser",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).UpdateUser(ctx, req.(*UpdateUserRequest))
@@ -244,7 +244,7 @@ func _Users_SetSuperuserStatus_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/usersv1.Users/SetSuperuserStatus",
+		FullMethod: "/authpb.Users/SetSuperuserStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UsersServer).SetSuperuserStatus(ctx, req.(*SetSuperuserStatusRequest))
@@ -256,7 +256,7 @@ func _Users_SetSuperuserStatus_Handler(srv interface{}, ctx context.Context, dec
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Users_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "usersv1.Users",
+	ServiceName: "authpb.Users",
 	HandlerType: (*UsersServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -285,5 +285,5 @@ var Users_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "auth/usersv1.proto",
+	Metadata: "auth/users.proto",
 }

@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.25.0
-// source: auth/authv1.proto
+// source: auth/auth.proto
 
-package authv1
+package authpb
 
 import (
 	context "context"
@@ -36,7 +36,7 @@ func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 
 func (c *authClient) CreateUserToken(ctx context.Context, in *CreateTokenRequest, opts ...grpc.CallOption) (*CreateTokenResponse, error) {
 	out := new(CreateTokenResponse)
-	err := c.cc.Invoke(ctx, "/authv1.Auth/CreateUserToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Auth/CreateUserToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (c *authClient) CreateUserToken(ctx context.Context, in *CreateTokenRequest
 
 func (c *authClient) RefreshUserToken(ctx context.Context, in *RefreshTokenRequest, opts ...grpc.CallOption) (*RefreshTokenResponse, error) {
 	out := new(RefreshTokenResponse)
-	err := c.cc.Invoke(ctx, "/authv1.Auth/RefreshUserToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/authpb.Auth/RefreshUserToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -94,7 +94,7 @@ func _Auth_CreateUserToken_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/authv1.Auth/CreateUserToken",
+		FullMethod: "/authpb.Auth/CreateUserToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).CreateUserToken(ctx, req.(*CreateTokenRequest))
@@ -112,7 +112,7 @@ func _Auth_RefreshUserToken_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/authv1.Auth/RefreshUserToken",
+		FullMethod: "/authpb.Auth/RefreshUserToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).RefreshUserToken(ctx, req.(*RefreshTokenRequest))
@@ -124,7 +124,7 @@ func _Auth_RefreshUserToken_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Auth_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "authv1.Auth",
+	ServiceName: "authpb.Auth",
 	HandlerType: (*AuthServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -137,5 +137,5 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "auth/authv1.proto",
+	Metadata: "auth/auth.proto",
 }

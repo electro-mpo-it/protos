@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package usersv1;
+package authpb;
 
-option go_package = "users.v1;usersv1";
+option go_package = "authpb.v1;authpb";
 
 
 // Сервис пользователей
