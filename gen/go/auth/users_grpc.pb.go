@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -26,10 +27,8 @@ type UsersClient interface {
 	GetCurrentUser(ctx context.Context, in *GetCurrentUserRequest, opts ...grpc.CallOption) (*GetCurrentUserResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	FindUsers(ctx context.Context, in *FindUsersRequest, opts ...grpc.CallOption) (*FindUsersResponse, error)
-	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
-	// TODO: изменение пароля
-	// TODO: подтверждение емейла
-	SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*SetSuperuserStatusResponse, error)
+	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type usersClient struct {
@@ -76,8 +75,8 @@ func (c *usersClient) FindUsers(ctx context.Context, in *FindUsersRequest, opts 
 	return out, nil
 }
 
-func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
-	out := new(UpdateUserResponse)
+func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/authpb.Users/UpdateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -85,8 +84,8 @@ func (c *usersClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opt
 	return out, nil
 }
 
-func (c *usersClient) SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*SetSuperuserStatusResponse, error) {
-	out := new(SetSuperuserStatusResponse)
+func (c *usersClient) SetSuperuserStatus(ctx context.Context, in *SetSuperuserStatusRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/authpb.Users/SetSuperuserStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -102,10 +101,8 @@ type UsersServer interface {
 	GetCurrentUser(context.Context, *GetCurrentUserRequest) (*GetCurrentUserResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	FindUsers(context.Context, *FindUsersRequest) (*FindUsersResponse, error)
-	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
-	// TODO: изменение пароля
-	// TODO: подтверждение емейла
-	SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*SetSuperuserStatusResponse, error)
+	UpdateUser(context.Context, *UpdateUserRequest) (*emptypb.Empty, error)
+	SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedUsersServer()
 }
 
@@ -125,10 +122,10 @@ func (UnimplementedUsersServer) GetUser(context.Context, *GetUserRequest) (*GetU
 func (UnimplementedUsersServer) FindUsers(context.Context, *FindUsersRequest) (*FindUsersResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FindUsers not implemented")
 }
-func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
+func (UnimplementedUsersServer) UpdateUser(context.Context, *UpdateUserRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
-func (UnimplementedUsersServer) SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*SetSuperuserStatusResponse, error) {
+func (UnimplementedUsersServer) SetSuperuserStatus(context.Context, *SetSuperuserStatusRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetSuperuserStatus not implemented")
 }
 func (UnimplementedUsersServer) mustEmbedUnimplementedUsersServer() {}

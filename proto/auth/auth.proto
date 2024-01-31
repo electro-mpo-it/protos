@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package authpb;
 
-option go_package = "authpb.v1;authpb";
+option go_package = "github.com/electro-mpo-it/protos/gen/go/auth;authpb";
+
+import "google/protobuf/timestamp.proto";
 
 // Сервис авторизации пользователей.
 service Auth {
@@ -10,10 +12,6 @@ service Auth {
     rpc RefreshUserToken (RefreshTokenRequest) returns (RefreshTokenResponse);
 }
 
-message Token {
-    string access_token = 1;
-    string refresh_token = 2;
-}
 
 // ----------        Создание токена пользователя          ----------
 message CreateTokenRequest {
@@ -22,9 +20,10 @@ message CreateTokenRequest {
 }
 
 message CreateTokenResponse {
-    uint32 code = 1;
-    string message = 2;
-    Token data = 3;
+    string access_token = 1;
+    string refresh_token = 2;
+    google.protobuf.Timestamp access_exp_at = 3;
+    google.protobuf.Timestamp refresh_exp_at = 4;
 }
 
 // ----------        Обновление токена пользователя          ----------
@@ -33,7 +32,8 @@ message RefreshTokenRequest {
 }
 
 message RefreshTokenResponse {
-    uint32 code = 1;
-    string message = 2;
-    Token data = 3;
+    string access_token = 1;
+    string refresh_token = 2;
+    google.protobuf.Timestamp access_exp_at = 3;
+    google.protobuf.Timestamp refresh_exp_at = 4;
 }
