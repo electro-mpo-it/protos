@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package catalogpb;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/electro-mpo-it/protos/gen/go/catalog;catalogpb";
+
+
+// Сервис категорий
+service Categories {
+    rpc Create (CreateRequest) returns (CreateResponse);
+    rpc GetById (GetByIdRequest) returns (GetByIdResponse); // Добавить поля с количествои или булевым значением категорий и товаров
+    rpc Find (FindRequest) returns (FindResponse);  // Добавить enumerate (Активные.. Не активные.. И те и те..) // Добавить поля с количествои или булевым значением категорий и товаров
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
+    rpc SetActivity (SetActivityRequest) returns (google.protobuf.Empty);
+    rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
+}
+
+message Category {
+    uint64 id = 1;
+    string name = 2;
+    uint64 parent_id = 3;
+    bool is_active = 4;
+}
+
+enum ActiveENUM {
+    Any = 0;
+    Active = 1;
+    NotActive = 2;
+}
+
+// Создание категории
+message CreateRequest {
+    string name = 1;
+    uint64 parent_id = 2;
+}
+
+message CreateResponse {
+    uint64 id = 1;
+}
+
+// Получение по ID
+
+message GetByIdRequest {
+    uint64 id = 1;
+}
+
+message GetByIdResponse {
+    Category data = 1;
+}
+
+// Поиск
+
+message FindRequest {
+    string search = 1;
+    uint64 parent_id = 2;
+    ActiveENUM is_active = 3;
+}
+
+message FindResponse {
+    repeated Category data = 1;
+}
+
+// Обновление данных
+
+message UpdateRequest {
+
+    message Data {
+        string name = 1;
+        uint64 parent_id = 2;
+    }
+
+    uint64 id = 1;
+    Data data = 2;
+}
+
+// Установление флага активности категории
+
+message SetActivityRequest {
+
+    message Data {
+        bool is_active = 1;
+    }
+
+    uint64 id = 1;
+    Data data = 2;
+}
+
+
+// Удаление
+message DeleteRequest {
+    uint64 id = 1;
+}
