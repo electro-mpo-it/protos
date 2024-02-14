@@ -9,12 +9,12 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/catalog;catalogpb";
 
 // Сервис категорий
 service Categories {
-    rpc Create (CreateRequest) returns (CreateResponse);
-    rpc GetById (GetByIdRequest) returns (GetByIdResponse); // Добавить поля с количествои или булевым значением категорий и товаров
-    rpc Find (FindRequest) returns (FindResponse);  // Добавить enumerate (Активные.. Не активные.. И те и те..) // Добавить поля с количествои или булевым значением категорий и товаров
-    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
-    rpc SetActivity (SetActivityRequest) returns (google.protobuf.Empty);
-    rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
+    rpc Create (CreateCategoryRequest) returns (CreateCategoryResponse);
+    rpc GetById (GetCategoryRequest) returns (GetCategoryResponse); // Добавить поля с количествои или булевым значением категорий и товаров
+    rpc Find (FindCategoriesRequest) returns (FindCategoriesResponse);  // Добавить поля с количествои или булевым значением категорий и товаров
+    rpc Update (UpdateCategoryRequest) returns (google.protobuf.Empty);
+    rpc SetActivity (SetCategoryActivityRequest) returns (google.protobuf.Empty);
+    rpc Delete (DeleteCategoryRequest) returns (google.protobuf.Empty);
 }
 
 message Category {
@@ -31,40 +31,40 @@ enum ActiveENUM {
 }
 
 // Создание категории
-message CreateRequest {
+message CreateCategoryRequest {
     string name = 1;
     uint64 parent_id = 2;
 }
 
-message CreateResponse {
+message CreateCategoryResponse {
     uint64 id = 1;
 }
 
 // Получение по ID
 
-message GetByIdRequest {
+message GetCategoryRequest {
     uint64 id = 1;
 }
 
-message GetByIdResponse {
+message GetCategoryResponse {
     Category data = 1;
 }
 
 // Поиск
 
-message FindRequest {
+message FindCategoriesRequest {
     string search = 1;
     uint64 parent_id = 2;
     ActiveENUM is_active = 3;
 }
 
-message FindResponse {
+message FindCategoriesResponse {
     repeated Category data = 1;
 }
 
 // Обновление данных
 
-message UpdateRequest {
+message UpdateCategoryRequest {
 
     message Data {
         string name = 1;
@@ -77,7 +77,7 @@ message UpdateRequest {
 
 // Установление флага активности категории
 
-message SetActivityRequest {
+message SetCategoryActivityRequest {
 
     message Data {
         bool is_active = 1;
@@ -89,6 +89,6 @@ message SetActivityRequest {
 
 
 // Удаление
-message DeleteRequest {
+message DeleteCategoryRequest {
     uint64 id = 1;
 }
