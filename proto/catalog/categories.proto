@@ -56,6 +56,8 @@ message FindCategoriesRequest {
     string search = 1;
     uint64 parent_id = 2;
     ActiveENUM is_active = 3;
+    uint32 limit = 4;
+    uint64 offset = 5;
 }
 
 message FindCategoriesResponse {
