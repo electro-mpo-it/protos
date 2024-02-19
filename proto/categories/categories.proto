@@ -1,21 +1,20 @@
 syntax = "proto3";
 
-package catalogpb;
+package categoriespb;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/electro-mpo-it/protos/gen/go/catalog;catalogpb";
+option go_package = "github.com/electro-mpo-it/protos/gen/go/categories;categoriespb";
 
 
 // Сервис категорий
 service Categories {
     rpc Create (CreateCategoryRequest) returns (CreateCategoryResponse);
-    rpc GetById (GetCategoryRequest) returns (GetCategoryResponse); // Добавить поля с количествои или булевым значением категорий и товаров
-    rpc Find (FindCategoriesRequest) returns (FindCategoriesResponse);  // Добавить поля с количествои или булевым значением категорий и товаров
+    rpc GetById (GetCategoryRequest) returns (GetCategoryResponse);
+    rpc Find (FindCategoriesRequest) returns (FindCategoriesResponse);
     rpc Update (UpdateCategoryRequest) returns (google.protobuf.Empty);
     rpc SetActivity (SetCategoryActivityRequest) returns (google.protobuf.Empty);
     rpc Delete (DeleteCategoryRequest) returns (google.protobuf.Empty);
-    // TODO: Методы для работы с изображениями
 }
 
 message Category {

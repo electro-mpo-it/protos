@@ -16,4 +16,5 @@ jobs:
                   ${{ github.repository }}
                   (${{ github.actor }})
                   - pushed on git:
+
                     << ${{ github.event.head_commit.message }} >>

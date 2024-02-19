@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package authpb;
+package userspb;
 
-option go_package = "github.com/electro-mpo-it/protos/gen/go/auth;authpb";
+option go_package = "github.com/electro-mpo-it/protos/gen/go/users;userspb";
 
 import "google/protobuf/empty.proto";
 
@@ -15,8 +15,6 @@ service Users {
     rpc FindUsers (FindUsersRequest) returns (FindUsersResponse);
     rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
     rpc SetSuperuserStatus (SetSuperuserStatusRequest) returns (google.protobuf.Empty);
-    // TODO: изменение пароля
-    // TODO: подтверждение емейла
 }
 
 

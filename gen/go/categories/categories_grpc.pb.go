@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.25.0
-// source: catalog/categories.proto
+// source: categories/categories.proto
 
-package catalogpb
+package categoriespb
 
 import (
 	context "context"
@@ -41,7 +41,7 @@ func NewCategoriesClient(cc grpc.ClientConnInterface) CategoriesClient {
 
 func (c *categoriesClient) Create(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
 	out := new(CreateCategoryResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Categories/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *categoriesClient) Create(ctx context.Context, in *CreateCategoryRequest
 
 func (c *categoriesClient) GetById(ctx context.Context, in *GetCategoryRequest, opts ...grpc.CallOption) (*GetCategoryResponse, error) {
 	out := new(GetCategoryResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Categories/GetById", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/GetById", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *categoriesClient) GetById(ctx context.Context, in *GetCategoryRequest, 
 
 func (c *categoriesClient) Find(ctx context.Context, in *FindCategoriesRequest, opts ...grpc.CallOption) (*FindCategoriesResponse, error) {
 	out := new(FindCategoriesResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Categories/Find", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Find", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func (c *categoriesClient) Find(ctx context.Context, in *FindCategoriesRequest, 
 
 func (c *categoriesClient) Update(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Categories/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -77,7 +77,7 @@ func (c *categoriesClient) Update(ctx context.Context, in *UpdateCategoryRequest
 
 func (c *categoriesClient) SetActivity(ctx context.Context, in *SetCategoryActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Categories/SetActivity", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/SetActivity", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +86,7 @@ func (c *categoriesClient) SetActivity(ctx context.Context, in *SetCategoryActiv
 
 func (c *categoriesClient) Delete(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Categories/Delete", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func _Categories_Create_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Categories/Create",
+		FullMethod: "/categoriespb.Categories/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoriesServer).Create(ctx, req.(*CreateCategoryRequest))
@@ -169,7 +169,7 @@ func _Categories_GetById_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Categories/GetById",
+		FullMethod: "/categoriespb.Categories/GetById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoriesServer).GetById(ctx, req.(*GetCategoryRequest))
@@ -187,7 +187,7 @@ func _Categories_Find_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Categories/Find",
+		FullMethod: "/categoriespb.Categories/Find",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoriesServer).Find(ctx, req.(*FindCategoriesRequest))
@@ -205,7 +205,7 @@ func _Categories_Update_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Categories/Update",
+		FullMethod: "/categoriespb.Categories/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoriesServer).Update(ctx, req.(*UpdateCategoryRequest))
@@ -223,7 +223,7 @@ func _Categories_SetActivity_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Categories/SetActivity",
+		FullMethod: "/categoriespb.Categories/SetActivity",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoriesServer).SetActivity(ctx, req.(*SetCategoryActivityRequest))
@@ -241,7 +241,7 @@ func _Categories_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Categories/Delete",
+		FullMethod: "/categoriespb.Categories/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(CategoriesServer).Delete(ctx, req.(*DeleteCategoryRequest))
@@ -253,7 +253,7 @@ func _Categories_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Categories_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "catalogpb.Categories",
+	ServiceName: "categoriespb.Categories",
 	HandlerType: (*CategoriesServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -282,5 +282,5 @@ var Categories_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "catalog/categories.proto",
+	Metadata: "categories/categories.proto",
 }

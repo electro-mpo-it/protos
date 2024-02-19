@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package catalogpb;
+package productspb;
 
 import "google/protobuf/empty.proto";
 
-option go_package = "github.com/electro-mpo-it/protos/gen/go/catalog;catalogpb";
+option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb";
 
 // Сервис товаров
 service Products {

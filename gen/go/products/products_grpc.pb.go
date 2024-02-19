@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.25.0
-// source: catalog/products.proto
+// source: products/products.proto
 
-package catalogpb
+package productspb
 
 import (
 	context "context"
@@ -43,7 +43,7 @@ func NewProductsClient(cc grpc.ClientConnInterface) ProductsClient {
 
 func (c *productsClient) Create(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error) {
 	out := new(CreateProductResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (c *productsClient) Create(ctx context.Context, in *CreateProductRequest, o
 
 func (c *productsClient) GetByID(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error) {
 	out := new(GetProductResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/GetByID", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/GetByID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (c *productsClient) GetByID(ctx context.Context, in *GetProductRequest, opt
 
 func (c *productsClient) Find(ctx context.Context, in *FindProductsRequest, opts ...grpc.CallOption) (*FindProductsResponse, error) {
 	out := new(FindProductsResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/Find", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/Find", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -70,7 +70,7 @@ func (c *productsClient) Find(ctx context.Context, in *FindProductsRequest, opts
 
 func (c *productsClient) Update(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *productsClient) Update(ctx context.Context, in *UpdateProductRequest, o
 
 func (c *productsClient) FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error) {
 	out := new(FindCharacteristicsResponse)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/FindCharacteristics", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/FindCharacteristics", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +88,7 @@ func (c *productsClient) FindCharacteristics(ctx context.Context, in *FindCharac
 
 func (c *productsClient) AddCharacteristic(ctx context.Context, in *AddCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/AddCharacteristic", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/AddCharacteristic", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +97,7 @@ func (c *productsClient) AddCharacteristic(ctx context.Context, in *AddCharacter
 
 func (c *productsClient) UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/UpdateCharacteristic", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/UpdateCharacteristic", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +106,7 @@ func (c *productsClient) UpdateCharacteristic(ctx context.Context, in *UpdateCha
 
 func (c *productsClient) RemoveCharacteristic(ctx context.Context, in *RemoveCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/catalogpb.Products/RemoveCharacteristic", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/productspb.Products/RemoveCharacteristic", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -179,7 +179,7 @@ func _Products_Create_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/Create",
+		FullMethod: "/productspb.Products/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).Create(ctx, req.(*CreateProductRequest))
@@ -197,7 +197,7 @@ func _Products_GetByID_Handler(srv interface{}, ctx context.Context, dec func(in
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/GetByID",
+		FullMethod: "/productspb.Products/GetByID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).GetByID(ctx, req.(*GetProductRequest))
@@ -215,7 +215,7 @@ func _Products_Find_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/Find",
+		FullMethod: "/productspb.Products/Find",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).Find(ctx, req.(*FindProductsRequest))
@@ -233,7 +233,7 @@ func _Products_Update_Handler(srv interface{}, ctx context.Context, dec func(int
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/Update",
+		FullMethod: "/productspb.Products/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).Update(ctx, req.(*UpdateProductRequest))
@@ -251,7 +251,7 @@ func _Products_FindCharacteristics_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/FindCharacteristics",
+		FullMethod: "/productspb.Products/FindCharacteristics",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).FindCharacteristics(ctx, req.(*FindCharacteristicsRequest))
@@ -269,7 +269,7 @@ func _Products_AddCharacteristic_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/AddCharacteristic",
+		FullMethod: "/productspb.Products/AddCharacteristic",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).AddCharacteristic(ctx, req.(*AddCharacteristicRequest))
@@ -287,7 +287,7 @@ func _Products_UpdateCharacteristic_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/UpdateCharacteristic",
+		FullMethod: "/productspb.Products/UpdateCharacteristic",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).UpdateCharacteristic(ctx, req.(*UpdateCharacteristicRequest))
@@ -305,7 +305,7 @@ func _Products_RemoveCharacteristic_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/catalogpb.Products/RemoveCharacteristic",
+		FullMethod: "/productspb.Products/RemoveCharacteristic",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).RemoveCharacteristic(ctx, req.(*RemoveCharacteristicRequest))
@@ -317,7 +317,7 @@ func _Products_RemoveCharacteristic_Handler(srv interface{}, ctx context.Context
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Products_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "catalogpb.Products",
+	ServiceName: "productspb.Products",
 	HandlerType: (*ProductsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -354,5 +354,5 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "catalog/products.proto",
+	Metadata: "products/products.proto",
 }
