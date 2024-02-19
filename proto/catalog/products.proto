@@ -8,10 +8,10 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/catalog;catalogpb";
 
 // Сервис товаров
 service Products {
-    // rpc Create (CreateProductRequest) returns (CreateProductResponse);
-    // rpc GetByID (GetProductRequest) returns (GetProductResponse);
-    // rpc Find (FindProductsRequest) returns (FindProductsResponse);
-    // rpc Update (UpdateProductRequest) returns (google.protobuf.Empty);
+    rpc Create (CreateProductRequest) returns (CreateProductResponse);
+    rpc GetByID (GetProductRequest) returns (GetProductResponse);
+    rpc Find (FindProductsRequest) returns (FindProductsResponse);
+    rpc Update (UpdateProductRequest) returns (google.protobuf.Empty);
     rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
     rpc AddCharacteristic (AddCharacteristicRequest) returns (google.protobuf.Empty);
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty);
@@ -128,9 +128,11 @@ message UpdateCharacteristicRequest {
     }
 
     uint64 product_id = 1;
+    string characteristic_name = 2;
 }
 
 // Удалить характеристику у товара
+
 message RemoveCharacteristicRequest {
     uint64 product_id = 1;
     string characteristic_name = 2;
