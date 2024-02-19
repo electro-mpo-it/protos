@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+package catalogpb;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/electro-mpo-it/protos/gen/go/catalog;catalogpb";
+
+// Сервис товаров
+service Products {
+    // rpc Create (CreateProductRequest) returns (CreateProductResponse);
+    // rpc GetByID (GetProductRequest) returns (GetProductResponse);
+    // rpc Find (FindProductsRequest) returns (FindProductsResponse);
+    // rpc Update (UpdateProductRequest) returns (google.protobuf.Empty);
+    rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
+    rpc AddCharacteristic (AddCharacteristicRequest) returns (google.protobuf.Empty);
+    rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty);
+    rpc RemoveCharacteristic (RemoveCharacteristicRequest) returns (google.protobuf.Empty);
+}
+
+message Product {
+    uint64 id = 1;
+    string name = 2;
+    string description = 3;
+    uint64 category_id = 4;
+    float price_gross = 5;
+    float length_cm = 6;
+    float width_cm = 7;
+    float height_cm = 8;
+    float weight_kg = 9;
+}
+
+message ProductCharacteristic {
+    string value = 1;
+    Characteristic characteristic = 2;
+}
+
+message Characteristic {
+    string name = 1;
+}
+
+// Создание товара
+
+message CreateProductRequest {
+    string name = 1;
+    string description = 2;
+    uint64 category_id = 3;
+    float length_cm = 4;
+    float width_cm = 5;
+    float height_cm = 6;
+    float weight_kg = 7;
+}
+
+message CreateProductResponse {
+    uint64 id = 1;
+}
+
+// Получение конкретного товара по ID
+
+message GetProductRequest {
+    uint64 id = 1;
+}
+
+message GetProductResponse {
+    Product data = 1;
+}
+
+// Поиск по товарам
+
+message FindProductsRequest {
+    uint32 limit = 1;
+    uint64 offset = 2;
+    uint64 category_id = 3;
+    string search = 4;
+}
+
+message FindProductsResponse {
+    repeated Product data = 1;
+}
+
+// Обновление данных о товара
+
+message UpdateProductRequest {
+
+    message Data {
+        string name = 1;
+        string description = 2;
+        uint64 category_id = 3;
+        float length_cm = 4;
+        float width_cm = 5;
+        float height_cm = 6;
+        float weight_kg = 7;
+    }
+
+    uint64 id = 1;
+    Data data = 2;
+}
+
+// Поиск по товарным характеристикам
+
+message FindCharacteristicsRequest {
+    uint64 product_id = 1;
+}
+
+message FindCharacteristicsResponse {
+    repeated ProductCharacteristic data = 1;
+}
+
+// Добавление характеристики к товару
+
+message AddCharacteristicRequest {
+
+    message Data {
+        string name = 1;
+        string value = 2;
+    }
+
+    uint64 product_id = 1;
+    Data data = 2;
+}
+
+// Обновление данных о характеристике
+
+message UpdateCharacteristicRequest {
+
+    message Data {
+        string value = 1;
+    }
+
+    uint64 product_id = 1;
+}
+
+// Удалить характеристику у товара
+message RemoveCharacteristicRequest {
+    uint64 product_id = 1;
+    string characteristic_name = 2;
+}

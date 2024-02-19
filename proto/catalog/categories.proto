@@ -15,6 +15,7 @@ service Categories {
     rpc Update (UpdateCategoryRequest) returns (google.protobuf.Empty);
     rpc SetActivity (SetCategoryActivityRequest) returns (google.protobuf.Empty);
     rpc Delete (DeleteCategoryRequest) returns (google.protobuf.Empty);
+    // TODO: Методы для работы с изображениями
 }
 
 message Category {
