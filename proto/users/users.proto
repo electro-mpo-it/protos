@@ -8,19 +8,19 @@ import "google/protobuf/empty.proto";
 
 
 // Сервис пользователей
-service Users {
-    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+service Users {  // Изменены названия методов, запросов и ответов!!!!
+    rpc Create (CreateRequest) returns (CreateResponse);
     rpc GetCurrentUser (GetCurrentUserRequest) returns (GetCurrentUserResponse);
-    rpc GetUser (GetUserRequest) returns (GetUserResponse);
-    rpc FindUsers (FindUsersRequest) returns (FindUsersResponse);
-    rpc UpdateUser (UpdateUserRequest) returns (google.protobuf.Empty);
+    rpc GetByID (GetByIDRequest) returns (GetByIDResponse);
+    rpc Find (FindRequest) returns (FindResponse);
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
     rpc SetSuperuserStatus (SetSuperuserStatusRequest) returns (google.protobuf.Empty);
 }
 
 
 // Создание пользователя
 
-message CreateUserRequest {
+message CreateRequest {
     string first_name = 1;
     string last_name = 2;
     string middle_name = 3;
@@ -29,7 +29,7 @@ message CreateUserRequest {
     string password = 6;
 }
 
-message CreateUserResponse {
+message CreateResponse {
     uint64 user_id = 1;
 }
 
@@ -52,11 +52,11 @@ message GetCurrentUserResponse {
 
 // Получение по ID
 
-message GetUserRequest {
+message GetByIDRequest {
     uint64 user_id = 1;
 }
 
-message GetUserResponse {
+message GetByIDResponse {
     uint64 id = 1;
     string first_name = 2;
     string last_name = 3;
@@ -66,7 +66,7 @@ message GetUserResponse {
 
 // Найти пользователей
 
-message FindUsersRequest {
+message FindRequest {
     string search = 1;
     repeated uint64 user_ids = 2;
     string order_by = 3;
@@ -74,7 +74,7 @@ message FindUsersRequest {
     uint64 offset = 5;
 }
 
-message FindUsersResponse {
+message FindResponse {
 
     message User {
         uint64 id = 1;
@@ -89,7 +89,7 @@ message FindUsersResponse {
 
 // Обновление данных о пользователе
 
-message UpdateUserRequest {
+message UpdateRequest {
     string access_token = 1;
     uint64 user_id = 2;
 

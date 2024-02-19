@@ -9,12 +9,12 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/categories;categori
 
 // Сервис категорий
 service Categories {
-    rpc Create (CreateCategoryRequest) returns (CreateCategoryResponse);
-    rpc GetById (GetCategoryRequest) returns (GetCategoryResponse);
-    rpc Find (FindCategoriesRequest) returns (FindCategoriesResponse);
-    rpc Update (UpdateCategoryRequest) returns (google.protobuf.Empty);
-    rpc SetActivity (SetCategoryActivityRequest) returns (google.protobuf.Empty);
-    rpc Delete (DeleteCategoryRequest) returns (google.protobuf.Empty);
+    rpc Create (CreateRequest) returns (CreateResponse);
+    rpc GetById (GetByIDRequest) returns (GetByIDResponse);
+    rpc Find (FindRequest) returns (FindResponse);
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
+    rpc SetActivity (SetActivityRequest) returns (google.protobuf.Empty);
+    rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
 }
 
 message Category {
@@ -31,28 +31,28 @@ enum ActiveENUM {
 }
 
 // Создание категории
-message CreateCategoryRequest {
+message CreateRequest {
     string name = 1;
     uint64 parent_id = 2;
 }
 
-message CreateCategoryResponse {
+message CreateResponse {
     uint64 id = 1;
 }
 
 // Получение по ID
 
-message GetCategoryRequest {
+message GetByIDRequest {
     uint64 id = 1;
 }
 
-message GetCategoryResponse {
+message GetByIDResponse {
     Category data = 1;
 }
 
 // Поиск
 
-message FindCategoriesRequest {
+message FindRequest {
     string search = 1;
     uint64 parent_id = 2;
     ActiveENUM is_active = 3;
@@ -60,13 +60,13 @@ message FindCategoriesRequest {
     uint64 offset = 5;
 }
 
-message FindCategoriesResponse {
+message FindResponse {
     repeated Category data = 1;
 }
 
 // Обновление данных
 
-message UpdateCategoryRequest {
+message UpdateRequest {
 
     message Data {
         string name = 1;
@@ -79,7 +79,7 @@ message UpdateCategoryRequest {
 
 // Установление флага активности категории
 
-message SetCategoryActivityRequest {
+message SetActivityRequest {
 
     message Data {
         bool is_active = 1;
@@ -91,6 +91,6 @@ message SetCategoryActivityRequest {
 
 
 // Удаление
-message DeleteCategoryRequest {
+message DeleteRequest {
     uint64 id = 1;
 }

@@ -23,12 +23,12 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CategoriesClient interface {
-	Create(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
-	GetById(ctx context.Context, in *GetCategoryRequest, opts ...grpc.CallOption) (*GetCategoryResponse, error)
-	Find(ctx context.Context, in *FindCategoriesRequest, opts ...grpc.CallOption) (*FindCategoriesResponse, error)
-	Update(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	SetActivity(ctx context.Context, in *SetCategoryActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	Delete(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	GetById(ctx context.Context, in *GetByIDRequest, opts ...grpc.CallOption) (*GetByIDResponse, error)
+	Find(ctx context.Context, in *FindRequest, opts ...grpc.CallOption) (*FindResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	SetActivity(ctx context.Context, in *SetActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type categoriesClient struct {
@@ -39,8 +39,8 @@ func NewCategoriesClient(cc grpc.ClientConnInterface) CategoriesClient {
 	return &categoriesClient{cc}
 }
 
-func (c *categoriesClient) Create(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error) {
-	out := new(CreateCategoryResponse)
+func (c *categoriesClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
+	out := new(CreateResponse)
 	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -48,8 +48,8 @@ func (c *categoriesClient) Create(ctx context.Context, in *CreateCategoryRequest
 	return out, nil
 }
 
-func (c *categoriesClient) GetById(ctx context.Context, in *GetCategoryRequest, opts ...grpc.CallOption) (*GetCategoryResponse, error) {
-	out := new(GetCategoryResponse)
+func (c *categoriesClient) GetById(ctx context.Context, in *GetByIDRequest, opts ...grpc.CallOption) (*GetByIDResponse, error) {
+	out := new(GetByIDResponse)
 	err := c.cc.Invoke(ctx, "/categoriespb.Categories/GetById", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,8 +57,8 @@ func (c *categoriesClient) GetById(ctx context.Context, in *GetCategoryRequest, 
 	return out, nil
 }
 
-func (c *categoriesClient) Find(ctx context.Context, in *FindCategoriesRequest, opts ...grpc.CallOption) (*FindCategoriesResponse, error) {
-	out := new(FindCategoriesResponse)
+func (c *categoriesClient) Find(ctx context.Context, in *FindRequest, opts ...grpc.CallOption) (*FindResponse, error) {
+	out := new(FindResponse)
 	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Find", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (c *categoriesClient) Find(ctx context.Context, in *FindCategoriesRequest, 
 	return out, nil
 }
 
-func (c *categoriesClient) Update(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *categoriesClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Update", in, out, opts...)
 	if err != nil {
@@ -75,7 +75,7 @@ func (c *categoriesClient) Update(ctx context.Context, in *UpdateCategoryRequest
 	return out, nil
 }
 
-func (c *categoriesClient) SetActivity(ctx context.Context, in *SetCategoryActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *categoriesClient) SetActivity(ctx context.Context, in *SetActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/categoriespb.Categories/SetActivity", in, out, opts...)
 	if err != nil {
@@ -84,7 +84,7 @@ func (c *categoriesClient) SetActivity(ctx context.Context, in *SetCategoryActiv
 	return out, nil
 }
 
-func (c *categoriesClient) Delete(ctx context.Context, in *DeleteCategoryRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *categoriesClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/categoriespb.Categories/Delete", in, out, opts...)
 	if err != nil {
@@ -97,12 +97,12 @@ func (c *categoriesClient) Delete(ctx context.Context, in *DeleteCategoryRequest
 // All implementations must embed UnimplementedCategoriesServer
 // for forward compatibility
 type CategoriesServer interface {
-	Create(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
-	GetById(context.Context, *GetCategoryRequest) (*GetCategoryResponse, error)
-	Find(context.Context, *FindCategoriesRequest) (*FindCategoriesResponse, error)
-	Update(context.Context, *UpdateCategoryRequest) (*emptypb.Empty, error)
-	SetActivity(context.Context, *SetCategoryActivityRequest) (*emptypb.Empty, error)
-	Delete(context.Context, *DeleteCategoryRequest) (*emptypb.Empty, error)
+	Create(context.Context, *CreateRequest) (*CreateResponse, error)
+	GetById(context.Context, *GetByIDRequest) (*GetByIDResponse, error)
+	Find(context.Context, *FindRequest) (*FindResponse, error)
+	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
+	SetActivity(context.Context, *SetActivityRequest) (*emptypb.Empty, error)
+	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCategoriesServer()
 }
 
@@ -110,22 +110,22 @@ type CategoriesServer interface {
 type UnimplementedCategoriesServer struct {
 }
 
-func (UnimplementedCategoriesServer) Create(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
+func (UnimplementedCategoriesServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
 }
-func (UnimplementedCategoriesServer) GetById(context.Context, *GetCategoryRequest) (*GetCategoryResponse, error) {
+func (UnimplementedCategoriesServer) GetById(context.Context, *GetByIDRequest) (*GetByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetById not implemented")
 }
-func (UnimplementedCategoriesServer) Find(context.Context, *FindCategoriesRequest) (*FindCategoriesResponse, error) {
+func (UnimplementedCategoriesServer) Find(context.Context, *FindRequest) (*FindResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Find not implemented")
 }
-func (UnimplementedCategoriesServer) Update(context.Context, *UpdateCategoryRequest) (*emptypb.Empty, error) {
+func (UnimplementedCategoriesServer) Update(context.Context, *UpdateRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedCategoriesServer) SetActivity(context.Context, *SetCategoryActivityRequest) (*emptypb.Empty, error) {
+func (UnimplementedCategoriesServer) SetActivity(context.Context, *SetActivityRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetActivity not implemented")
 }
-func (UnimplementedCategoriesServer) Delete(context.Context, *DeleteCategoryRequest) (*emptypb.Empty, error) {
+func (UnimplementedCategoriesServer) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedCategoriesServer) mustEmbedUnimplementedCategoriesServer() {}
@@ -142,7 +142,7 @@ func RegisterCategoriesServer(s grpc.ServiceRegistrar, srv CategoriesServer) {
 }
 
 func _Categories_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateCategoryRequest)
+	in := new(CreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -154,13 +154,13 @@ func _Categories_Create_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/categoriespb.Categories/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).Create(ctx, req.(*CreateCategoryRequest))
+		return srv.(CategoriesServer).Create(ctx, req.(*CreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Categories_GetById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCategoryRequest)
+	in := new(GetByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -172,13 +172,13 @@ func _Categories_GetById_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: "/categoriespb.Categories/GetById",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).GetById(ctx, req.(*GetCategoryRequest))
+		return srv.(CategoriesServer).GetById(ctx, req.(*GetByIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Categories_Find_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindCategoriesRequest)
+	in := new(FindRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -190,13 +190,13 @@ func _Categories_Find_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/categoriespb.Categories/Find",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).Find(ctx, req.(*FindCategoriesRequest))
+		return srv.(CategoriesServer).Find(ctx, req.(*FindRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Categories_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateCategoryRequest)
+	in := new(UpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -208,13 +208,13 @@ func _Categories_Update_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/categoriespb.Categories/Update",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).Update(ctx, req.(*UpdateCategoryRequest))
+		return srv.(CategoriesServer).Update(ctx, req.(*UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Categories_SetActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetCategoryActivityRequest)
+	in := new(SetActivityRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -226,13 +226,13 @@ func _Categories_SetActivity_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: "/categoriespb.Categories/SetActivity",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).SetActivity(ctx, req.(*SetCategoryActivityRequest))
+		return srv.(CategoriesServer).SetActivity(ctx, req.(*SetActivityRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Categories_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteCategoryRequest)
+	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -244,7 +244,7 @@ func _Categories_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/categoriespb.Categories/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).Delete(ctx, req.(*DeleteCategoryRequest))
+		return srv.(CategoriesServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
