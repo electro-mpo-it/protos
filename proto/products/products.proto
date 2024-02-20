@@ -30,15 +30,6 @@ message Product {
     float weight_kg = 9;
 }
 
-message ProductCharacteristic {
-    string value = 1;
-    Characteristic characteristic = 2;
-}
-
-message Characteristic {
-    string name = 1;
-}
-
 // Создание товара
 
 message CreateRequest {
@@ -106,10 +97,11 @@ message FindCharacteristicsResponse {
 
     message Data {
         uint64 product_id = 1;
-        repeated ProductCharacteristic data = 2;
+        string characteristic_name = 2;
+        string value = 3;
     }
 
-    Data data = 1;
+    repeated Data data = 1;
 }
 
 // Добавление характеристики к товару
