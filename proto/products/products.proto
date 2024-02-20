@@ -99,11 +99,17 @@ message UpdateRequest {
 // Поиск по товарным характеристикам
 
 message FindCharacteristicsRequest {
-    uint64 product_id = 1;
+    repeated uint64 product_ids = 1;
 }
 
 message FindCharacteristicsResponse {
-    repeated ProductCharacteristic data = 1;
+
+    message Data {
+        uint64 product_id = 1;
+        repeated ProductCharacteristic data = 2;
+    }
+
+    Data data = 1;
 }
 
 // Добавление характеристики к товару
@@ -129,6 +135,7 @@ message UpdateCharacteristicRequest {
 
     uint64 product_id = 1;
     string characteristic_name = 2;
+    Data data = 3;
 }
 
 // Удалить характеристику у товара
