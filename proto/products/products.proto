@@ -12,6 +12,8 @@ service Products {
     rpc GetByID (GetByIDRequest) returns (GetByIDResponse);
     rpc Find (FindRequest) returns (FindResponse);
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
+    // rpc SetPrice (Request) returns (Response);  // TODO: После реализации поставщиков и валюты
+    // rpc FindPrices (Request) returns (Response);  // TODO: После реализации поставщиков и валюты
     rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
     rpc AddCharacteristic (AddCharacteristicRequest) returns (google.protobuf.Empty);
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty);
