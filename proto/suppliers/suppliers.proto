@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package supplpb;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "github.com/electro-mpo-it/protos/gen/go/products;supplpb";
+
+// Сервис поставщиков
+service Suppliers {
+    rpc Create (CreateRequest) returns (CreateResponse);
+    rpc GetByID (GetByIDRequest) returns (GetByIDResponse);
+    rpc Find (FindRequest) returns (FindResponse);
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
+}
+
+message Supplier {
+    uint64 id = 1;
+    string alias = 2;
+    string legal_name = 3;
+    string inn = 4;
+}
+
+// Создание поставщика
+
+message CreateRequest {
+    string alias = 1;
+    string legal_name = 2;
+    string inn = 3;
+}
+
+message CreateResponse {
+    uint64 id = 1;
+}
+
+// Получение поставщика по его ID
+
+message GetByIDRequest {
+    uint64 id = 1;
+}
+
+message GetByIDResponse {
+    Supplier data = 1;
+}
+
+// Поиск по поставщикам
+
+message FindRequest {
+    repeated uint64 ids = 1;
+    string search = 2;
+}
+
+message FindResponse {
+    repeated Supplier data = 1;
+}
+
+// Обновление данных о поставщике
+
+message UpdateRequest {
+
+    message Data {
+        string alias = 1;
+        string legal_name = 2;
+        string inn = 3;
+    }
+
+    uint64 id = 1;
+    Data data = 2;
+}
