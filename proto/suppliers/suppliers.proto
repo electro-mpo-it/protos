@@ -19,6 +19,7 @@ message Supplier {
     string alias = 2;
     string legal_name = 3;
     string inn = 4;
+    uint64 currency_id = 5;
 }
 
 // Создание поставщика
@@ -27,6 +28,7 @@ message CreateRequest {
     string alias = 1;
     string legal_name = 2;
     string inn = 3;
+    uint64 currency_id = 4;
 }
 
 message CreateResponse {
@@ -48,6 +50,7 @@ message GetByIDResponse {
 message FindRequest {
     repeated uint64 ids = 1;
     string search = 2;
+    repeated uint64 currency_ids =3;
 }
 
 message FindResponse {
@@ -62,6 +65,7 @@ message UpdateRequest {
         string alias = 1;
         string legal_name = 2;
         string inn = 3;
+        uint64 currency_id = 4;
     }
 
     uint64 id = 1;
