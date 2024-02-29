@@ -12,24 +12,32 @@ service Products {
     rpc GetByID (GetByIDRequest) returns (GetByIDResponse);
     rpc Find (FindRequest) returns (FindResponse);
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
-    // rpc SetPrice (Request) returns (Response);  // TODO: После реализации поставщиков и валюты
-    // rpc FindPrices (Request) returns (Response);  // TODO: После реализации поставщиков и валюты
     rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
     rpc AddCharacteristic (AddCharacteristicRequest) returns (google.protobuf.Empty);
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty);
     rpc RemoveCharacteristic (RemoveCharacteristicRequest) returns (google.protobuf.Empty);
 }
 
+enum VATENUM {
+    NDS20 = 0;
+    NDS10 = 1;
+    NDS0 = 2;
+} 
+
 message Product {
     uint64 id = 1;
     string name = 2;
     string description = 3;
     uint64 category_id = 4;
-    float price_gross = 5;
-    float length_cm = 6;
-    float width_cm = 7;
-    float height_cm = 8;
-    float weight_kg = 9;
+    uint64 supplier_id = 5;
+    float length_cm = 6;  // TODO: Decimal
+    float width_cm = 7;  // TODO: Decimal
+    float height_cm = 8;  // TODO: Decimal
+    float weight_kg = 9;  // TODO: Decimal
+    VATENUM vat = 10;
+    string OldPrice = 11; // Decimal
+    string DiscountCoeff = 12; // Decimal
+    string Price = 13; // Decimal
 }
 
 // Создание товара
@@ -38,10 +46,15 @@ message CreateRequest {
     string name = 1;
     string description = 2;
     uint64 category_id = 3;
-    float length_cm = 4;
-    float width_cm = 5;
-    float height_cm = 6;
-    float weight_kg = 7;
+    uint64 supplier_id = 4;
+    float length_cm = 5; // TODO: Decimal
+    float width_cm = 6; // TODO: Decimal
+    float height_cm = 7; // TODO: Decimal
+    float weight_kg = 8; // TODO: Decimal
+    VATENUM vat = 9;
+    string OldPrice = 10; // Decimal
+    string DiscountCoeff = 11; // Decimal
+    string Price = 12; // Decimal
 }
 
 message CreateResponse {
@@ -79,10 +92,15 @@ message UpdateRequest {
         string name = 1;
         string description = 2;
         uint64 category_id = 3;
-        float length_cm = 4;
-        float width_cm = 5;
-        float height_cm = 6;
-        float weight_kg = 7;
+        uint64 supplier_id = 4;
+        float length_cm = 5; // TODO: Decimal
+        float width_cm = 6; // TODO: Decimal
+        float height_cm = 7; // TODO: Decimal
+        float weight_kg = 8; // TODO: Decimal
+        VATENUM vat = 9;
+        string OldPrice = 10; // Decimal
+        string DiscountCoeff = 11; // Decimal
+        string Price = 12; // Decimal
     }
 
     uint64 id = 1;
