@@ -54,7 +54,6 @@ message CreateRequest {
     VATENUM vat = 9;
     double OldPrice = 10;
     double DiscountCoeff = 11;
-    double Price = 12;
 }
 
 message CreateResponse {
@@ -100,7 +99,6 @@ message UpdateRequest {
         VATENUM vat = 9;
         double OldPrice = 10;
         double DiscountCoeff = 11;
-        double Price = 12;
     }
 
     uint64 id = 1;
