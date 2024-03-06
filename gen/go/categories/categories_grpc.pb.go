@@ -27,7 +27,7 @@ type CategoriesClient interface {
 	GetById(ctx context.Context, in *GetByIDRequest, opts ...grpc.CallOption) (*GetByIDResponse, error)
 	Find(ctx context.Context, in *FindRequest, opts ...grpc.CallOption) (*FindResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	SetActivity(ctx context.Context, in *SetActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -75,9 +75,9 @@ func (c *categoriesClient) Update(ctx context.Context, in *UpdateRequest, opts .
 	return out, nil
 }
 
-func (c *categoriesClient) SetActivity(ctx context.Context, in *SetActivityRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *categoriesClient) SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, "/categoriespb.Categories/SetActivity", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/categoriespb.Categories/SetVisible", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ type CategoriesServer interface {
 	GetById(context.Context, *GetByIDRequest) (*GetByIDResponse, error)
 	Find(context.Context, *FindRequest) (*FindResponse, error)
 	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
-	SetActivity(context.Context, *SetActivityRequest) (*emptypb.Empty, error)
+	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCategoriesServer()
 }
@@ -122,8 +122,8 @@ func (UnimplementedCategoriesServer) Find(context.Context, *FindRequest) (*FindR
 func (UnimplementedCategoriesServer) Update(context.Context, *UpdateRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedCategoriesServer) SetActivity(context.Context, *SetActivityRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetActivity not implemented")
+func (UnimplementedCategoriesServer) SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetVisible not implemented")
 }
 func (UnimplementedCategoriesServer) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -213,20 +213,20 @@ func _Categories_Update_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Categories_SetActivity_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetActivityRequest)
+func _Categories_SetVisible_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetVisibleRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CategoriesServer).SetActivity(ctx, in)
+		return srv.(CategoriesServer).SetVisible(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/categoriespb.Categories/SetActivity",
+		FullMethod: "/categoriespb.Categories/SetVisible",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).SetActivity(ctx, req.(*SetActivityRequest))
+		return srv.(CategoriesServer).SetVisible(ctx, req.(*SetVisibleRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -273,8 +273,8 @@ var Categories_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Categories_Update_Handler,
 		},
 		{
-			MethodName: "SetActivity",
-			Handler:    _Categories_SetActivity_Handler,
+			MethodName: "SetVisible",
+			Handler:    _Categories_SetVisible_Handler,
 		},
 		{
 			MethodName: "Delete",
