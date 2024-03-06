@@ -13,7 +13,7 @@ service Categories {
     rpc GetById (GetByIDRequest) returns (GetByIDResponse);
     rpc Find (FindRequest) returns (FindResponse);
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
-    rpc SetActivity (SetActivityRequest) returns (google.protobuf.Empty);
+    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
     rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
 }
 
@@ -21,13 +21,13 @@ message Category {
     uint64 id = 1;
     string name = 2;
     uint64 parent_id = 3;
-    bool is_active = 4;
+    bool is_visible = 4;
 }
 
-enum ActiveENUM {
+enum VisibleENUM {
     Any = 0;
-    Active = 1;
-    NotActive = 2;
+    Visible = 1;
+    NotVisible = 2;
 }
 
 // Создание категории
@@ -55,7 +55,7 @@ message GetByIDResponse {
 message FindRequest {
     string search = 1;
     uint64 parent_id = 2;
-    ActiveENUM is_active = 3;
+    VisibleENUM is_visible = 3;
     uint32 limit = 4;
     uint64 offset = 5;
 }
@@ -79,18 +79,18 @@ message UpdateRequest {
 
 // Установление флага активности категории
 
-message SetActivityRequest {
+message SetVisibleRequest {
 
     message Data {
-        bool is_active = 1;
+        bool is_visible = 1;
     }
 
     uint64 id = 1;
     Data data = 2;
 }
 
-
 // Удаление
+
 message DeleteRequest {
     uint64 id = 1;
 }

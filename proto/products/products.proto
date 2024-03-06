@@ -35,9 +35,9 @@ message Product {
     float height_cm = 8;  // TODO: Decimal
     float weight_kg = 9;  // TODO: Decimal
     VATENUM vat = 10;
-    double OldPrice = 11; 
-    double DiscountCoeff = 12; 
-    double Price = 13; 
+    double old_price = 11; 
+    double discount_coeff = 12; 
+    double price = 13; 
 }
 
 // Создание товара
@@ -52,8 +52,8 @@ message CreateRequest {
     float height_cm = 7; // TODO: Decimal
     float weight_kg = 8; // TODO: Decimal
     VATENUM vat = 9;
-    double OldPrice = 10;
-    double DiscountCoeff = 11;
+    double old_price = 10;
+    double discount_coeff = 11;
 }
 
 message CreateResponse {
@@ -97,8 +97,8 @@ message UpdateRequest {
         float height_cm = 7; // TODO: Decimal
         float weight_kg = 8; // TODO: Decimal
         VATENUM vat = 9;
-        double OldPrice = 10;
-        double DiscountCoeff = 11;
+        double old_price = 10;
+        double discount_coeff = 11;
     }
 
     uint64 id = 1;
