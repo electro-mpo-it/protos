@@ -22,7 +22,7 @@ message Category {
     uint64 id = 1;
     string name = 2;
     uint64 parent_id = 3;
-    string umage_uri = 4;  // NEW 13.03
+    string image_uri = 4;  // NEW 13.03
     google.protobuf.Timestamp created_at = 5;  // NEW 13.03
     google.protobuf.Timestamp updated_at = 6;  // NEW 13.03
     bool is_visible = 7;
@@ -38,7 +38,7 @@ enum VisibleENUM {
 message CreateRequest {
     string name = 1;
     uint64 parent_id = 2;
-    string umage_uri = 3; // NEW 13.03
+    string image_uri = 3; // NEW 13.03
 }
 
 message CreateResponse {
@@ -76,7 +76,7 @@ message UpdateRequest {
     message Data {
         string name = 1;
         uint64 parent_id = 2;
-        string umage_uri = 3; // NEW 13.03
+        string image_uri = 3; // NEW 13.03
     }
 
     uint64 id = 1;
