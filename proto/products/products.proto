@@ -12,32 +12,56 @@ service Products {
     rpc GetByID (GetByIDRequest) returns (GetByIDResponse);
     rpc Find (FindRequest) returns (FindResponse);
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
+    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
+
+    // TODO: Актуализировать..
     rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
     rpc AddCharacteristic (AddCharacteristicRequest) returns (google.protobuf.Empty);
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty);
     rpc RemoveCharacteristic (RemoveCharacteristicRequest) returns (google.protobuf.Empty);
 }
 
+// Перечисление допустимых налоговых ставок для товара
 enum VATENUM {
     NDS20 = 0;
     NDS10 = 1;
     NDS0 = 2;
-} 
+}
+
+// Перечисление допустимых единиц измерения для товара
+enum UnitOfMeasurementENUM {  
+    // Экономические единицы
+    PIECE = 0;
+    SHEET = 1;
+    // Единицы длины
+    CENTIMETRE = 2;
+    METRE = 3;
+    // Единицы массы
+    KILOGRAM = 4;
+    // Единицы площади
+    SQUARE_METER = 5;
+    // Единицы объёма
+    CUBIC_METER = 6;
+}
+
+// Перечисление значений флага видимости товара (Для метода поиска по товарам)
+enum VisibleENUM {
+    Any = 0;
+    Visible = 1;
+    NotVisible = 2;
+}
 
 message Product {
     uint64 id = 1;
     string name = 2;
     string description = 3;
     uint64 category_id = 4;
-    uint64 supplier_id = 5;
-    float length_cm = 6;  // TODO: Decimal
-    float width_cm = 7;  // TODO: Decimal
-    float height_cm = 8;  // TODO: Decimal
-    float weight_kg = 9;  // TODO: Decimal
-    VATENUM vat = 10;
-    double old_price = 11; 
-    double discount_coeff = 12; 
-    double price = 13; 
+    UnitOfMeasurementENUM unit_of_measurement = 5;
+    VATENUM vat = 6;
+    double old_price = 7; 
+    double discount_coeff = 8; 
+    double price = 9; 
+    bool is_visible = 10;
 }
 
 // Создание товара
@@ -46,14 +70,10 @@ message CreateRequest {
     string name = 1;
     string description = 2;
     uint64 category_id = 3;
-    uint64 supplier_id = 4;
-    float length_cm = 5; // TODO: Decimal
-    float width_cm = 6; // TODO: Decimal
-    float height_cm = 7; // TODO: Decimal
-    float weight_kg = 8; // TODO: Decimal
-    VATENUM vat = 9;
-    double old_price = 10;
-    double discount_coeff = 11;
+    UnitOfMeasurementENUM unit_of_measurement = 4;
+    VATENUM vat = 5;
+    double old_price = 6; 
+    double discount_coeff = 7;
 }
 
 message CreateResponse {
@@ -77,6 +97,7 @@ message FindRequest {
     uint64 offset = 2;
     uint64 category_id = 3;
     string search = 4;
+    VisibleENUM is_visible = 5;
 }
 
 message FindResponse {
@@ -91,19 +112,28 @@ message UpdateRequest {
         string name = 1;
         string description = 2;
         uint64 category_id = 3;
-        uint64 supplier_id = 4;
-        float length_cm = 5; // TODO: Decimal
-        float width_cm = 6; // TODO: Decimal
-        float height_cm = 7; // TODO: Decimal
-        float weight_kg = 8; // TODO: Decimal
-        VATENUM vat = 9;
-        double old_price = 10;
-        double discount_coeff = 11;
+        UnitOfMeasurementENUM unit_of_measurement = 4;
+        VATENUM vat = 5;
+        double old_price = 6; 
+        double discount_coeff = 7;
     }
 
     uint64 id = 1;
     Data data = 2;
 }
+
+// Установка флага видимости для товара
+
+message SetVisibleRequest {
+
+    message Data {
+        bool is_visible = 1;
+    }
+
+    uint64 id = 1;
+    Data data = 2;
+}
+
 
 // Поиск по товарным характеристикам
 
