@@ -21,6 +21,7 @@ service Products {
     rpc RemoveCharacteristic (RemoveCharacteristicRequest) returns (google.protobuf.Empty);
 }
 
+
 // Перечисление допустимых налоговых ставок для товара
 enum VATENUM {
     NDS20 = 0;
@@ -62,6 +63,7 @@ message Product {
     double discount_coeff = 8; 
     double price = 9; 
     bool is_visible = 10;
+
 }
 
 // Создание товара
