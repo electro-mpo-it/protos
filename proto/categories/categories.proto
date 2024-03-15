@@ -20,30 +20,29 @@ service Categories {
 }
  
 message Category {
-    uint64 id = 1;
+    string id = 1;
     string name = 2;
-    uint64 parent_id = 3;
-    string image_uri = 4;  // NEW 13.03
-    google.protobuf.Timestamp created_at = 5;  // NEW 13.03
-    google.protobuf.Timestamp updated_at = 6;  // NEW 13.03
-    bool is_visible = 7;
+    google.protobuf.StringValue parent_id = 3;
+    string image_uri = 4;
+    google.protobuf.Timestamp updated_at = 5; 
+    bool is_visible = 6;
 }
 
 // Создание категории
 message CreateRequest {
     string name = 1;
-    uint64 parent_id = 2;
-    string image_uri = 3; // NEW 13.03
+    google.protobuf.StringValue parent_id = 2;
+    string image_uri = 3;
 }
 
 message CreateResponse {
-    uint64 id = 1;
+    string id = 1;
 }
 
 // Получение по ID
 
 message GetByIDRequest {
-    uint64 id = 1;
+    string id = 1;
 }
 
 message GetByIDResponse {
@@ -53,11 +52,11 @@ message GetByIDResponse {
 // Поиск
 
 message FindRequest {
-    string search = 1;
-    uint64 parent_id = 2;
+    google.protobuf.StringValue search = 1;
+    google.protobuf.StringValue parent_id = 2;
     google.protobuf.BoolValue is_visible = 3;
-    uint32 limit = 4;
-    uint64 offset = 5;
+    google.protobuf.UInt32Value limit = 4;
+    google.protobuf.UInt64Value offset = 5;
 }
 
 message FindResponse {
@@ -69,12 +68,12 @@ message FindResponse {
 message UpdateRequest {
 
     message Data {
-        string name = 1;
-        uint64 parent_id = 2;
-        string image_uri = 3; // NEW 13.03
+        google.protobuf.StringValue name = 1;
+        google.protobuf.StringValue parent_id = 2;
+        google.protobuf.StringValue image_uri = 3; // NEW 13.03
     }
 
-    uint64 id = 1;
+    google.protobuf.UInt64Value id = 1;
     Data data = 2;
 }
 
@@ -93,5 +92,5 @@ message SetVisibleRequest {
 // Удаление
 
 message DeleteRequest {
-    uint64 id = 1;
+    google.protobuf.UInt64Value id = 1;
 }
