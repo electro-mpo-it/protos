@@ -55,8 +55,6 @@ message FindRequest {
     google.protobuf.StringValue search = 1;
     google.protobuf.StringValue parent_id = 2;
     google.protobuf.BoolValue is_visible = 3;
-    google.protobuf.UInt32Value limit = 4; // DELETE!!! WITH CODEGEN
-    google.protobuf.UInt64Value offset = 5; // DELETE!!! WITH CODEGEN
 }
 
 message FindResponse {
