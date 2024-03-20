@@ -3,6 +3,8 @@ syntax = "proto3";
 package productspb;
 
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
 
 option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb";
 
@@ -13,176 +15,112 @@ service Products {
     rpc Find (FindRequest) returns (FindResponse);
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
-
-    // TODO: Актуализировать..
-    rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
-    rpc AddCharacteristic (AddCharacteristicRequest) returns (google.protobuf.Empty);
-    rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty);
-    rpc RemoveCharacteristic (RemoveCharacteristicRequest) returns (google.protobuf.Empty);
-}
-
-
-// Перечисление допустимых налоговых ставок для товара
-enum VATENUM {
-    NDS20 = 0;
-    NDS10 = 1;
-    NDS0 = 2;
 }
 
 // Перечисление допустимых единиц измерения для товара
 enum UnitOfMeasurementENUM {  
-    // Экономические единицы
-    PIECE = 0;
-    SHEET = 1;
-    // Единицы длины
-    CENTIMETRE = 2;
-    METRE = 3;
-    // Единицы массы
-    KILOGRAM = 4;
-    // Единицы площади
-    SQUARE_METER = 5;
-    // Единицы объёма
-    CUBIC_METER = 6;
+    PIECE = 0;         // Штука
+    PAIR = 1;          // Пара
+    LITER = 2;         // Литр
+    ROLL = 3;          // Рулон
+    SHEET = 4;         // Лист
+    CENTIMETRE = 5;    // Сантиметр
+    METRE = 6;         // Метр
+    KILOGRAM = 7;      // Килограмм
+    SQUARE_METER = 8;  // Квадратный метр
+    CUBIC_METER = 9;   // Кубический метр
 }
 
-// Перечисление значений флага видимости товара (Для метода поиска по товарам)
-enum VisibleENUM {
-    Any = 0;
-    Visible = 1;
-    NotVisible = 2;
+// Перечисление допустимого налога для товара
+enum VATENUM {  
+    NDS20 = 0;   // Налог 20%
+    NDS10 = 1;   // Налог 10%
+    NDS0 = 2;    // Налог 0%
 }
 
 message Product {
-    uint64 id = 1;
-    string name = 2;
-    string description = 3;
-    uint64 category_id = 4;
+    google.protobuf.StringValue id = 1;
+    google.protobuf.StringValue name = 2;
+    google.protobuf.StringValue category_id = 3; 
+    google.protobuf.StringValue description = 4;
     UnitOfMeasurementENUM unit_of_measurement = 5;
     VATENUM vat = 6;
-    double old_price = 7; 
-    double discount_coeff = 8; 
-    double price = 9; 
-    bool is_visible = 10;
-
+    google.protobuf.StringValue old_price = 7;
+    google.protobuf.StringValue discount_ratio = 8;
+    google.protobuf.StringValue price = 9;
+    google.protobuf.BoolValue is_visible = 10;
+    google.protobuf.Timestamp updated_at = 11;
 }
 
 // Создание товара
 
 message CreateRequest {
-    string name = 1;
-    string description = 2;
-    uint64 category_id = 3;
+    google.protobuf.StringValue name = 1;
+    google.protobuf.StringValue category_id = 2;
+    google.protobuf.StringValue description = 3;
     UnitOfMeasurementENUM unit_of_measurement = 4;
     VATENUM vat = 5;
-    double old_price = 6; 
-    double discount_coeff = 7;
+    google.protobuf.StringValue old_price = 6; 
+    google.protobuf.StringValue discount_ratio = 7;
 }
 
 message CreateResponse {
-    uint64 id = 1;
+    google.protobuf.StringValue id = 1;
 }
 
-// Получение конкретного товара по ID
+
+// Получение товара по его ID
+
 
 message GetByIDRequest {
-    uint64 id = 1;
+    google.protobuf.StringValue id = 1;
 }
 
 message GetByIDResponse {
     Product data = 1;
 }
 
+
 // Поиск по товарам
 
 message FindRequest {
-    uint32 limit = 1;
-    uint64 offset = 2;
-    uint64 category_id = 3;
-    string search = 4;
-    VisibleENUM is_visible = 5;
+    google.protobuf.UInt32Value limit = 1;
+    google.protobuf.UInt64Value offset = 2;
+    google.protobuf.StringValue search = 3;
+    google.protobuf.StringValue category_id = 4;
+    google.protobuf.BoolValue is_visible = 5;
 }
 
 message FindResponse {
     repeated Product data = 1;
 }
 
-// Обновление данных о товара
+
+// Обновление данных о товаре
+
 
 message UpdateRequest {
-
     message Data {
-        string name = 1;
-        string description = 2;
-        uint64 category_id = 3;
+        google.protobuf.StringValue name = 1;
+        google.protobuf.StringValue category_id = 2;
+        google.protobuf.StringValue description = 3;
         UnitOfMeasurementENUM unit_of_measurement = 4;
         VATENUM vat = 5;
-        double old_price = 6; 
-        double discount_coeff = 7;
+        google.protobuf.StringValue old_price = 6; 
+        google.protobuf.StringValue discount_ratio = 7;
     }
 
-    uint64 id = 1;
+    google.protobuf.StringValue id = 1;
     Data data = 2;
 }
 
-// Установка флага видимости для товара
 
+// Установка флага видимости товара
 message SetVisibleRequest {
-
     message Data {
-        bool is_visible = 1;
+        google.protobuf.BoolValue is_visible = 1;
     }
 
-    uint64 id = 1;
+    google.protobuf.StringValue id = 1;
     Data data = 2;
-}
-
-
-// Поиск по товарным характеристикам
-
-message FindCharacteristicsRequest {
-    repeated uint64 product_ids = 1;
-}
-
-message FindCharacteristicsResponse {
-
-    message Data {
-        uint64 product_id = 1;
-        string characteristic_name = 2;
-        string value = 3;
-    }
-
-    repeated Data data = 1;
-}
-
-// Добавление характеристики к товару
-
-message AddCharacteristicRequest {
-
-    message Data {
-        string name = 1;
-        string value = 2;
-    }
-
-    uint64 product_id = 1;
-    Data data = 2;
-}
-
-// Обновление данных о характеристике
-
-message UpdateCharacteristicRequest {
-
-    message Data {
-        string value = 1;
-    }
-
-    uint64 product_id = 1;
-    string characteristic_name = 2;
-    Data data = 3;
-}
-
-// Удалить характеристику у товара
-
-message RemoveCharacteristicRequest {
-    uint64 product_id = 1;
-    string characteristic_name = 2;
 }
