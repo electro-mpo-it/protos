@@ -39,33 +39,33 @@ enum VATENUM {
 }
 
 message Product {
-    google.protobuf.StringValue id = 1;
-    google.protobuf.StringValue name = 2;
-    google.protobuf.StringValue category_id = 3; 
-    google.protobuf.StringValue description = 4;
+    string id = 1;
+    string name = 2;
+    string category_id = 3; 
+    string description = 4;
     UnitOfMeasurementENUM unit_of_measurement = 5;
     VATENUM vat = 6;
-    google.protobuf.StringValue old_price = 7;
-    google.protobuf.StringValue discount_ratio = 8;
-    google.protobuf.StringValue price = 9;
-    google.protobuf.BoolValue is_visible = 10;
+    double old_price = 7;
+    double discount_ratio = 8;
+    double price = 9;
+    bool is_visible = 10;
     google.protobuf.Timestamp updated_at = 11;
 }
 
 // Создание товара
 
 message CreateRequest {
-    google.protobuf.StringValue name = 1;
-    google.protobuf.StringValue category_id = 2;
-    google.protobuf.StringValue description = 3;
+    string name = 1;
+    string category_id = 2;
+    string description = 3;
     UnitOfMeasurementENUM unit_of_measurement = 4;
     VATENUM vat = 5;
-    google.protobuf.StringValue old_price = 6; 
-    google.protobuf.StringValue discount_ratio = 7;
+    double old_price = 6; 
+    double discount_ratio = 7;
 }
 
 message CreateResponse {
-    google.protobuf.StringValue id = 1;
+    string id = 1;
 }
 
 
@@ -73,7 +73,7 @@ message CreateResponse {
 
 
 message GetByIDRequest {
-    google.protobuf.StringValue id = 1;
+    string id = 1;
 }
 
 message GetByIDResponse {
@@ -110,7 +110,7 @@ message UpdateRequest {
         google.protobuf.StringValue discount_ratio = 7;
     }
 
-    google.protobuf.StringValue id = 1;
+    string id = 1;
     Data data = 2;
 }
 
@@ -118,9 +118,9 @@ message UpdateRequest {
 // Установка флага видимости товара
 message SetVisibleRequest {
     message Data {
-        google.protobuf.BoolValue is_visible = 1;
+        bool is_visible = 1;
     }
 
-    google.protobuf.StringValue id = 1;
+    string id = 1;
     Data data = 2;
 }
