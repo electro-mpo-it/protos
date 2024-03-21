@@ -106,8 +106,8 @@ message UpdateRequest {
         google.protobuf.StringValue description = 3;
         UnitOfMeasurementENUM unit_of_measurement = 4;
         VATENUM vat = 5;
-        google.protobuf.StringValue old_price = 6; 
-        google.protobuf.StringValue discount_ratio = 7;
+        google.protobuf.DoubleValue old_price = 6; 
+        google.protobuf.DoubleValue discount_ratio = 7;
     }
 
     string id = 1;

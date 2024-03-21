@@ -754,8 +754,8 @@ type UpdateRequest_Data struct {
 	Description       *wrapperspb.StringValue `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	UnitOfMeasurement UnitOfMeasurementENUM   `protobuf:"varint,4,opt,name=unit_of_measurement,json=unitOfMeasurement,proto3,enum=productspb.UnitOfMeasurementENUM" json:"unit_of_measurement,omitempty"`
 	Vat               VATENUM                 `protobuf:"varint,5,opt,name=vat,proto3,enum=productspb.VATENUM" json:"vat,omitempty"`
-	OldPrice          *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=old_price,json=oldPrice,proto3" json:"old_price,omitempty"`
-	DiscountRatio     *wrapperspb.StringValue `protobuf:"bytes,7,opt,name=discount_ratio,json=discountRatio,proto3" json:"discount_ratio,omitempty"`
+	OldPrice          *wrapperspb.DoubleValue `protobuf:"bytes,6,opt,name=old_price,json=oldPrice,proto3" json:"old_price,omitempty"`
+	DiscountRatio     *wrapperspb.DoubleValue `protobuf:"bytes,7,opt,name=discount_ratio,json=discountRatio,proto3" json:"discount_ratio,omitempty"`
 }
 
 func (x *UpdateRequest_Data) Reset() {
@@ -825,14 +825,14 @@ func (x *UpdateRequest_Data) GetVat() VATENUM {
 	return VATENUM_NDS20
 }
 
-func (x *UpdateRequest_Data) GetOldPrice() *wrapperspb.StringValue {
+func (x *UpdateRequest_Data) GetOldPrice() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.OldPrice
 	}
 	return nil
 }
 
-func (x *UpdateRequest_Data) GetDiscountRatio() *wrapperspb.StringValue {
+func (x *UpdateRequest_Data) GetDiscountRatio() *wrapperspb.DoubleValue {
 	if x != nil {
 		return x.DiscountRatio
 	}
@@ -998,12 +998,12 @@ var file_products_products_proto_rawDesc = []byte{
 	0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x2e, 0x56, 0x41, 0x54, 0x45,
 	0x4e, 0x55, 0x4d, 0x52, 0x03, 0x76, 0x61, 0x74, 0x12, 0x39, 0x0a, 0x09, 0x6f, 0x6c, 0x64, 0x5f,
 	0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x67, 0x6f,
-	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74,
-	0x72, 0x69, 0x6e, 0x67, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x08, 0x6f, 0x6c, 0x64, 0x50, 0x72,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x6f,
+	0x75, 0x62, 0x6c, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x08, 0x6f, 0x6c, 0x64, 0x50, 0x72,
 	0x69, 0x63, 0x65, 0x12, 0x43, 0x0a, 0x0e, 0x64, 0x69, 0x73, 0x63, 0x6f, 0x75, 0x6e, 0x74, 0x5f,
 	0x72, 0x61, 0x74, 0x69, 0x6f, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x67, 0x6f,
-	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74,
-	0x72, 0x69, 0x6e, 0x67, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x0d, 0x64, 0x69, 0x73, 0x63, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x44, 0x6f,
+	0x75, 0x62, 0x6c, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x0d, 0x64, 0x69, 0x73, 0x63, 0x6f,
 	0x75, 0x6e, 0x74, 0x52, 0x61, 0x74, 0x69, 0x6f, 0x22, 0x82, 0x01, 0x0a, 0x11, 0x53, 0x65, 0x74,
 	0x56, 0x69, 0x73, 0x69, 0x62, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e,
 	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x36,
@@ -1086,7 +1086,8 @@ var file_products_products_proto_goTypes = []interface{}{
 	(*wrapperspb.UInt64Value)(nil), // 15: google.protobuf.UInt64Value
 	(*wrapperspb.StringValue)(nil), // 16: google.protobuf.StringValue
 	(*wrapperspb.BoolValue)(nil),   // 17: google.protobuf.BoolValue
-	(*emptypb.Empty)(nil),          // 18: google.protobuf.Empty
+	(*wrapperspb.DoubleValue)(nil), // 18: google.protobuf.DoubleValue
+	(*emptypb.Empty)(nil),          // 19: google.protobuf.Empty
 }
 var file_products_products_proto_depIdxs = []int32{
 	0,  // 0: productspb.Product.unit_of_measurement:type_name -> productspb.UnitOfMeasurementENUM
@@ -1108,8 +1109,8 @@ var file_products_products_proto_depIdxs = []int32{
 	16, // 16: productspb.UpdateRequest.Data.description:type_name -> google.protobuf.StringValue
 	0,  // 17: productspb.UpdateRequest.Data.unit_of_measurement:type_name -> productspb.UnitOfMeasurementENUM
 	1,  // 18: productspb.UpdateRequest.Data.vat:type_name -> productspb.VATENUM
-	16, // 19: productspb.UpdateRequest.Data.old_price:type_name -> google.protobuf.StringValue
-	16, // 20: productspb.UpdateRequest.Data.discount_ratio:type_name -> google.protobuf.StringValue
+	18, // 19: productspb.UpdateRequest.Data.old_price:type_name -> google.protobuf.DoubleValue
+	18, // 20: productspb.UpdateRequest.Data.discount_ratio:type_name -> google.protobuf.DoubleValue
 	3,  // 21: productspb.Products.Create:input_type -> productspb.CreateRequest
 	5,  // 22: productspb.Products.GetByID:input_type -> productspb.GetByIDRequest
 	7,  // 23: productspb.Products.Find:input_type -> productspb.FindRequest
@@ -1118,8 +1119,8 @@ var file_products_products_proto_depIdxs = []int32{
 	4,  // 26: productspb.Products.Create:output_type -> productspb.CreateResponse
 	6,  // 27: productspb.Products.GetByID:output_type -> productspb.GetByIDResponse
 	8,  // 28: productspb.Products.Find:output_type -> productspb.FindResponse
-	18, // 29: productspb.Products.Update:output_type -> google.protobuf.Empty
-	18, // 30: productspb.Products.SetVisible:output_type -> google.protobuf.Empty
+	19, // 29: productspb.Products.Update:output_type -> google.protobuf.Empty
+	19, // 30: productspb.Products.SetVisible:output_type -> google.protobuf.Empty
 	26, // [26:31] is the sub-list for method output_type
 	21, // [21:26] is the sub-list for method input_type
 	21, // [21:21] is the sub-list for extension type_name
