@@ -31,6 +31,11 @@ enum UnitOfMeasurementENUM {
     CUBIC_METER = 9;   // Кубический метр
 }
 
+// Обёртка для случаев когда ENUM опционален
+message OptionalUnitOfMeasurementENUM {
+    UnitOfMeasurementENUM data = 1;
+} 
+
 // Перечисление допустимого налога для товара
 enum VATENUM {  
     NDS20 = 0;   // Налог 20%
@@ -38,6 +43,12 @@ enum VATENUM {
     NDS0 = 2;    // Налог 0%
 }
 
+// Обёртка для случаев когда ENUM опционален
+message OptionalVATENUM {
+    VATENUM data = 1;
+} 
+
+// Репрезентация товара с всеми полями
 message Product {
     string id = 1;
     string name = 2;
@@ -104,8 +115,8 @@ message UpdateRequest {
         google.protobuf.StringValue name = 1;
         google.protobuf.StringValue category_id = 2;
         google.protobuf.StringValue description = 3;
-        UnitOfMeasurementENUM unit_of_measurement = 4;
-        VATENUM vat = 5;
+        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;
+        OptionalVATENUM vat = 5;
         google.protobuf.DoubleValue old_price = 6; 
         google.protobuf.DoubleValue discount_ratio = 7;
     }
