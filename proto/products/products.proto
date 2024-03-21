@@ -33,7 +33,7 @@ enum UnitOfMeasurementENUM {
 
 // Обёртка для случаев когда ENUM опционален
 message OptionalUnitOfMeasurementENUM {
-    UnitOfMeasurementENUM data = 1;
+    UnitOfMeasurementENUM value = 1;
 } 
 
 // Перечисление допустимого налога для товара
@@ -45,7 +45,7 @@ enum VATENUM {
 
 // Обёртка для случаев когда ENUM опционален
 message OptionalVATENUM {
-    VATENUM data = 1;
+    VATENUM value = 1;
 } 
 
 // Репрезентация товара с всеми полями
