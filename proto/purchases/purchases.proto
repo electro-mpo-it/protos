@@ -34,7 +34,7 @@ message Supplier {
 message PurchasingInfo {
     string product_id = 1;
     Supplier supplier = 2;
-    double min_purchase_quantity = 3;
+    google.protobuf.DoubleValue min_purchase_quantity = 3;
     google.protobuf.Duration delivery_timedelta = 4;
 }
 
