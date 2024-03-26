@@ -125,12 +125,11 @@ message GetPurchasingInfoResponse {
 
 message UpdatePurchasingInfoRequest {
     message Data {
-        google.protobuf.StringValue product_id = 1;
-        google.protobuf.StringValue supplier_id = 2;
-        google.protobuf.DoubleValue min_purchase_quantity = 3;
-        google.protobuf.Duration delivery_timedelta = 4;
+        google.protobuf.StringValue supplier_id = 1;
+        google.protobuf.DoubleValue min_purchase_quantity = 2;
+        google.protobuf.Duration delivery_timedelta = 3;
     }
 
-    string id = 1;
+    string product_id = 1;
     Data data = 2;
 }
