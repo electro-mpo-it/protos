@@ -14,7 +14,7 @@ service Purchases {
     rpc GetSupplier (GetSupplierRequest) returns (GetSupplierResponse);
     rpc FindSuppliers (FindSuppliersRequest) returns (FindSuppliersResponse);
     rpc UpdateSupplier (UpdateSupplierRequest) returns (google.protobuf.Empty);
-    rpc CreatePurchasingInfo (CreatePurchasingInfoRequest) returns (CreatePurchasingInfoResponse);
+    rpc CreatePurchasingInfo (CreatePurchasingInfoRequest) returns (google.protobuf.Empty);
     rpc GetPurchasingInfo (GetPurchasingInfoRequest) returns (GetPurchasingInfoResponse);
     rpc UpdatePurchasingInfo (UpdatePurchasingInfoRequest) returns (google.protobuf.Empty);
 }
@@ -32,11 +32,10 @@ message Supplier {
 
 // Закупочная информация о товаре
 message PurchasingInfo {
-    string id = 1;
-    string product_id = 2;
-    Supplier supplier = 3;
-    double min_purchase_quantity = 4;
-    google.protobuf.Duration delivery_timedelta = 5;
+    string product_id = 1;
+    Supplier supplier = 2;
+    double min_purchase_quantity = 3;
+    google.protobuf.Duration delivery_timedelta = 4;
 }
 
 
@@ -106,10 +105,6 @@ message CreatePurchasingInfoRequest {
     string supplier_id = 2;
     google.protobuf.DoubleValue min_purchase_quantity = 3;
     google.protobuf.Duration delivery_timedelta = 4;
-}
-
-message CreatePurchasingInfoResponse {
-    string id = 1;
 }
 
 

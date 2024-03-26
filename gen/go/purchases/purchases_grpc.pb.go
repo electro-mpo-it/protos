@@ -37,7 +37,7 @@ type PurchasesClient interface {
 	GetSupplier(ctx context.Context, in *GetSupplierRequest, opts ...grpc.CallOption) (*GetSupplierResponse, error)
 	FindSuppliers(ctx context.Context, in *FindSuppliersRequest, opts ...grpc.CallOption) (*FindSuppliersResponse, error)
 	UpdateSupplier(ctx context.Context, in *UpdateSupplierRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	CreatePurchasingInfo(ctx context.Context, in *CreatePurchasingInfoRequest, opts ...grpc.CallOption) (*CreatePurchasingInfoResponse, error)
+	CreatePurchasingInfo(ctx context.Context, in *CreatePurchasingInfoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetPurchasingInfo(ctx context.Context, in *GetPurchasingInfoRequest, opts ...grpc.CallOption) (*GetPurchasingInfoResponse, error)
 	UpdatePurchasingInfo(ctx context.Context, in *UpdatePurchasingInfoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -86,8 +86,8 @@ func (c *purchasesClient) UpdateSupplier(ctx context.Context, in *UpdateSupplier
 	return out, nil
 }
 
-func (c *purchasesClient) CreatePurchasingInfo(ctx context.Context, in *CreatePurchasingInfoRequest, opts ...grpc.CallOption) (*CreatePurchasingInfoResponse, error) {
-	out := new(CreatePurchasingInfoResponse)
+func (c *purchasesClient) CreatePurchasingInfo(ctx context.Context, in *CreatePurchasingInfoRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, Purchases_CreatePurchasingInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -121,7 +121,7 @@ type PurchasesServer interface {
 	GetSupplier(context.Context, *GetSupplierRequest) (*GetSupplierResponse, error)
 	FindSuppliers(context.Context, *FindSuppliersRequest) (*FindSuppliersResponse, error)
 	UpdateSupplier(context.Context, *UpdateSupplierRequest) (*emptypb.Empty, error)
-	CreatePurchasingInfo(context.Context, *CreatePurchasingInfoRequest) (*CreatePurchasingInfoResponse, error)
+	CreatePurchasingInfo(context.Context, *CreatePurchasingInfoRequest) (*emptypb.Empty, error)
 	GetPurchasingInfo(context.Context, *GetPurchasingInfoRequest) (*GetPurchasingInfoResponse, error)
 	UpdatePurchasingInfo(context.Context, *UpdatePurchasingInfoRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedPurchasesServer()
@@ -143,7 +143,7 @@ func (UnimplementedPurchasesServer) FindSuppliers(context.Context, *FindSupplier
 func (UnimplementedPurchasesServer) UpdateSupplier(context.Context, *UpdateSupplierRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSupplier not implemented")
 }
-func (UnimplementedPurchasesServer) CreatePurchasingInfo(context.Context, *CreatePurchasingInfoRequest) (*CreatePurchasingInfoResponse, error) {
+func (UnimplementedPurchasesServer) CreatePurchasingInfo(context.Context, *CreatePurchasingInfoRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePurchasingInfo not implemented")
 }
 func (UnimplementedPurchasesServer) GetPurchasingInfo(context.Context, *GetPurchasingInfoRequest) (*GetPurchasingInfoResponse, error) {
