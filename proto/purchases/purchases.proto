@@ -112,7 +112,7 @@ message CreatePurchasingInfoRequest {
 
 
 message GetPurchasingInfoRequest {
-    string id = 1;
+    string product_id = 1;
 }
 
 message GetPurchasingInfoResponse {
