@@ -25,7 +25,7 @@ message Category {
     string id = 1;
     string name = 2;
     google.protobuf.StringValue parent_id = 3;
-    string image_uri = 4;
+    string image_url = 4;
     google.protobuf.Timestamp updated_at = 5; 
     bool is_visible = 6;
 }
@@ -34,7 +34,7 @@ message Category {
 message CreateRequest {
     string name = 1;
     google.protobuf.StringValue parent_id = 2;
-    string image_uri = 3;
+    string image_url = 3;
 }
 
 message CreateResponse {
@@ -71,7 +71,7 @@ message UpdateRequest {
     message Data {
         NullNullString name = 1;
         NullNullString parent_id = 2;
-        NullNullString image_uri = 3;
+        NullNullString image_url = 3;
     }
 
     string id = 1;
@@ -102,7 +102,7 @@ message DeleteRequest {
 // Используется в случаях, когда значение поля может быть проигнорировано, либо иметь осознанное значение NULL
 message NullNullString {
     oneof kind {
-        google.protobuf.NullValue n = 1;
+        google.protobuf.NullValue null_value = 1;
         string value = 2;
     }
 }
