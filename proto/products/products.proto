@@ -95,11 +95,11 @@ message GetByIDResponse {
 // Поиск по товарам
 
 message FindRequest {
-    google.protobuf.UInt32Value limit = 1;
-    google.protobuf.UInt64Value offset = 2;
-    google.protobuf.StringValue search = 3;
-    google.protobuf.StringValue category_id = 4;
-    google.protobuf.BoolValue is_visible = 5;
+    uint32 limit = 1;  // Required
+    uint64 offset = 2;  // Required (0 is valid)
+    google.protobuf.StringValue search = 3;  // If passed - search by string
+    google.protobuf.StringValue category_id = 4; // If passed - result set will contains products in this category
+    google.protobuf.BoolValue is_visible = 5;  // If passed - result set wil contains products with visible flag is <value>
 }
 
 message FindResponse {

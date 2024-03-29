@@ -14,5 +14,20 @@
 # 	protoc -I proto proto/purchases/*.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go/ --go-grpc_opt=paths=source_relative
 
 
-gen-all:
-	protoc --proto_path=./proto proto/*/*.proto --go_out=./gen/go --go_opt=paths=source_relative --go-grpc_out=./gen/go/ --go-grpc_opt=paths=source_relative
+gen-all-go:
+	protoc \
+		--proto_path=./proto proto/*/*.proto \
+		--go_out=./gen/go \
+		--go_opt=paths=source_relative \
+		--go-grpc_out=./gen/go/ \
+		--go-grpc_opt=paths=source_relative
+
+
+gen-all-py:
+	python -m grpc_tools.protoc \
+		--proto_path=./proto proto/*/*.proto \
+		--python_out=./gen/py \
+		--grpc_python_out=./gen/py \
+
+
+gen-all: gen-all-go gen-all-py
