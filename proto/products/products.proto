@@ -15,6 +15,7 @@ service Products {
     rpc Find (FindRequest) returns (FindResponse);
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
+    rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty);
 }
 
 // Перечисление допустимых единиц измерения для товара
@@ -70,7 +71,9 @@ message Product {
     repeated ProductImage images = 12;
 }
 
+
 // Создание товара
+
 
 message CreateRequest {
     string name = 1;                                // Required.
@@ -101,6 +104,7 @@ message GetByIDResponse {
 
 // Поиск по товарам
 
+
 message FindRequest {
     uint32 limit = 1;                               // Required
     uint64 offset = 2;                              // Required (0 is valid)
@@ -116,8 +120,8 @@ message FindResponse {
 
 // Обновление данных о товаре
 
-// Реализует логику частичного обновления
-message UpdateRequest {
+
+message UpdateRequest { // Реализует логику частичного обновления
     message Data {
         google.protobuf.StringValue name = 1;                   // If passed - set new name
         google.protobuf.StringValue category_id = 2;            // If passed - set new category id
@@ -134,9 +138,24 @@ message UpdateRequest {
 
 
 // Установка флага видимости товара
+
+
 message SetVisibleRequest {
     message Data {
         bool is_visible = 1;  // Required. set new is_visible flag for target product
+    }
+
+    string id = 1; // ID of target product
+    Data data = 2; // Data to update
+}
+
+
+// Полное обновление изображений товара до указанных
+
+
+message UpdateImagesRequest {  // Реализует аналог PUT запроса в HTTP
+    message Data {
+        repeated ProductImage images = 1;
     }
 
     string id = 1; // ID of target product

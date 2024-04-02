@@ -41,6 +41,11 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.SetVisibleRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.UpdateImages = channel.unary_unary(
+                '/productspb.Products/UpdateImages',
+                request_serializer=products_dot_products__pb2.UpdateImagesRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
 
 
 class ProductsServicer(object):
@@ -77,6 +82,12 @@ class ProductsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateImages(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ProductsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -103,6 +114,11 @@ def add_ProductsServicer_to_server(servicer, server):
             'SetVisible': grpc.unary_unary_rpc_method_handler(
                     servicer.SetVisible,
                     request_deserializer=products_dot_products__pb2.SetVisibleRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateImages': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateImages,
+                    request_deserializer=products_dot_products__pb2.UpdateImagesRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -197,6 +213,23 @@ class Products(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/SetVisible',
             products_dot_products__pb2.SetVisibleRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateImages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/UpdateImages',
+            products_dot_products__pb2.UpdateImagesRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -182,3 +182,16 @@ class SetVisibleRequest(_message.Message):
     id: str
     data: SetVisibleRequest.Data
     def __init__(self, id: _Optional[str] = ..., data: _Optional[_Union[SetVisibleRequest.Data, _Mapping]] = ...) -> None: ...
+
+class UpdateImagesRequest(_message.Message):
+    __slots__ = ("id", "data")
+    class Data(_message.Message):
+        __slots__ = ("images",)
+        IMAGES_FIELD_NUMBER: _ClassVar[int]
+        images: _containers.RepeatedCompositeFieldContainer[ProductImage]
+        def __init__(self, images: _Optional[_Iterable[_Union[ProductImage, _Mapping]]] = ...) -> None: ...
+    ID_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    data: UpdateImagesRequest.Data
+    def __init__(self, id: _Optional[str] = ..., data: _Optional[_Union[UpdateImagesRequest.Data, _Mapping]] = ...) -> None: ...

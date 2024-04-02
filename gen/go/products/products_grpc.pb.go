@@ -20,11 +20,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Products_Create_FullMethodName     = "/productspb.Products/Create"
-	Products_GetByID_FullMethodName    = "/productspb.Products/GetByID"
-	Products_Find_FullMethodName       = "/productspb.Products/Find"
-	Products_Update_FullMethodName     = "/productspb.Products/Update"
-	Products_SetVisible_FullMethodName = "/productspb.Products/SetVisible"
+	Products_Create_FullMethodName       = "/productspb.Products/Create"
+	Products_GetByID_FullMethodName      = "/productspb.Products/GetByID"
+	Products_Find_FullMethodName         = "/productspb.Products/Find"
+	Products_Update_FullMethodName       = "/productspb.Products/Update"
+	Products_SetVisible_FullMethodName   = "/productspb.Products/SetVisible"
+	Products_UpdateImages_FullMethodName = "/productspb.Products/UpdateImages"
 )
 
 // ProductsClient is the client API for Products service.
@@ -36,6 +37,7 @@ type ProductsClient interface {
 	Find(ctx context.Context, in *FindRequest, opts ...grpc.CallOption) (*FindResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type productsClient struct {
@@ -91,6 +93,15 @@ func (c *productsClient) SetVisible(ctx context.Context, in *SetVisibleRequest, 
 	return out, nil
 }
 
+func (c *productsClient) UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_UpdateImages_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServer is the server API for Products service.
 // All implementations must embed UnimplementedProductsServer
 // for forward compatibility
@@ -100,6 +111,7 @@ type ProductsServer interface {
 	Find(context.Context, *FindRequest) (*FindResponse, error)
 	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
 	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
+	UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -121,6 +133,9 @@ func (UnimplementedProductsServer) Update(context.Context, *UpdateRequest) (*emp
 }
 func (UnimplementedProductsServer) SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetVisible not implemented")
+}
+func (UnimplementedProductsServer) UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateImages not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
 
@@ -225,6 +240,24 @@ func _Products_SetVisible_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Products_UpdateImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateImagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).UpdateImages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_UpdateImages_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).UpdateImages(ctx, req.(*UpdateImagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Products_ServiceDesc is the grpc.ServiceDesc for Products service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -251,6 +284,10 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetVisible",
 			Handler:    _Products_SetVisible_Handler,
+		},
+		{
+			MethodName: "UpdateImages",
+			Handler:    _Products_UpdateImages_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
