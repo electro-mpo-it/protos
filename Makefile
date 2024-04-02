@@ -26,6 +26,7 @@ gen-all-go:
 gen-all-py:
 	python -m grpc_tools.protoc \
 		--proto_path=./proto proto/*/*.proto \
+		--pyi_out=./gen/py \
 		--python_out=./gen/py \
 		--grpc_python_out=./gen/py \
 

@@ -46,7 +46,13 @@ enum VATENUM {
 // Обёртка для случаев когда ENUM опционален
 message OptionalVATENUM {
     VATENUM value = 1;
-} 
+}
+
+// Изображение товара
+message ProductImage {
+    string image_url = 1;
+    uint32 sort = 2;
+}
 
 // Репрезентация товара с всеми полями
 message Product {
@@ -61,22 +67,23 @@ message Product {
     double price = 9;
     bool is_visible = 10;
     google.protobuf.Timestamp updated_at = 11;
+    repeated ProductImage images = 12;
 }
 
 // Создание товара
 
 message CreateRequest {
-    string name = 1;
-    string category_id = 2;
-    string description = 3;
-    UnitOfMeasurementENUM unit_of_measurement = 4;
-    VATENUM vat = 5;
-    double old_price = 6; 
-    double discount_ratio = 7;
+    string name = 1;                                // Required.
+    string category_id = 2;                         // Required.
+    string description = 3;                         // Required.
+    UnitOfMeasurementENUM unit_of_measurement = 4;  // Required.
+    VATENUM vat = 5;                                // Required.
+    double old_price = 6;                           // Required.
+    double discount_ratio = 7;                      // Required.
 }
 
 message CreateResponse {
-    string id = 1;
+    string id = 1; // Id of product
 }
 
 
@@ -84,7 +91,7 @@ message CreateResponse {
 
 
 message GetByIDRequest {
-    string id = 1;
+    string id = 1;  // Required. Id of product
 }
 
 message GetByIDResponse {
@@ -95,11 +102,11 @@ message GetByIDResponse {
 // Поиск по товарам
 
 message FindRequest {
-    uint32 limit = 1;  // Required
-    uint64 offset = 2;  // Required (0 is valid)
-    google.protobuf.StringValue search = 3;  // If passed - search by string
-    google.protobuf.StringValue category_id = 4; // If passed - result set will contains products in this category
-    google.protobuf.BoolValue is_visible = 5;  // If passed - result set wil contains products with visible flag is <value>
+    uint32 limit = 1;                               // Required
+    uint64 offset = 2;                              // Required (0 is valid)
+    google.protobuf.StringValue search = 3;         // If passed - search by string
+    google.protobuf.StringValue category_id = 4;    // If passed - result set will contains products in this category
+    google.protobuf.BoolValue is_visible = 5;       // If passed - result set wil contains products with visible flag is <value>
 }
 
 message FindResponse {
@@ -109,29 +116,29 @@ message FindResponse {
 
 // Обновление данных о товаре
 
-
+// Реализует логику частичного обновления
 message UpdateRequest {
     message Data {
-        google.protobuf.StringValue name = 1;
-        google.protobuf.StringValue category_id = 2;
-        google.protobuf.StringValue description = 3;
-        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;
-        OptionalVATENUM vat = 5;
-        google.protobuf.DoubleValue old_price = 6; 
-        google.protobuf.DoubleValue discount_ratio = 7;
+        google.protobuf.StringValue name = 1;                   // If passed - set new name
+        google.protobuf.StringValue category_id = 2;            // If passed - set new category id
+        google.protobuf.StringValue description = 3;            // If passed - set new description
+        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;  // If passed - set new unit of measurement
+        OptionalVATENUM vat = 5;                                // If passed - set new vat              AND calculate new price!!!
+        google.protobuf.DoubleValue old_price = 6;              // If passed - set new old_price        AND calculate new price!!!
+        google.protobuf.DoubleValue discount_ratio = 7;         // If passed - set new discount_raio    AND calculate new price!!!
     }
 
-    string id = 1;
-    Data data = 2;
+    string id = 1;  // ID of target product
+    Data data = 2;  // Data to update
 }
 
 
 // Установка флага видимости товара
 message SetVisibleRequest {
     message Data {
-        bool is_visible = 1;
+        bool is_visible = 1;  // Required. set new is_visible flag for target product
     }
 
-    string id = 1;
-    Data data = 2;
+    string id = 1; // ID of target product
+    Data data = 2; // Data to update
 }
