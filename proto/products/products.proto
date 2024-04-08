@@ -71,7 +71,7 @@ message CharacteristicsFilter {
         }
 
         string id = 1;
-        repeated NumericValue values = 2;
+        Range values = 2;
     }
 
     repeated TextValue text_values = 1;
