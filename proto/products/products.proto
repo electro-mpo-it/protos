@@ -58,6 +58,26 @@ message ProductImage {
     uint32 sort = 2;
 }
 
+// Фильтр по характеристикам товара
+message CharacteristicsFilter {
+    message TextValue {
+        string id = 1;
+        repeated string values = 2;
+    }
+    message NumericValue {
+        message Range {
+            double from = 1;
+            double to = 2;
+        }
+
+        string id = 1;
+        repeated NumericValue values = 2;
+    }
+
+    repeated TextValue text_values = 1;
+    repeated NumericValue numeric_values = 2;
+}
+
 // Репрезентация товара с всеми полями
 message Product {
     string id = 1;
@@ -114,6 +134,7 @@ message FindRequest {
     google.protobuf.StringValue search = 3;         // If passed - search by string
     google.protobuf.StringValue category_id = 4;    // If passed - result set will contains products in this category
     google.protobuf.BoolValue is_visible = 5;       // If passed - result set wil contains products with visible flag is <value>
+    CharacteristicsFilter characteristics = 6;      // If passed - every product will contains id of characteristic and one of passed values
 }
 
 message FindResponse {
