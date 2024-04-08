@@ -16,7 +16,10 @@ service Products {
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
     rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty);
+
+    // rpc MethodName (Request) returns (Response);
 }
+
 
 // Перечисление допустимых единиц измерения для товара
 enum UnitOfMeasurementENUM {  

@@ -20,14 +20,16 @@ service Categories {
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
     rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
 }
- 
+
 message Category {
     string id = 1;
     string name = 2;
     google.protobuf.StringValue parent_id = 3;
     string image_url = 4;
-    google.protobuf.Timestamp updated_at = 5; 
-    bool is_visible = 6;
+    bool is_visible = 5;
+    bool has_childs = 6;
+    google.protobuf.Timestamp created_at = 7; 
+    google.protobuf.Timestamp updated_at = 8; 
 }
 
 // Создание категории
