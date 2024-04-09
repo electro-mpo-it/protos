@@ -10,13 +10,14 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Category(_message.Message):
-    __slots__ = ("id", "name", "parent_id", "image_url", "is_visible", "has_childs", "created_at", "updated_at")
+    __slots__ = ("id", "name", "parent_id", "image_url", "is_visible", "has_childs", "sort", "created_at", "updated_at")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     PARENT_ID_FIELD_NUMBER: _ClassVar[int]
     IMAGE_URL_FIELD_NUMBER: _ClassVar[int]
     IS_VISIBLE_FIELD_NUMBER: _ClassVar[int]
     HAS_CHILDS_FIELD_NUMBER: _ClassVar[int]
+    SORT_FIELD_NUMBER: _ClassVar[int]
     CREATED_AT_FIELD_NUMBER: _ClassVar[int]
     UPDATED_AT_FIELD_NUMBER: _ClassVar[int]
     id: str
@@ -25,9 +26,10 @@ class Category(_message.Message):
     image_url: str
     is_visible: bool
     has_childs: bool
+    sort: int
     created_at: _timestamp_pb2.Timestamp
     updated_at: _timestamp_pb2.Timestamp
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., image_url: _Optional[str] = ..., is_visible: bool = ..., has_childs: bool = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., image_url: _Optional[str] = ..., is_visible: bool = ..., has_childs: bool = ..., sort: _Optional[int] = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
 
 class CreateRequest(_message.Message):
     __slots__ = ("name", "parent_id", "image_url")
@@ -108,6 +110,20 @@ class DeleteRequest(_message.Message):
     ID_FIELD_NUMBER: _ClassVar[int]
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
+
+class SwapSortRequest(_message.Message):
+    __slots__ = ("parent_id", "swaps")
+    class Swap(_message.Message):
+        __slots__ = ("to",)
+        FROM_FIELD_NUMBER: _ClassVar[int]
+        TO_FIELD_NUMBER: _ClassVar[int]
+        to: int
+        def __init__(self, to: _Optional[int] = ..., **kwargs) -> None: ...
+    PARENT_ID_FIELD_NUMBER: _ClassVar[int]
+    SWAPS_FIELD_NUMBER: _ClassVar[int]
+    parent_id: str
+    swaps: SwapSortRequest.Swap
+    def __init__(self, parent_id: _Optional[str] = ..., swaps: _Optional[_Union[SwapSortRequest.Swap, _Mapping]] = ...) -> None: ...
 
 class NullNullString(_message.Message):
     __slots__ = ("null_value", "value")

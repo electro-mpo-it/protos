@@ -46,6 +46,11 @@ class CategoriesStub(object):
                 request_serializer=categories_dot_categories__pb2.DeleteRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.SwapSort = channel.unary_unary(
+                '/categoriespb.Categories/SwapSort',
+                request_serializer=categories_dot_categories__pb2.SwapSortRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
 
 
 class CategoriesServicer(object):
@@ -88,6 +93,12 @@ class CategoriesServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SwapSort(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CategoriesServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -119,6 +130,11 @@ def add_CategoriesServicer_to_server(servicer, server):
             'Delete': grpc.unary_unary_rpc_method_handler(
                     servicer.Delete,
                     request_deserializer=categories_dot_categories__pb2.DeleteRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'SwapSort': grpc.unary_unary_rpc_method_handler(
+                    servicer.SwapSort,
+                    request_deserializer=categories_dot_categories__pb2.SwapSortRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
@@ -230,6 +246,23 @@ class Categories(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/categoriespb.Categories/Delete',
             categories_dot_categories__pb2.DeleteRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SwapSort(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/categoriespb.Categories/SwapSort',
+            categories_dot_categories__pb2.SwapSortRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -19,6 +19,7 @@ service Categories {
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
     rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
+    rpc SwapSort (SwapSortRequest) returns (google.protobuf.Empty);
 }
 
 message Category {
@@ -28,8 +29,9 @@ message Category {
     string image_url = 4;
     bool is_visible = 5;
     bool has_childs = 6;
-    google.protobuf.Timestamp created_at = 7; 
-    google.protobuf.Timestamp updated_at = 8; 
+    uint64 sort = 7;
+    google.protobuf.Timestamp created_at = 8; 
+    google.protobuf.Timestamp updated_at = 9; 
 }
 
 // Создание категории
@@ -96,6 +98,17 @@ message SetVisibleRequest {
 
 message DeleteRequest {
     string id = 1;
+}
+
+// Поменять поле сортировки местами в рамках одного parent_id
+message SwapSortRequest {
+    message Swap {
+        uint64 from = 1;
+        uint64 to = 2;
+    }
+
+    string parent_id = 1;
+    Swap swaps = 2;
 }
 
 
