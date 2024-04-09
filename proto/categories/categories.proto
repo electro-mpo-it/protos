@@ -107,8 +107,8 @@ message SwapSortRequest {
         uint64 to = 2;
     }
 
-    string parent_id = 1;
-    Swap swaps = 2;
+    google.protobuf.StringValue parent_id = 1;  // Допускается быть NULL (для корневых категорий)
+    Swap swaps = 2; // Обязательно. Минимум один элемент. 
 }
 
 

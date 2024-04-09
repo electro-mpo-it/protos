@@ -121,9 +121,9 @@ class SwapSortRequest(_message.Message):
         def __init__(self, to: _Optional[int] = ..., **kwargs) -> None: ...
     PARENT_ID_FIELD_NUMBER: _ClassVar[int]
     SWAPS_FIELD_NUMBER: _ClassVar[int]
-    parent_id: str
+    parent_id: _wrappers_pb2.StringValue
     swaps: SwapSortRequest.Swap
-    def __init__(self, parent_id: _Optional[str] = ..., swaps: _Optional[_Union[SwapSortRequest.Swap, _Mapping]] = ...) -> None: ...
+    def __init__(self, parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., swaps: _Optional[_Union[SwapSortRequest.Swap, _Mapping]] = ...) -> None: ...
 
 class NullNullString(_message.Message):
     __slots__ = ("null_value", "value")
