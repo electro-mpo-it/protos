@@ -29,7 +29,7 @@ message Category {
     string image_url = 4;
     bool is_visible = 5;
     bool has_childs = 6;
-    uint64 sort = 7;
+    int64 sort = 7;
     google.protobuf.Timestamp created_at = 8; 
     google.protobuf.Timestamp updated_at = 9; 
 }
