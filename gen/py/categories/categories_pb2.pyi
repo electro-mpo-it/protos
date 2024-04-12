@@ -111,19 +111,20 @@ class DeleteRequest(_message.Message):
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
 
-class SwapSortRequest(_message.Message):
-    __slots__ = ("parent_id", "swaps")
-    class Swap(_message.Message):
-        __slots__ = ("to",)
-        FROM_FIELD_NUMBER: _ClassVar[int]
-        TO_FIELD_NUMBER: _ClassVar[int]
-        to: int
-        def __init__(self, to: _Optional[int] = ..., **kwargs) -> None: ...
+class SetSortRequest(_message.Message):
+    __slots__ = ("parent_id", "data")
+    class Sort(_message.Message):
+        __slots__ = ("id", "sort")
+        ID_FIELD_NUMBER: _ClassVar[int]
+        SORT_FIELD_NUMBER: _ClassVar[int]
+        id: str
+        sort: int
+        def __init__(self, id: _Optional[str] = ..., sort: _Optional[int] = ...) -> None: ...
     PARENT_ID_FIELD_NUMBER: _ClassVar[int]
-    SWAPS_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
     parent_id: _wrappers_pb2.StringValue
-    swaps: _containers.RepeatedCompositeFieldContainer[SwapSortRequest.Swap]
-    def __init__(self, parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., swaps: _Optional[_Iterable[_Union[SwapSortRequest.Swap, _Mapping]]] = ...) -> None: ...
+    data: _containers.RepeatedCompositeFieldContainer[SetSortRequest.Sort]
+    def __init__(self, parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., data: _Optional[_Iterable[_Union[SetSortRequest.Sort, _Mapping]]] = ...) -> None: ...
 
 class NullNullString(_message.Message):
     __slots__ = ("null_value", "value")

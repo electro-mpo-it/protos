@@ -19,7 +19,7 @@ service Categories {
     rpc Update (UpdateRequest) returns (google.protobuf.Empty);
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
     rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
-    rpc SwapSort (SwapSortRequest) returns (google.protobuf.Empty);
+    rpc SetSort (SetSortRequest) returns (google.protobuf.Empty);
 }
 
 message Category {
@@ -101,14 +101,14 @@ message DeleteRequest {
 }
 
 // Поменять поле сортировки местами в рамках одного parent_id
-message SwapSortRequest {
-    message Swap {
-        uint64 from = 1;
-        uint64 to = 2;
+message SetSortRequest {
+    message Sort {
+        string id = 1;
+        int64 sort = 2;
     }
 
     google.protobuf.StringValue parent_id = 1;  // Допускается быть NULL (для корневых категорий)
-    repeated Swap swaps = 2; // Обязательно. Минимум один элемент. 
+    repeated Sort data = 2;                    // Обязательно.
 }
 
 

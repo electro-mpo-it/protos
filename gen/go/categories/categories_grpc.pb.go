@@ -26,7 +26,7 @@ const (
 	Categories_Update_FullMethodName     = "/categoriespb.Categories/Update"
 	Categories_SetVisible_FullMethodName = "/categoriespb.Categories/SetVisible"
 	Categories_Delete_FullMethodName     = "/categoriespb.Categories/Delete"
-	Categories_SwapSort_FullMethodName   = "/categoriespb.Categories/SwapSort"
+	Categories_SetSort_FullMethodName    = "/categoriespb.Categories/SetSort"
 )
 
 // CategoriesClient is the client API for Categories service.
@@ -39,7 +39,7 @@ type CategoriesClient interface {
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	SwapSort(ctx context.Context, in *SwapSortRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	SetSort(ctx context.Context, in *SetSortRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type categoriesClient struct {
@@ -104,9 +104,9 @@ func (c *categoriesClient) Delete(ctx context.Context, in *DeleteRequest, opts .
 	return out, nil
 }
 
-func (c *categoriesClient) SwapSort(ctx context.Context, in *SwapSortRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *categoriesClient) SetSort(ctx context.Context, in *SetSortRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Categories_SwapSort_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Categories_SetSort_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ type CategoriesServer interface {
 	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
 	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
 	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
-	SwapSort(context.Context, *SwapSortRequest) (*emptypb.Empty, error)
+	SetSort(context.Context, *SetSortRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCategoriesServer()
 }
 
@@ -149,8 +149,8 @@ func (UnimplementedCategoriesServer) SetVisible(context.Context, *SetVisibleRequ
 func (UnimplementedCategoriesServer) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
-func (UnimplementedCategoriesServer) SwapSort(context.Context, *SwapSortRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SwapSort not implemented")
+func (UnimplementedCategoriesServer) SetSort(context.Context, *SetSortRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetSort not implemented")
 }
 func (UnimplementedCategoriesServer) mustEmbedUnimplementedCategoriesServer() {}
 
@@ -273,20 +273,20 @@ func _Categories_Delete_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Categories_SwapSort_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SwapSortRequest)
+func _Categories_SetSort_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetSortRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CategoriesServer).SwapSort(ctx, in)
+		return srv.(CategoriesServer).SetSort(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Categories_SwapSort_FullMethodName,
+		FullMethod: Categories_SetSort_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).SwapSort(ctx, req.(*SwapSortRequest))
+		return srv.(CategoriesServer).SetSort(ctx, req.(*SetSortRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -323,8 +323,8 @@ var Categories_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Categories_Delete_Handler,
 		},
 		{
-			MethodName: "SwapSort",
-			Handler:    _Categories_SwapSort_Handler,
+			MethodName: "SetSort",
+			Handler:    _Categories_SetSort_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
