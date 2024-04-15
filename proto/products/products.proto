@@ -206,8 +206,8 @@ message UpdateImagesRequest {  // Реализует аналог PUT запро
 
 
 message CreateCharacteristicRequest {
-    optional string name = 1;
-    CharacteristicValuesTypeEnum values_type = 2;
+    string name = 1;                                // Required.
+    CharacteristicValuesTypeEnum values_type = 2;   // Required.
 }
 
 message CreateCharacteristicResponse {
