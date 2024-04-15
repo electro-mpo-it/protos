@@ -20,12 +20,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Products_Create_FullMethodName       = "/productspb.Products/Create"
-	Products_GetByID_FullMethodName      = "/productspb.Products/GetByID"
-	Products_Find_FullMethodName         = "/productspb.Products/Find"
-	Products_Update_FullMethodName       = "/productspb.Products/Update"
-	Products_SetVisible_FullMethodName   = "/productspb.Products/SetVisible"
-	Products_UpdateImages_FullMethodName = "/productspb.Products/UpdateImages"
+	Products_Create_FullMethodName               = "/productspb.Products/Create"
+	Products_GetByID_FullMethodName              = "/productspb.Products/GetByID"
+	Products_Find_FullMethodName                 = "/productspb.Products/Find"
+	Products_Update_FullMethodName               = "/productspb.Products/Update"
+	Products_SetVisible_FullMethodName           = "/productspb.Products/SetVisible"
+	Products_UpdateImages_FullMethodName         = "/productspb.Products/UpdateImages"
+	Products_CreateCharacteristic_FullMethodName = "/productspb.Products/CreateCharacteristic"
+	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
+	Products_UpdateCharacteristic_FullMethodName = "/productspb.Products/UpdateCharacteristic"
 )
 
 // ProductsClient is the client API for Products service.
@@ -38,6 +41,9 @@ type ProductsClient interface {
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	CreateCharacteristic(ctx context.Context, in *CreateCharacteristicRequest, opts ...grpc.CallOption) (*CreateCharacteristicResponse, error)
+	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type productsClient struct {
@@ -102,6 +108,33 @@ func (c *productsClient) UpdateImages(ctx context.Context, in *UpdateImagesReque
 	return out, nil
 }
 
+func (c *productsClient) CreateCharacteristic(ctx context.Context, in *CreateCharacteristicRequest, opts ...grpc.CallOption) (*CreateCharacteristicResponse, error) {
+	out := new(CreateCharacteristicResponse)
+	err := c.cc.Invoke(ctx, Products_CreateCharacteristic_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_DeleteCharacteristic_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_UpdateCharacteristic_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServer is the server API for Products service.
 // All implementations must embed UnimplementedProductsServer
 // for forward compatibility
@@ -112,6 +145,9 @@ type ProductsServer interface {
 	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
 	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
 	UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error)
+	CreateCharacteristic(context.Context, *CreateCharacteristicRequest) (*CreateCharacteristicResponse, error)
+	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
+	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -136,6 +172,15 @@ func (UnimplementedProductsServer) SetVisible(context.Context, *SetVisibleReques
 }
 func (UnimplementedProductsServer) UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateImages not implemented")
+}
+func (UnimplementedProductsServer) CreateCharacteristic(context.Context, *CreateCharacteristicRequest) (*CreateCharacteristicResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCharacteristic not implemented")
+}
+func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
+}
+func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCharacteristic not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
 
@@ -258,6 +303,60 @@ func _Products_UpdateImages_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Products_CreateCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCharacteristicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).CreateCharacteristic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_CreateCharacteristic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).CreateCharacteristic(ctx, req.(*CreateCharacteristicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCharacteristicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).DeleteCharacteristic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_DeleteCharacteristic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).DeleteCharacteristic(ctx, req.(*DeleteCharacteristicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_UpdateCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCharacteristicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).UpdateCharacteristic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_UpdateCharacteristic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).UpdateCharacteristic(ctx, req.(*UpdateCharacteristicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Products_ServiceDesc is the grpc.ServiceDesc for Products service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -288,6 +387,18 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateImages",
 			Handler:    _Products_UpdateImages_Handler,
+		},
+		{
+			MethodName: "CreateCharacteristic",
+			Handler:    _Products_CreateCharacteristic_Handler,
+		},
+		{
+			MethodName: "DeleteCharacteristic",
+			Handler:    _Products_DeleteCharacteristic_Handler,
+		},
+		{
+			MethodName: "UpdateCharacteristic",
+			Handler:    _Products_UpdateCharacteristic_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

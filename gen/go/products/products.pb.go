@@ -144,6 +144,56 @@ func (VATENUM) EnumDescriptor() ([]byte, []int) {
 	return file_products_products_proto_rawDescGZIP(), []int{1}
 }
 
+// Перечисление возможных типов данных значений характеристики
+type CharacteristicValuesTypeEnum int32
+
+const (
+	CharacteristicValuesTypeEnum_UNSPECIFIED CharacteristicValuesTypeEnum = 0
+	CharacteristicValuesTypeEnum_TEXT        CharacteristicValuesTypeEnum = 1
+	CharacteristicValuesTypeEnum_NUMERIC     CharacteristicValuesTypeEnum = 2
+)
+
+// Enum value maps for CharacteristicValuesTypeEnum.
+var (
+	CharacteristicValuesTypeEnum_name = map[int32]string{
+		0: "UNSPECIFIED",
+		1: "TEXT",
+		2: "NUMERIC",
+	}
+	CharacteristicValuesTypeEnum_value = map[string]int32{
+		"UNSPECIFIED": 0,
+		"TEXT":        1,
+		"NUMERIC":     2,
+	}
+)
+
+func (x CharacteristicValuesTypeEnum) Enum() *CharacteristicValuesTypeEnum {
+	p := new(CharacteristicValuesTypeEnum)
+	*p = x
+	return p
+}
+
+func (x CharacteristicValuesTypeEnum) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (CharacteristicValuesTypeEnum) Descriptor() protoreflect.EnumDescriptor {
+	return file_products_products_proto_enumTypes[2].Descriptor()
+}
+
+func (CharacteristicValuesTypeEnum) Type() protoreflect.EnumType {
+	return &file_products_products_proto_enumTypes[2]
+}
+
+func (x CharacteristicValuesTypeEnum) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use CharacteristicValuesTypeEnum.Descriptor instead.
+func (CharacteristicValuesTypeEnum) EnumDescriptor() ([]byte, []int) {
+	return file_products_products_proto_rawDescGZIP(), []int{2}
+}
+
 // Обёртка для случаев когда ENUM опционален
 type OptionalUnitOfMeasurementENUM struct {
 	state         protoimpl.MessageState
@@ -1023,6 +1073,210 @@ func (x *UpdateImagesRequest) GetData() *UpdateImagesRequest_Data {
 	return nil
 }
 
+type CreateCharacteristicRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name       *string                      `protobuf:"bytes,1,opt,name=name,proto3,oneof" json:"name,omitempty"`
+	ValuesType CharacteristicValuesTypeEnum `protobuf:"varint,2,opt,name=values_type,json=valuesType,proto3,enum=productspb.CharacteristicValuesTypeEnum" json:"values_type,omitempty"`
+}
+
+func (x *CreateCharacteristicRequest) Reset() {
+	*x = CreateCharacteristicRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_products_products_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateCharacteristicRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCharacteristicRequest) ProtoMessage() {}
+
+func (x *CreateCharacteristicRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_products_products_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCharacteristicRequest.ProtoReflect.Descriptor instead.
+func (*CreateCharacteristicRequest) Descriptor() ([]byte, []int) {
+	return file_products_products_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *CreateCharacteristicRequest) GetName() string {
+	if x != nil && x.Name != nil {
+		return *x.Name
+	}
+	return ""
+}
+
+func (x *CreateCharacteristicRequest) GetValuesType() CharacteristicValuesTypeEnum {
+	if x != nil {
+		return x.ValuesType
+	}
+	return CharacteristicValuesTypeEnum_UNSPECIFIED
+}
+
+type CreateCharacteristicResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *CreateCharacteristicResponse) Reset() {
+	*x = CreateCharacteristicResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_products_products_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CreateCharacteristicResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateCharacteristicResponse) ProtoMessage() {}
+
+func (x *CreateCharacteristicResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_products_products_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateCharacteristicResponse.ProtoReflect.Descriptor instead.
+func (*CreateCharacteristicResponse) Descriptor() ([]byte, []int) {
+	return file_products_products_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *CreateCharacteristicResponse) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type UpdateCharacteristicRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id   string                            `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Data *UpdateCharacteristicRequest_Data `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *UpdateCharacteristicRequest) Reset() {
+	*x = UpdateCharacteristicRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_products_products_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateCharacteristicRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCharacteristicRequest) ProtoMessage() {}
+
+func (x *UpdateCharacteristicRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_products_products_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCharacteristicRequest.ProtoReflect.Descriptor instead.
+func (*UpdateCharacteristicRequest) Descriptor() ([]byte, []int) {
+	return file_products_products_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *UpdateCharacteristicRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *UpdateCharacteristicRequest) GetData() *UpdateCharacteristicRequest_Data {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type DeleteCharacteristicRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *DeleteCharacteristicRequest) Reset() {
+	*x = DeleteCharacteristicRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_products_products_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DeleteCharacteristicRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteCharacteristicRequest) ProtoMessage() {}
+
+func (x *DeleteCharacteristicRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_products_products_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteCharacteristicRequest.ProtoReflect.Descriptor instead.
+func (*DeleteCharacteristicRequest) Descriptor() ([]byte, []int) {
+	return file_products_products_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *DeleteCharacteristicRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
 type CharacteristicsFilter_TextValue struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -1035,7 +1289,7 @@ type CharacteristicsFilter_TextValue struct {
 func (x *CharacteristicsFilter_TextValue) Reset() {
 	*x = CharacteristicsFilter_TextValue{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_products_products_proto_msgTypes[14]
+		mi := &file_products_products_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1048,7 +1302,7 @@ func (x *CharacteristicsFilter_TextValue) String() string {
 func (*CharacteristicsFilter_TextValue) ProtoMessage() {}
 
 func (x *CharacteristicsFilter_TextValue) ProtoReflect() protoreflect.Message {
-	mi := &file_products_products_proto_msgTypes[14]
+	mi := &file_products_products_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1090,7 +1344,7 @@ type CharacteristicsFilter_NumericValue struct {
 func (x *CharacteristicsFilter_NumericValue) Reset() {
 	*x = CharacteristicsFilter_NumericValue{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_products_products_proto_msgTypes[15]
+		mi := &file_products_products_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1103,7 +1357,7 @@ func (x *CharacteristicsFilter_NumericValue) String() string {
 func (*CharacteristicsFilter_NumericValue) ProtoMessage() {}
 
 func (x *CharacteristicsFilter_NumericValue) ProtoReflect() protoreflect.Message {
-	mi := &file_products_products_proto_msgTypes[15]
+	mi := &file_products_products_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1145,7 +1399,7 @@ type CharacteristicsFilter_NumericValue_Range struct {
 func (x *CharacteristicsFilter_NumericValue_Range) Reset() {
 	*x = CharacteristicsFilter_NumericValue_Range{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_products_products_proto_msgTypes[16]
+		mi := &file_products_products_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1158,7 +1412,7 @@ func (x *CharacteristicsFilter_NumericValue_Range) String() string {
 func (*CharacteristicsFilter_NumericValue_Range) ProtoMessage() {}
 
 func (x *CharacteristicsFilter_NumericValue_Range) ProtoReflect() protoreflect.Message {
-	mi := &file_products_products_proto_msgTypes[16]
+	mi := &file_products_products_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1205,7 +1459,7 @@ type UpdateRequest_Data struct {
 func (x *UpdateRequest_Data) Reset() {
 	*x = UpdateRequest_Data{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_products_products_proto_msgTypes[17]
+		mi := &file_products_products_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1218,7 +1472,7 @@ func (x *UpdateRequest_Data) String() string {
 func (*UpdateRequest_Data) ProtoMessage() {}
 
 func (x *UpdateRequest_Data) ProtoReflect() protoreflect.Message {
-	mi := &file_products_products_proto_msgTypes[17]
+	mi := &file_products_products_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1294,7 +1548,7 @@ type SetVisibleRequest_Data struct {
 func (x *SetVisibleRequest_Data) Reset() {
 	*x = SetVisibleRequest_Data{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_products_products_proto_msgTypes[18]
+		mi := &file_products_products_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1307,7 +1561,7 @@ func (x *SetVisibleRequest_Data) String() string {
 func (*SetVisibleRequest_Data) ProtoMessage() {}
 
 func (x *SetVisibleRequest_Data) ProtoReflect() protoreflect.Message {
-	mi := &file_products_products_proto_msgTypes[18]
+	mi := &file_products_products_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1341,7 +1595,7 @@ type UpdateImagesRequest_Data struct {
 func (x *UpdateImagesRequest_Data) Reset() {
 	*x = UpdateImagesRequest_Data{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_products_products_proto_msgTypes[19]
+		mi := &file_products_products_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1354,7 +1608,7 @@ func (x *UpdateImagesRequest_Data) String() string {
 func (*UpdateImagesRequest_Data) ProtoMessage() {}
 
 func (x *UpdateImagesRequest_Data) ProtoReflect() protoreflect.Message {
-	mi := &file_products_products_proto_msgTypes[19]
+	mi := &file_products_products_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1377,6 +1631,53 @@ func (x *UpdateImagesRequest_Data) GetImages() []*ProductImage {
 	return nil
 }
 
+type UpdateCharacteristicRequest_Data struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Name *wrapperspb.StringValue `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (x *UpdateCharacteristicRequest_Data) Reset() {
+	*x = UpdateCharacteristicRequest_Data{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_products_products_proto_msgTypes[24]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *UpdateCharacteristicRequest_Data) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateCharacteristicRequest_Data) ProtoMessage() {}
+
+func (x *UpdateCharacteristicRequest_Data) ProtoReflect() protoreflect.Message {
+	mi := &file_products_products_proto_msgTypes[24]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateCharacteristicRequest_Data.ProtoReflect.Descriptor instead.
+func (*UpdateCharacteristicRequest_Data) Descriptor() ([]byte, []int) {
+	return file_products_products_proto_rawDescGZIP(), []int{16, 0}
+}
+
+func (x *UpdateCharacteristicRequest_Data) GetName() *wrapperspb.StringValue {
+	if x != nil {
+		return x.Name
+	}
+	return nil
+}
+
 var File_products_products_proto protoreflect.FileDescriptor
 
 var file_products_products_proto_rawDesc = []byte{
@@ -1384,10 +1685,10 @@ var file_products_products_proto_rawDesc = []byte{
 	0x63, 0x74, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x0a, 0x70, 0x72, 0x6f, 0x64, 0x75,
 	0x63, 0x74, 0x73, 0x70, 0x62, 0x1a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x62, 0x75, 0x66, 0x2f, 0x77, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x73, 0x2e, 0x70, 0x72, 0x6f,
 	0x74, 0x6f, 0x1a, 0x1f, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f,
 	0x62, 0x75, 0x66, 0x2f, 0x74, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x1a, 0x1e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x62, 0x75, 0x66, 0x2f, 0x77, 0x72, 0x61, 0x70, 0x70, 0x65, 0x72, 0x73, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x22, 0x58, 0x0a, 0x1d, 0x4f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x55,
 	0x6e, 0x69, 0x74, 0x4f, 0x66, 0x4d, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74,
 	0x45, 0x4e, 0x55, 0x4d, 0x12, 0x37, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x01, 0x20,
@@ -1557,19 +1858,49 @@ var file_products_products_proto_rawDesc = []byte{
 	0x61, 0x74, 0x61, 0x12, 0x30, 0x0a, 0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x18, 0x01, 0x20,
 	0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62,
 	0x2e, 0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x49, 0x6d, 0x61, 0x67, 0x65, 0x52, 0x06, 0x69,
-	0x6d, 0x61, 0x67, 0x65, 0x73, 0x2a, 0x98, 0x01, 0x0a, 0x15, 0x55, 0x6e, 0x69, 0x74, 0x4f, 0x66,
-	0x4d, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74, 0x45, 0x4e, 0x55, 0x4d, 0x12,
-	0x09, 0x0a, 0x05, 0x50, 0x49, 0x45, 0x43, 0x45, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x50, 0x41,
-	0x49, 0x52, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05, 0x4c, 0x49, 0x54, 0x45, 0x52, 0x10, 0x02, 0x12,
-	0x08, 0x0a, 0x04, 0x52, 0x4f, 0x4c, 0x4c, 0x10, 0x03, 0x12, 0x09, 0x0a, 0x05, 0x53, 0x48, 0x45,
-	0x45, 0x54, 0x10, 0x04, 0x12, 0x0e, 0x0a, 0x0a, 0x43, 0x45, 0x4e, 0x54, 0x49, 0x4d, 0x45, 0x54,
-	0x52, 0x45, 0x10, 0x05, 0x12, 0x09, 0x0a, 0x05, 0x4d, 0x45, 0x54, 0x52, 0x45, 0x10, 0x06, 0x12,
-	0x0c, 0x0a, 0x08, 0x4b, 0x49, 0x4c, 0x4f, 0x47, 0x52, 0x41, 0x4d, 0x10, 0x07, 0x12, 0x10, 0x0a,
-	0x0c, 0x53, 0x51, 0x55, 0x41, 0x52, 0x45, 0x5f, 0x4d, 0x45, 0x54, 0x45, 0x52, 0x10, 0x08, 0x12,
-	0x0f, 0x0a, 0x0b, 0x43, 0x55, 0x42, 0x49, 0x43, 0x5f, 0x4d, 0x45, 0x54, 0x45, 0x52, 0x10, 0x09,
-	0x2a, 0x29, 0x0a, 0x07, 0x56, 0x41, 0x54, 0x45, 0x4e, 0x55, 0x4d, 0x12, 0x09, 0x0a, 0x05, 0x4e,
-	0x44, 0x53, 0x32, 0x30, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x4e, 0x44, 0x53, 0x31, 0x30, 0x10,
-	0x01, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x44, 0x53, 0x30, 0x10, 0x02, 0x32, 0x95, 0x03, 0x0a, 0x08,
+	0x6d, 0x61, 0x67, 0x65, 0x73, 0x22, 0x8a, 0x01, 0x0a, 0x1b, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x48, 0x00, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x88, 0x01, 0x01, 0x12, 0x49,
+	0x0a, 0x0b, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0e, 0x32, 0x28, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62,
+	0x2e, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x56,
+	0x61, 0x6c, 0x75, 0x65, 0x73, 0x54, 0x79, 0x70, 0x65, 0x45, 0x6e, 0x75, 0x6d, 0x52, 0x0a, 0x76,
+	0x61, 0x6c, 0x75, 0x65, 0x73, 0x54, 0x79, 0x70, 0x65, 0x42, 0x07, 0x0a, 0x05, 0x5f, 0x6e, 0x61,
+	0x6d, 0x65, 0x22, 0x2e, 0x0a, 0x1c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72,
+	0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x69, 0x64, 0x22, 0xa9, 0x01, 0x0a, 0x1b, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61,
+	0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02,
+	0x69, 0x64, 0x12, 0x40, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x2c, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x2e, 0x55, 0x70,
+	0x64, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74,
+	0x69, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04,
+	0x64, 0x61, 0x74, 0x61, 0x1a, 0x38, 0x0a, 0x04, 0x44, 0x61, 0x74, 0x61, 0x12, 0x30, 0x0a, 0x04,
+	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1c, 0x2e, 0x67, 0x6f, 0x6f,
+	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72,
+	0x69, 0x6e, 0x67, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x04, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x2d,
+	0x0a, 0x1b, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65,
+	0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a,
+	0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x2a, 0x98, 0x01,
+	0x0a, 0x15, 0x55, 0x6e, 0x69, 0x74, 0x4f, 0x66, 0x4d, 0x65, 0x61, 0x73, 0x75, 0x72, 0x65, 0x6d,
+	0x65, 0x6e, 0x74, 0x45, 0x4e, 0x55, 0x4d, 0x12, 0x09, 0x0a, 0x05, 0x50, 0x49, 0x45, 0x43, 0x45,
+	0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x50, 0x41, 0x49, 0x52, 0x10, 0x01, 0x12, 0x09, 0x0a, 0x05,
+	0x4c, 0x49, 0x54, 0x45, 0x52, 0x10, 0x02, 0x12, 0x08, 0x0a, 0x04, 0x52, 0x4f, 0x4c, 0x4c, 0x10,
+	0x03, 0x12, 0x09, 0x0a, 0x05, 0x53, 0x48, 0x45, 0x45, 0x54, 0x10, 0x04, 0x12, 0x0e, 0x0a, 0x0a,
+	0x43, 0x45, 0x4e, 0x54, 0x49, 0x4d, 0x45, 0x54, 0x52, 0x45, 0x10, 0x05, 0x12, 0x09, 0x0a, 0x05,
+	0x4d, 0x45, 0x54, 0x52, 0x45, 0x10, 0x06, 0x12, 0x0c, 0x0a, 0x08, 0x4b, 0x49, 0x4c, 0x4f, 0x47,
+	0x52, 0x41, 0x4d, 0x10, 0x07, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x51, 0x55, 0x41, 0x52, 0x45, 0x5f,
+	0x4d, 0x45, 0x54, 0x45, 0x52, 0x10, 0x08, 0x12, 0x0f, 0x0a, 0x0b, 0x43, 0x55, 0x42, 0x49, 0x43,
+	0x5f, 0x4d, 0x45, 0x54, 0x45, 0x52, 0x10, 0x09, 0x2a, 0x29, 0x0a, 0x07, 0x56, 0x41, 0x54, 0x45,
+	0x4e, 0x55, 0x4d, 0x12, 0x09, 0x0a, 0x05, 0x4e, 0x44, 0x53, 0x32, 0x30, 0x10, 0x00, 0x12, 0x09,
+	0x0a, 0x05, 0x4e, 0x44, 0x53, 0x31, 0x30, 0x10, 0x01, 0x12, 0x08, 0x0a, 0x04, 0x4e, 0x44, 0x53,
+	0x30, 0x10, 0x02, 0x2a, 0x46, 0x0a, 0x1c, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72,
+	0x69, 0x73, 0x74, 0x69, 0x63, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x54, 0x79, 0x70, 0x65, 0x45,
+	0x6e, 0x75, 0x6d, 0x12, 0x0f, 0x0a, 0x0b, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49,
+	0x45, 0x44, 0x10, 0x00, 0x12, 0x08, 0x0a, 0x04, 0x54, 0x45, 0x58, 0x54, 0x10, 0x01, 0x12, 0x0b,
+	0x0a, 0x07, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43, 0x10, 0x02, 0x32, 0xb2, 0x05, 0x0a, 0x08,
 	0x50, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x12, 0x3f, 0x0a, 0x06, 0x43, 0x72, 0x65, 0x61,
 	0x74, 0x65, 0x12, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x2e,
 	0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e,
@@ -1595,11 +1926,29 @@ var file_products_products_proto_rawDesc = []byte{
 	0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x49, 0x6d,
 	0x61, 0x67, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f,
 	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d,
-	0x70, 0x74, 0x79, 0x42, 0x3d, 0x5a, 0x3b, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x72, 0x6f, 0x2d, 0x6d, 0x70, 0x6f, 0x2d, 0x69, 0x74,
-	0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x70,
-	0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x3b, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73,
-	0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x70, 0x74, 0x79, 0x12, 0x69, 0x0a, 0x14, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61,
+	0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x12, 0x27, 0x2e, 0x70, 0x72,
+	0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43,
+	0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x28, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70,
+	0x62, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65,
+	0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x57,
+	0x0a, 0x14, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65,
+	0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x12, 0x27, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74,
+	0x73, 0x70, 0x62, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63,
+	0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75,
+	0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x12, 0x57, 0x0a, 0x14, 0x55, 0x70, 0x64, 0x61, 0x74,
+	0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69, 0x63, 0x12,
+	0x27, 0x2e, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x2e, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x43, 0x68, 0x61, 0x72, 0x61, 0x63, 0x74, 0x65, 0x72, 0x69, 0x73, 0x74, 0x69,
+	0x63, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c,
+	0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79,
+	0x42, 0x3d, 0x5a, 0x3b, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x65,
+	0x6c, 0x65, 0x63, 0x74, 0x72, 0x6f, 0x2d, 0x6d, 0x70, 0x6f, 0x2d, 0x69, 0x74, 0x2f, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x73, 0x2f, 0x67, 0x65, 0x6e, 0x2f, 0x67, 0x6f, 0x2f, 0x70, 0x72, 0x6f, 0x64,
+	0x75, 0x63, 0x74, 0x73, 0x3b, 0x70, 0x72, 0x6f, 0x64, 0x75, 0x63, 0x74, 0x73, 0x70, 0x62, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1614,83 +1963,98 @@ func file_products_products_proto_rawDescGZIP() []byte {
 	return file_products_products_proto_rawDescData
 }
 
-var file_products_products_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_products_products_proto_msgTypes = make([]protoimpl.MessageInfo, 20)
+var file_products_products_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_products_products_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
 var file_products_products_proto_goTypes = []interface{}{
 	(UnitOfMeasurementENUM)(0),                       // 0: productspb.UnitOfMeasurementENUM
 	(VATENUM)(0),                                     // 1: productspb.VATENUM
-	(*OptionalUnitOfMeasurementENUM)(nil),            // 2: productspb.OptionalUnitOfMeasurementENUM
-	(*OptionalVATENUM)(nil),                          // 3: productspb.OptionalVATENUM
-	(*ProductImage)(nil),                             // 4: productspb.ProductImage
-	(*CharacteristicsFilter)(nil),                    // 5: productspb.CharacteristicsFilter
-	(*Product)(nil),                                  // 6: productspb.Product
-	(*CreateRequest)(nil),                            // 7: productspb.CreateRequest
-	(*CreateResponse)(nil),                           // 8: productspb.CreateResponse
-	(*GetByIDRequest)(nil),                           // 9: productspb.GetByIDRequest
-	(*GetByIDResponse)(nil),                          // 10: productspb.GetByIDResponse
-	(*FindRequest)(nil),                              // 11: productspb.FindRequest
-	(*FindResponse)(nil),                             // 12: productspb.FindResponse
-	(*UpdateRequest)(nil),                            // 13: productspb.UpdateRequest
-	(*SetVisibleRequest)(nil),                        // 14: productspb.SetVisibleRequest
-	(*UpdateImagesRequest)(nil),                      // 15: productspb.UpdateImagesRequest
-	(*CharacteristicsFilter_TextValue)(nil),          // 16: productspb.CharacteristicsFilter.TextValue
-	(*CharacteristicsFilter_NumericValue)(nil),       // 17: productspb.CharacteristicsFilter.NumericValue
-	(*CharacteristicsFilter_NumericValue_Range)(nil), // 18: productspb.CharacteristicsFilter.NumericValue.Range
-	(*UpdateRequest_Data)(nil),                       // 19: productspb.UpdateRequest.Data
-	(*SetVisibleRequest_Data)(nil),                   // 20: productspb.SetVisibleRequest.Data
-	(*UpdateImagesRequest_Data)(nil),                 // 21: productspb.UpdateImagesRequest.Data
-	(*timestamppb.Timestamp)(nil),                    // 22: google.protobuf.Timestamp
-	(*wrapperspb.StringValue)(nil),                   // 23: google.protobuf.StringValue
-	(*wrapperspb.BoolValue)(nil),                     // 24: google.protobuf.BoolValue
-	(*wrapperspb.DoubleValue)(nil),                   // 25: google.protobuf.DoubleValue
-	(*emptypb.Empty)(nil),                            // 26: google.protobuf.Empty
+	(CharacteristicValuesTypeEnum)(0),                // 2: productspb.CharacteristicValuesTypeEnum
+	(*OptionalUnitOfMeasurementENUM)(nil),            // 3: productspb.OptionalUnitOfMeasurementENUM
+	(*OptionalVATENUM)(nil),                          // 4: productspb.OptionalVATENUM
+	(*ProductImage)(nil),                             // 5: productspb.ProductImage
+	(*CharacteristicsFilter)(nil),                    // 6: productspb.CharacteristicsFilter
+	(*Product)(nil),                                  // 7: productspb.Product
+	(*CreateRequest)(nil),                            // 8: productspb.CreateRequest
+	(*CreateResponse)(nil),                           // 9: productspb.CreateResponse
+	(*GetByIDRequest)(nil),                           // 10: productspb.GetByIDRequest
+	(*GetByIDResponse)(nil),                          // 11: productspb.GetByIDResponse
+	(*FindRequest)(nil),                              // 12: productspb.FindRequest
+	(*FindResponse)(nil),                             // 13: productspb.FindResponse
+	(*UpdateRequest)(nil),                            // 14: productspb.UpdateRequest
+	(*SetVisibleRequest)(nil),                        // 15: productspb.SetVisibleRequest
+	(*UpdateImagesRequest)(nil),                      // 16: productspb.UpdateImagesRequest
+	(*CreateCharacteristicRequest)(nil),              // 17: productspb.CreateCharacteristicRequest
+	(*CreateCharacteristicResponse)(nil),             // 18: productspb.CreateCharacteristicResponse
+	(*UpdateCharacteristicRequest)(nil),              // 19: productspb.UpdateCharacteristicRequest
+	(*DeleteCharacteristicRequest)(nil),              // 20: productspb.DeleteCharacteristicRequest
+	(*CharacteristicsFilter_TextValue)(nil),          // 21: productspb.CharacteristicsFilter.TextValue
+	(*CharacteristicsFilter_NumericValue)(nil),       // 22: productspb.CharacteristicsFilter.NumericValue
+	(*CharacteristicsFilter_NumericValue_Range)(nil), // 23: productspb.CharacteristicsFilter.NumericValue.Range
+	(*UpdateRequest_Data)(nil),                       // 24: productspb.UpdateRequest.Data
+	(*SetVisibleRequest_Data)(nil),                   // 25: productspb.SetVisibleRequest.Data
+	(*UpdateImagesRequest_Data)(nil),                 // 26: productspb.UpdateImagesRequest.Data
+	(*UpdateCharacteristicRequest_Data)(nil),         // 27: productspb.UpdateCharacteristicRequest.Data
+	(*timestamppb.Timestamp)(nil),                    // 28: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil),                   // 29: google.protobuf.StringValue
+	(*wrapperspb.BoolValue)(nil),                     // 30: google.protobuf.BoolValue
+	(*wrapperspb.DoubleValue)(nil),                   // 31: google.protobuf.DoubleValue
+	(*emptypb.Empty)(nil),                            // 32: google.protobuf.Empty
 }
 var file_products_products_proto_depIdxs = []int32{
 	0,  // 0: productspb.OptionalUnitOfMeasurementENUM.value:type_name -> productspb.UnitOfMeasurementENUM
 	1,  // 1: productspb.OptionalVATENUM.value:type_name -> productspb.VATENUM
-	16, // 2: productspb.CharacteristicsFilter.text_values:type_name -> productspb.CharacteristicsFilter.TextValue
-	17, // 3: productspb.CharacteristicsFilter.numeric_values:type_name -> productspb.CharacteristicsFilter.NumericValue
+	21, // 2: productspb.CharacteristicsFilter.text_values:type_name -> productspb.CharacteristicsFilter.TextValue
+	22, // 3: productspb.CharacteristicsFilter.numeric_values:type_name -> productspb.CharacteristicsFilter.NumericValue
 	0,  // 4: productspb.Product.unit_of_measurement:type_name -> productspb.UnitOfMeasurementENUM
 	1,  // 5: productspb.Product.vat:type_name -> productspb.VATENUM
-	22, // 6: productspb.Product.updated_at:type_name -> google.protobuf.Timestamp
-	4,  // 7: productspb.Product.images:type_name -> productspb.ProductImage
+	28, // 6: productspb.Product.updated_at:type_name -> google.protobuf.Timestamp
+	5,  // 7: productspb.Product.images:type_name -> productspb.ProductImage
 	0,  // 8: productspb.CreateRequest.unit_of_measurement:type_name -> productspb.UnitOfMeasurementENUM
 	1,  // 9: productspb.CreateRequest.vat:type_name -> productspb.VATENUM
-	6,  // 10: productspb.GetByIDResponse.data:type_name -> productspb.Product
-	23, // 11: productspb.FindRequest.search:type_name -> google.protobuf.StringValue
-	23, // 12: productspb.FindRequest.category_id:type_name -> google.protobuf.StringValue
-	24, // 13: productspb.FindRequest.is_visible:type_name -> google.protobuf.BoolValue
-	5,  // 14: productspb.FindRequest.characteristics:type_name -> productspb.CharacteristicsFilter
-	6,  // 15: productspb.FindResponse.data:type_name -> productspb.Product
-	19, // 16: productspb.UpdateRequest.data:type_name -> productspb.UpdateRequest.Data
-	20, // 17: productspb.SetVisibleRequest.data:type_name -> productspb.SetVisibleRequest.Data
-	21, // 18: productspb.UpdateImagesRequest.data:type_name -> productspb.UpdateImagesRequest.Data
-	18, // 19: productspb.CharacteristicsFilter.NumericValue.values:type_name -> productspb.CharacteristicsFilter.NumericValue.Range
-	23, // 20: productspb.UpdateRequest.Data.name:type_name -> google.protobuf.StringValue
-	23, // 21: productspb.UpdateRequest.Data.category_id:type_name -> google.protobuf.StringValue
-	23, // 22: productspb.UpdateRequest.Data.description:type_name -> google.protobuf.StringValue
-	2,  // 23: productspb.UpdateRequest.Data.unit_of_measurement:type_name -> productspb.OptionalUnitOfMeasurementENUM
-	3,  // 24: productspb.UpdateRequest.Data.vat:type_name -> productspb.OptionalVATENUM
-	25, // 25: productspb.UpdateRequest.Data.old_price:type_name -> google.protobuf.DoubleValue
-	25, // 26: productspb.UpdateRequest.Data.discount_ratio:type_name -> google.protobuf.DoubleValue
-	4,  // 27: productspb.UpdateImagesRequest.Data.images:type_name -> productspb.ProductImage
-	7,  // 28: productspb.Products.Create:input_type -> productspb.CreateRequest
-	9,  // 29: productspb.Products.GetByID:input_type -> productspb.GetByIDRequest
-	11, // 30: productspb.Products.Find:input_type -> productspb.FindRequest
-	13, // 31: productspb.Products.Update:input_type -> productspb.UpdateRequest
-	14, // 32: productspb.Products.SetVisible:input_type -> productspb.SetVisibleRequest
-	15, // 33: productspb.Products.UpdateImages:input_type -> productspb.UpdateImagesRequest
-	8,  // 34: productspb.Products.Create:output_type -> productspb.CreateResponse
-	10, // 35: productspb.Products.GetByID:output_type -> productspb.GetByIDResponse
-	12, // 36: productspb.Products.Find:output_type -> productspb.FindResponse
-	26, // 37: productspb.Products.Update:output_type -> google.protobuf.Empty
-	26, // 38: productspb.Products.SetVisible:output_type -> google.protobuf.Empty
-	26, // 39: productspb.Products.UpdateImages:output_type -> google.protobuf.Empty
-	34, // [34:40] is the sub-list for method output_type
-	28, // [28:34] is the sub-list for method input_type
-	28, // [28:28] is the sub-list for extension type_name
-	28, // [28:28] is the sub-list for extension extendee
-	0,  // [0:28] is the sub-list for field type_name
+	7,  // 10: productspb.GetByIDResponse.data:type_name -> productspb.Product
+	29, // 11: productspb.FindRequest.search:type_name -> google.protobuf.StringValue
+	29, // 12: productspb.FindRequest.category_id:type_name -> google.protobuf.StringValue
+	30, // 13: productspb.FindRequest.is_visible:type_name -> google.protobuf.BoolValue
+	6,  // 14: productspb.FindRequest.characteristics:type_name -> productspb.CharacteristicsFilter
+	7,  // 15: productspb.FindResponse.data:type_name -> productspb.Product
+	24, // 16: productspb.UpdateRequest.data:type_name -> productspb.UpdateRequest.Data
+	25, // 17: productspb.SetVisibleRequest.data:type_name -> productspb.SetVisibleRequest.Data
+	26, // 18: productspb.UpdateImagesRequest.data:type_name -> productspb.UpdateImagesRequest.Data
+	2,  // 19: productspb.CreateCharacteristicRequest.values_type:type_name -> productspb.CharacteristicValuesTypeEnum
+	27, // 20: productspb.UpdateCharacteristicRequest.data:type_name -> productspb.UpdateCharacteristicRequest.Data
+	23, // 21: productspb.CharacteristicsFilter.NumericValue.values:type_name -> productspb.CharacteristicsFilter.NumericValue.Range
+	29, // 22: productspb.UpdateRequest.Data.name:type_name -> google.protobuf.StringValue
+	29, // 23: productspb.UpdateRequest.Data.category_id:type_name -> google.protobuf.StringValue
+	29, // 24: productspb.UpdateRequest.Data.description:type_name -> google.protobuf.StringValue
+	3,  // 25: productspb.UpdateRequest.Data.unit_of_measurement:type_name -> productspb.OptionalUnitOfMeasurementENUM
+	4,  // 26: productspb.UpdateRequest.Data.vat:type_name -> productspb.OptionalVATENUM
+	31, // 27: productspb.UpdateRequest.Data.old_price:type_name -> google.protobuf.DoubleValue
+	31, // 28: productspb.UpdateRequest.Data.discount_ratio:type_name -> google.protobuf.DoubleValue
+	5,  // 29: productspb.UpdateImagesRequest.Data.images:type_name -> productspb.ProductImage
+	29, // 30: productspb.UpdateCharacteristicRequest.Data.name:type_name -> google.protobuf.StringValue
+	8,  // 31: productspb.Products.Create:input_type -> productspb.CreateRequest
+	10, // 32: productspb.Products.GetByID:input_type -> productspb.GetByIDRequest
+	12, // 33: productspb.Products.Find:input_type -> productspb.FindRequest
+	14, // 34: productspb.Products.Update:input_type -> productspb.UpdateRequest
+	15, // 35: productspb.Products.SetVisible:input_type -> productspb.SetVisibleRequest
+	16, // 36: productspb.Products.UpdateImages:input_type -> productspb.UpdateImagesRequest
+	17, // 37: productspb.Products.CreateCharacteristic:input_type -> productspb.CreateCharacteristicRequest
+	20, // 38: productspb.Products.DeleteCharacteristic:input_type -> productspb.DeleteCharacteristicRequest
+	19, // 39: productspb.Products.UpdateCharacteristic:input_type -> productspb.UpdateCharacteristicRequest
+	9,  // 40: productspb.Products.Create:output_type -> productspb.CreateResponse
+	11, // 41: productspb.Products.GetByID:output_type -> productspb.GetByIDResponse
+	13, // 42: productspb.Products.Find:output_type -> productspb.FindResponse
+	32, // 43: productspb.Products.Update:output_type -> google.protobuf.Empty
+	32, // 44: productspb.Products.SetVisible:output_type -> google.protobuf.Empty
+	32, // 45: productspb.Products.UpdateImages:output_type -> google.protobuf.Empty
+	18, // 46: productspb.Products.CreateCharacteristic:output_type -> productspb.CreateCharacteristicResponse
+	32, // 47: productspb.Products.DeleteCharacteristic:output_type -> google.protobuf.Empty
+	32, // 48: productspb.Products.UpdateCharacteristic:output_type -> google.protobuf.Empty
+	40, // [40:49] is the sub-list for method output_type
+	31, // [31:40] is the sub-list for method input_type
+	31, // [31:31] is the sub-list for extension type_name
+	31, // [31:31] is the sub-list for extension extendee
+	0,  // [0:31] is the sub-list for field type_name
 }
 
 func init() { file_products_products_proto_init() }
@@ -1868,7 +2232,7 @@ func file_products_products_proto_init() {
 			}
 		}
 		file_products_products_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CharacteristicsFilter_TextValue); i {
+			switch v := v.(*CreateCharacteristicRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1880,7 +2244,7 @@ func file_products_products_proto_init() {
 			}
 		}
 		file_products_products_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CharacteristicsFilter_NumericValue); i {
+			switch v := v.(*CreateCharacteristicResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1892,7 +2256,7 @@ func file_products_products_proto_init() {
 			}
 		}
 		file_products_products_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CharacteristicsFilter_NumericValue_Range); i {
+			switch v := v.(*UpdateCharacteristicRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1904,7 +2268,7 @@ func file_products_products_proto_init() {
 			}
 		}
 		file_products_products_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateRequest_Data); i {
+			switch v := v.(*DeleteCharacteristicRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1916,7 +2280,7 @@ func file_products_products_proto_init() {
 			}
 		}
 		file_products_products_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetVisibleRequest_Data); i {
+			switch v := v.(*CharacteristicsFilter_TextValue); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1928,6 +2292,54 @@ func file_products_products_proto_init() {
 			}
 		}
 		file_products_products_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CharacteristicsFilter_NumericValue); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_products_products_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CharacteristicsFilter_NumericValue_Range); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_products_products_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateRequest_Data); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_products_products_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SetVisibleRequest_Data); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_products_products_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateImagesRequest_Data); i {
 			case 0:
 				return &v.state
@@ -1939,14 +2351,27 @@ func file_products_products_proto_init() {
 				return nil
 			}
 		}
+		file_products_products_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UpdateCharacteristicRequest_Data); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
+	file_products_products_proto_msgTypes[14].OneofWrappers = []interface{}{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_products_products_proto_rawDesc,
-			NumEnums:      2,
-			NumMessages:   20,
+			NumEnums:      3,
+			NumMessages:   25,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

@@ -3,23 +3,31 @@ syntax = "proto3";
 package productspb;
 
 import "google/protobuf/empty.proto";
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb";
 
 // Сервис товаров
 service Products {
-    rpc Create (CreateRequest) returns (CreateResponse);
-    rpc GetByID (GetByIDRequest) returns (GetByIDResponse);
-    rpc Find (FindRequest) returns (FindResponse);
-    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
-    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
-    rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty);
+    rpc Create (CreateRequest) returns (CreateResponse); // Создание товара
+    rpc GetByID (GetByIDRequest) returns (GetByIDResponse); // Получение товара по его ID
+    rpc Find (FindRequest) returns (FindResponse); // Поиск по товарам
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновление данных о товаре
+    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить значение флага видимости для товара
+    rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty); // Обновить изображения товара (Аналог PUT в REST)
 
-    // rpc MethodName (Request) returns (Response);
+    rpc CreateCharacteristic (CreateCharacteristicRequest) returns (CreateCharacteristicResponse); // Создать характеристику 
+    rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
+    rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
+    // rpc AddCharacteristicToProduct (Request) returns (Response); // Добавить характеристику к товару
+    // rpc DropCharacteristicFromProduct (Request) returns (Response); // Удалить характеристику у товара
+    // rpc UpdateCharacteristicOfProduct (Request) returns (Response); // Обновляет данные о характеристики у товара
+    // rpc GetProductCharacteristics (Request) returns (Response); // Получить список характеристик товара с джоином самих характеристик
+    // rpc AddCharacteristicToCategory (Request) returns (Response); // Добавить характеристику к категории
+    // rpc DropCharacteristicFromCategory (Request) returns (Response); // Удалить характеристику у категории
+    // rpc AvailableCharacteristics (Request) returns (Response); // Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
 }
-
 
 // Перечисление допустимых единиц измерения для товара
 enum UnitOfMeasurementENUM {  
@@ -92,6 +100,13 @@ message Product {
     bool is_visible = 10;
     google.protobuf.Timestamp updated_at = 11;
     repeated ProductImage images = 12;
+}
+
+// Перечисление возможных типов данных значений характеристики
+enum CharacteristicValuesTypeEnum {
+    UNSPECIFIED = 0;
+    TEXT = 1;
+    NUMERIC = 2;
 }
 
 
@@ -184,4 +199,38 @@ message UpdateImagesRequest {  // Реализует аналог PUT запро
 
     string id = 1; // ID of target product
     Data data = 2; // Data to update
+}
+
+
+// Создание характеристики
+
+
+message CreateCharacteristicRequest {
+    optional string name = 1;
+    CharacteristicValuesTypeEnum values_type = 2;
+}
+
+message CreateCharacteristicResponse {
+    string id = 1;
+}
+
+
+// Обновление данных о характеристике
+
+
+message UpdateCharacteristicRequest {
+    message Data {
+        google.protobuf.StringValue name = 1;
+    }
+
+    string id = 1;
+    Data data = 2;
+}
+
+
+// Удаление характеристики
+
+
+message DeleteCharacteristicRequest {
+    string id = 1;
 }

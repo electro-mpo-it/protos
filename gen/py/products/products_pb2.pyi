@@ -1,6 +1,6 @@
 from google.protobuf import empty_pb2 as _empty_pb2
-from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf import wrappers_pb2 as _wrappers_pb2
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
@@ -27,6 +27,12 @@ class VATENUM(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     NDS20: _ClassVar[VATENUM]
     NDS10: _ClassVar[VATENUM]
     NDS0: _ClassVar[VATENUM]
+
+class CharacteristicValuesTypeEnum(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    UNSPECIFIED: _ClassVar[CharacteristicValuesTypeEnum]
+    TEXT: _ClassVar[CharacteristicValuesTypeEnum]
+    NUMERIC: _ClassVar[CharacteristicValuesTypeEnum]
 PIECE: UnitOfMeasurementENUM
 PAIR: UnitOfMeasurementENUM
 LITER: UnitOfMeasurementENUM
@@ -40,6 +46,9 @@ CUBIC_METER: UnitOfMeasurementENUM
 NDS20: VATENUM
 NDS10: VATENUM
 NDS0: VATENUM
+UNSPECIFIED: CharacteristicValuesTypeEnum
+TEXT: CharacteristicValuesTypeEnum
+NUMERIC: CharacteristicValuesTypeEnum
 
 class OptionalUnitOfMeasurementENUM(_message.Message):
     __slots__ = ("value",)
@@ -225,3 +234,36 @@ class UpdateImagesRequest(_message.Message):
     id: str
     data: UpdateImagesRequest.Data
     def __init__(self, id: _Optional[str] = ..., data: _Optional[_Union[UpdateImagesRequest.Data, _Mapping]] = ...) -> None: ...
+
+class CreateCharacteristicRequest(_message.Message):
+    __slots__ = ("name", "values_type")
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    VALUES_TYPE_FIELD_NUMBER: _ClassVar[int]
+    name: str
+    values_type: CharacteristicValuesTypeEnum
+    def __init__(self, name: _Optional[str] = ..., values_type: _Optional[_Union[CharacteristicValuesTypeEnum, str]] = ...) -> None: ...
+
+class CreateCharacteristicResponse(_message.Message):
+    __slots__ = ("id",)
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    def __init__(self, id: _Optional[str] = ...) -> None: ...
+
+class UpdateCharacteristicRequest(_message.Message):
+    __slots__ = ("id", "data")
+    class Data(_message.Message):
+        __slots__ = ("name",)
+        NAME_FIELD_NUMBER: _ClassVar[int]
+        name: _wrappers_pb2.StringValue
+        def __init__(self, name: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ...) -> None: ...
+    ID_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    data: UpdateCharacteristicRequest.Data
+    def __init__(self, id: _Optional[str] = ..., data: _Optional[_Union[UpdateCharacteristicRequest.Data, _Mapping]] = ...) -> None: ...
+
+class DeleteCharacteristicRequest(_message.Message):
+    __slots__ = ("id",)
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    def __init__(self, id: _Optional[str] = ...) -> None: ...
