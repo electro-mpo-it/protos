@@ -17,9 +17,10 @@ service Products {
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить значение флага видимости для товара
     rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty); // Обновить изображения товара (Аналог PUT в REST)
 
-    rpc CreateCharacteristic (CreateCharacteristicRequest) returns (CreateCharacteristicResponse); // Создать характеристику 
-    rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
+    rpc CreateCharacteristic (CreateCharacteristicRequest) returns (CreateCharacteristicResponse); // Создать характеристику
+    rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
+    rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
     // rpc AddCharacteristicToProduct (Request) returns (Response); // Добавить характеристику к товару
     // rpc DropCharacteristicFromProduct (Request) returns (Response); // Удалить характеристику у товара
     // rpc UpdateCharacteristicOfProduct (Request) returns (Response); // Обновляет данные о характеристики у товара
@@ -66,6 +67,20 @@ message ProductImage {
     uint32 sort = 2;
 }
 
+
+// Перечисление возможных типов данных значений характеристики
+enum CharacteristicValuesTypeEnum {
+    TEXT = 0;
+    NUMERIC = 1;
+}
+
+// Характеристика
+message Characteristic {
+    string id = 1;
+    string name = 2;
+    CharacteristicValuesTypeEnum values_type = 3;
+}
+
 // Фильтр по характеристикам товара
 message CharacteristicsFilter {
     message TextValue {
@@ -100,13 +115,6 @@ message Product {
     bool is_visible = 10;
     google.protobuf.Timestamp updated_at = 11;
     repeated ProductImage images = 12;
-}
-
-// Перечисление возможных типов данных значений характеристики
-enum CharacteristicValuesTypeEnum {
-    UNSPECIFIED = 0;
-    TEXT = 1;
-    NUMERIC = 2;
 }
 
 
@@ -212,6 +220,19 @@ message CreateCharacteristicRequest {
 
 message CreateCharacteristicResponse {
     string id = 1;
+}
+
+
+// Поиск по характеристикам
+
+
+message FindCharacteristicsRequest {
+    uint32 limit = 1;                           // Required
+    google.protobuf.StringValue search = 2;     // If passed - applay full text search
+}
+
+message FindCharacteristicsResponse {
+    repeated Characteristic data = 1;
 }
 
 

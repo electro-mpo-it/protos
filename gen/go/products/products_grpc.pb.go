@@ -27,8 +27,9 @@ const (
 	Products_SetVisible_FullMethodName           = "/productspb.Products/SetVisible"
 	Products_UpdateImages_FullMethodName         = "/productspb.Products/UpdateImages"
 	Products_CreateCharacteristic_FullMethodName = "/productspb.Products/CreateCharacteristic"
-	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
+	Products_FindCharacteristics_FullMethodName  = "/productspb.Products/FindCharacteristics"
 	Products_UpdateCharacteristic_FullMethodName = "/productspb.Products/UpdateCharacteristic"
+	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
 )
 
 // ProductsClient is the client API for Products service.
@@ -42,8 +43,9 @@ type ProductsClient interface {
 	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CreateCharacteristic(ctx context.Context, in *CreateCharacteristicRequest, opts ...grpc.CallOption) (*CreateCharacteristicResponse, error)
-	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type productsClient struct {
@@ -117,9 +119,9 @@ func (c *productsClient) CreateCharacteristic(ctx context.Context, in *CreateCha
 	return out, nil
 }
 
-func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_DeleteCharacteristic_FullMethodName, in, out, opts...)
+func (c *productsClient) FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error) {
+	out := new(FindCharacteristicsResponse)
+	err := c.cc.Invoke(ctx, Products_FindCharacteristics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -129,6 +131,15 @@ func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCha
 func (c *productsClient) UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, Products_UpdateCharacteristic_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_DeleteCharacteristic_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -146,8 +157,9 @@ type ProductsServer interface {
 	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
 	UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error)
 	CreateCharacteristic(context.Context, *CreateCharacteristicRequest) (*CreateCharacteristicResponse, error)
-	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
+	FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
+	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -176,11 +188,14 @@ func (UnimplementedProductsServer) UpdateImages(context.Context, *UpdateImagesRe
 func (UnimplementedProductsServer) CreateCharacteristic(context.Context, *CreateCharacteristicRequest) (*CreateCharacteristicResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCharacteristic not implemented")
 }
-func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
+func (UnimplementedProductsServer) FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindCharacteristics not implemented")
 }
 func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateCharacteristic not implemented")
+}
+func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
 
@@ -321,20 +336,20 @@ func _Products_CreateCharacteristic_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteCharacteristicRequest)
+func _Products_FindCharacteristics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindCharacteristicsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).DeleteCharacteristic(ctx, in)
+		return srv.(ProductsServer).FindCharacteristics(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Products_DeleteCharacteristic_FullMethodName,
+		FullMethod: Products_FindCharacteristics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).DeleteCharacteristic(ctx, req.(*DeleteCharacteristicRequest))
+		return srv.(ProductsServer).FindCharacteristics(ctx, req.(*FindCharacteristicsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -353,6 +368,24 @@ func _Products_UpdateCharacteristic_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).UpdateCharacteristic(ctx, req.(*UpdateCharacteristicRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCharacteristicRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).DeleteCharacteristic(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_DeleteCharacteristic_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).DeleteCharacteristic(ctx, req.(*DeleteCharacteristicRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -393,12 +426,16 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Products_CreateCharacteristic_Handler,
 		},
 		{
-			MethodName: "DeleteCharacteristic",
-			Handler:    _Products_DeleteCharacteristic_Handler,
+			MethodName: "FindCharacteristics",
+			Handler:    _Products_FindCharacteristics_Handler,
 		},
 		{
 			MethodName: "UpdateCharacteristic",
 			Handler:    _Products_UpdateCharacteristic_Handler,
+		},
+		{
+			MethodName: "DeleteCharacteristic",
+			Handler:    _Products_DeleteCharacteristic_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

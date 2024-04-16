@@ -30,7 +30,6 @@ class VATENUM(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 
 class CharacteristicValuesTypeEnum(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
-    UNSPECIFIED: _ClassVar[CharacteristicValuesTypeEnum]
     TEXT: _ClassVar[CharacteristicValuesTypeEnum]
     NUMERIC: _ClassVar[CharacteristicValuesTypeEnum]
 PIECE: UnitOfMeasurementENUM
@@ -46,7 +45,6 @@ CUBIC_METER: UnitOfMeasurementENUM
 NDS20: VATENUM
 NDS10: VATENUM
 NDS0: VATENUM
-UNSPECIFIED: CharacteristicValuesTypeEnum
 TEXT: CharacteristicValuesTypeEnum
 NUMERIC: CharacteristicValuesTypeEnum
 
@@ -69,6 +67,16 @@ class ProductImage(_message.Message):
     image_url: str
     sort: int
     def __init__(self, image_url: _Optional[str] = ..., sort: _Optional[int] = ...) -> None: ...
+
+class Characteristic(_message.Message):
+    __slots__ = ("id", "name", "values_type")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    VALUES_TYPE_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    name: str
+    values_type: CharacteristicValuesTypeEnum
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., values_type: _Optional[_Union[CharacteristicValuesTypeEnum, str]] = ...) -> None: ...
 
 class CharacteristicsFilter(_message.Message):
     __slots__ = ("text_values", "numeric_values")
@@ -248,6 +256,20 @@ class CreateCharacteristicResponse(_message.Message):
     ID_FIELD_NUMBER: _ClassVar[int]
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
+
+class FindCharacteristicsRequest(_message.Message):
+    __slots__ = ("limit", "search")
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    SEARCH_FIELD_NUMBER: _ClassVar[int]
+    limit: int
+    search: _wrappers_pb2.StringValue
+    def __init__(self, limit: _Optional[int] = ..., search: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ...) -> None: ...
+
+class FindCharacteristicsResponse(_message.Message):
+    __slots__ = ("data",)
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[Characteristic]
+    def __init__(self, data: _Optional[_Iterable[_Union[Characteristic, _Mapping]]] = ...) -> None: ...
 
 class UpdateCharacteristicRequest(_message.Message):
     __slots__ = ("id", "data")
