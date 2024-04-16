@@ -78,6 +78,16 @@ class Characteristic(_message.Message):
     values_type: CharacteristicValuesTypeEnum
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., values_type: _Optional[_Union[CharacteristicValuesTypeEnum, str]] = ...) -> None: ...
 
+class ProductCharacteristic(_message.Message):
+    __slots__ = ("characteristic", "text_value", "numeric_value")
+    CHARACTERISTIC_FIELD_NUMBER: _ClassVar[int]
+    TEXT_VALUE_FIELD_NUMBER: _ClassVar[int]
+    NUMERIC_VALUE_FIELD_NUMBER: _ClassVar[int]
+    characteristic: Characteristic
+    text_value: str
+    numeric_value: float
+    def __init__(self, characteristic: _Optional[_Union[Characteristic, _Mapping]] = ..., text_value: _Optional[str] = ..., numeric_value: _Optional[float] = ...) -> None: ...
+
 class CharacteristicsFilter(_message.Message):
     __slots__ = ("text_values", "numeric_values")
     class TextValue(_message.Message):
@@ -289,3 +299,35 @@ class DeleteCharacteristicRequest(_message.Message):
     ID_FIELD_NUMBER: _ClassVar[int]
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
+
+class AddCharToProdRequest(_message.Message):
+    __slots__ = ("product_id", "characteristic_id", "text_value", "numeric_value")
+    PRODUCT_ID_FIELD_NUMBER: _ClassVar[int]
+    CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
+    TEXT_VALUE_FIELD_NUMBER: _ClassVar[int]
+    NUMERIC_VALUE_FIELD_NUMBER: _ClassVar[int]
+    product_id: str
+    characteristic_id: str
+    text_value: str
+    numeric_value: float
+    def __init__(self, product_id: _Optional[str] = ..., characteristic_id: _Optional[str] = ..., text_value: _Optional[str] = ..., numeric_value: _Optional[float] = ...) -> None: ...
+
+class RemoveCharFromProdRequest(_message.Message):
+    __slots__ = ("product_id", "characteristic_id")
+    PRODUCT_ID_FIELD_NUMBER: _ClassVar[int]
+    CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
+    product_id: str
+    characteristic_id: str
+    def __init__(self, product_id: _Optional[str] = ..., characteristic_id: _Optional[str] = ...) -> None: ...
+
+class GetProdCharsRequest(_message.Message):
+    __slots__ = ("product_id",)
+    PRODUCT_ID_FIELD_NUMBER: _ClassVar[int]
+    product_id: str
+    def __init__(self, product_id: _Optional[str] = ...) -> None: ...
+
+class GetProdCharsResponse(_message.Message):
+    __slots__ = ("data",)
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[ProductCharacteristic]
+    def __init__(self, data: _Optional[_Iterable[_Union[ProductCharacteristic, _Mapping]]] = ...) -> None: ...

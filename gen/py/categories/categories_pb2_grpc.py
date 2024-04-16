@@ -58,43 +58,50 @@ class CategoriesServicer(object):
     """
 
     def Create(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Создать категорию
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetById(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Получить категорию по её ID
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Find(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Поиск по категориям
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Update(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Обновить данные о категории
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SetVisible(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Установить флаг видимости категории
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def Delete(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Удалить категорию
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def SetSort(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Установить порядок сортировки категорий в рамках одного parent_id (Аналог PUT запроса в REST)
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')

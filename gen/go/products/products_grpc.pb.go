@@ -30,6 +30,9 @@ const (
 	Products_FindCharacteristics_FullMethodName  = "/productspb.Products/FindCharacteristics"
 	Products_UpdateCharacteristic_FullMethodName = "/productspb.Products/UpdateCharacteristic"
 	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
+	Products_AddCharToProd_FullMethodName        = "/productspb.Products/AddCharToProd"
+	Products_RemoveCharFromProd_FullMethodName   = "/productspb.Products/RemoveCharFromProd"
+	Products_GetProdChars_FullMethodName         = "/productspb.Products/GetProdChars"
 )
 
 // ProductsClient is the client API for Products service.
@@ -46,6 +49,9 @@ type ProductsClient interface {
 	FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddCharToProd(ctx context.Context, in *AddCharToProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	RemoveCharFromProd(ctx context.Context, in *RemoveCharFromProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetProdChars(ctx context.Context, in *GetProdCharsRequest, opts ...grpc.CallOption) (*GetProdCharsResponse, error)
 }
 
 type productsClient struct {
@@ -146,6 +152,33 @@ func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCha
 	return out, nil
 }
 
+func (c *productsClient) AddCharToProd(ctx context.Context, in *AddCharToProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_AddCharToProd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) RemoveCharFromProd(ctx context.Context, in *RemoveCharFromProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_RemoveCharFromProd_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) GetProdChars(ctx context.Context, in *GetProdCharsRequest, opts ...grpc.CallOption) (*GetProdCharsResponse, error) {
+	out := new(GetProdCharsResponse)
+	err := c.cc.Invoke(ctx, Products_GetProdChars_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServer is the server API for Products service.
 // All implementations must embed UnimplementedProductsServer
 // for forward compatibility
@@ -160,6 +193,9 @@ type ProductsServer interface {
 	FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
 	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
+	AddCharToProd(context.Context, *AddCharToProdRequest) (*emptypb.Empty, error)
+	RemoveCharFromProd(context.Context, *RemoveCharFromProdRequest) (*emptypb.Empty, error)
+	GetProdChars(context.Context, *GetProdCharsRequest) (*GetProdCharsResponse, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -196,6 +232,15 @@ func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *Update
 }
 func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
+}
+func (UnimplementedProductsServer) AddCharToProd(context.Context, *AddCharToProdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCharToProd not implemented")
+}
+func (UnimplementedProductsServer) RemoveCharFromProd(context.Context, *RemoveCharFromProdRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveCharFromProd not implemented")
+}
+func (UnimplementedProductsServer) GetProdChars(context.Context, *GetProdCharsRequest) (*GetProdCharsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProdChars not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
 
@@ -390,6 +435,60 @@ func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Products_AddCharToProd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddCharToProdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).AddCharToProd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_AddCharToProd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).AddCharToProd(ctx, req.(*AddCharToProdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_RemoveCharFromProd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveCharFromProdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).RemoveCharFromProd(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_RemoveCharFromProd_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).RemoveCharFromProd(ctx, req.(*RemoveCharFromProdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_GetProdChars_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProdCharsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).GetProdChars(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_GetProdChars_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).GetProdChars(ctx, req.(*GetProdCharsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Products_ServiceDesc is the grpc.ServiceDesc for Products service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -436,6 +535,18 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCharacteristic",
 			Handler:    _Products_DeleteCharacteristic_Handler,
+		},
+		{
+			MethodName: "AddCharToProd",
+			Handler:    _Products_AddCharToProd_Handler,
+		},
+		{
+			MethodName: "RemoveCharFromProd",
+			Handler:    _Products_RemoveCharFromProd_Handler,
+		},
+		{
+			MethodName: "GetProdChars",
+			Handler:    _Products_GetProdChars_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

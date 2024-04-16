@@ -66,6 +66,21 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.AddCharToProd = channel.unary_unary(
+                '/productspb.Products/AddCharToProd',
+                request_serializer=products_dot_products__pb2.AddCharToProdRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.RemoveCharFromProd = channel.unary_unary(
+                '/productspb.Products/RemoveCharFromProd',
+                request_serializer=products_dot_products__pb2.RemoveCharFromProdRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.GetProdChars = channel.unary_unary(
+                '/productspb.Products/GetProdChars',
+                request_serializer=products_dot_products__pb2.GetProdCharsRequest.SerializeToString,
+                response_deserializer=products_dot_products__pb2.GetProdCharsResponse.FromString,
+                )
 
 
 class ProductsServicer(object):
@@ -122,7 +137,8 @@ class ProductsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def FindCharacteristics(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Поиск по характеристикам
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -136,6 +152,27 @@ class ProductsServicer(object):
 
     def DeleteCharacteristic(self, request, context):
         """Удалить характеристику
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddCharToProd(self, request, context):
+        """Добавить характеристику к товару
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RemoveCharFromProd(self, request, context):
+        """Удалить характеристику у товара
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetProdChars(self, request, context):
+        """Получить список характеристик товара с джоином самих характеристик
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -193,6 +230,21 @@ def add_ProductsServicer_to_server(servicer, server):
                     servicer.DeleteCharacteristic,
                     request_deserializer=products_dot_products__pb2.DeleteCharacteristicRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddCharToProd': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddCharToProd,
+                    request_deserializer=products_dot_products__pb2.AddCharToProdRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'RemoveCharFromProd': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveCharFromProd,
+                    request_deserializer=products_dot_products__pb2.RemoveCharFromProdRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetProdChars': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProdChars,
+                    request_deserializer=products_dot_products__pb2.GetProdCharsRequest.FromString,
+                    response_serializer=products_dot_products__pb2.GetProdCharsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -372,5 +424,56 @@ class Products(object):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/DeleteCharacteristic',
             products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddCharToProd(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/AddCharToProd',
+            products_dot_products__pb2.AddCharToProdRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveCharFromProd(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/RemoveCharFromProd',
+            products_dot_products__pb2.RemoveCharFromProdRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetProdChars(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/GetProdChars',
+            products_dot_products__pb2.GetProdCharsRequest.SerializeToString,
+            products_dot_products__pb2.GetProdCharsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

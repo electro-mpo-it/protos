@@ -15,16 +15,19 @@ service Products {
     rpc Find (FindRequest) returns (FindResponse); // Поиск по товарам
     rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновление данных о товаре
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить значение флага видимости для товара
+
     rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty); // Обновить изображения товара (Аналог PUT в REST)
 
     rpc CreateCharacteristic (CreateCharacteristicRequest) returns (CreateCharacteristicResponse); // Создать характеристику
-    rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse);
+    rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse); // Поиск по характеристикам
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
-    // rpc AddCharacteristicToProduct (Request) returns (Response); // Добавить характеристику к товару
-    // rpc DropCharacteristicFromProduct (Request) returns (Response); // Удалить характеристику у товара
-    // rpc UpdateCharacteristicOfProduct (Request) returns (Response); // Обновляет данные о характеристики у товара
-    // rpc GetProductCharacteristics (Request) returns (Response); // Получить список характеристик товара с джоином самих характеристик
+
+    rpc AddCharToProd (AddCharToProdRequest) returns (google.protobuf.Empty); // Добавить характеристику к товару
+    rpc RemoveCharFromProd (RemoveCharFromProdRequest) returns (google.protobuf.Empty); // Удалить характеристику у товара
+    rpc GetProdChars (GetProdCharsRequest) returns (GetProdCharsResponse); // Получить список характеристик товара с джоином самих характеристик
+    // TODO: Метод обновления значения характеристики у товара
+
     // rpc AddCharacteristicToCategory (Request) returns (Response); // Добавить характеристику к категории
     // rpc DropCharacteristicFromCategory (Request) returns (Response); // Удалить характеристику у категории
     // rpc AvailableCharacteristics (Request) returns (Response); // Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
@@ -79,6 +82,16 @@ message Characteristic {
     string id = 1;
     string name = 2;
     CharacteristicValuesTypeEnum values_type = 3;
+}
+
+
+// Характеристика товара
+message ProductCharacteristic {
+    Characteristic characteristic = 1;
+    oneof value {
+        string text_value = 101;
+        double numeric_value = 102;
+    };
 }
 
 // Фильтр по характеристикам товара
@@ -254,4 +267,37 @@ message UpdateCharacteristicRequest {
 
 message DeleteCharacteristicRequest {
     string id = 1;
+}
+
+
+// Добавление характеристики к товару
+
+
+message AddCharToProdRequest {
+    string product_id = 1;
+    string characteristic_id = 2;
+    oneof value {
+        string text_value = 101;
+        double numeric_value = 102;
+    };
+}
+
+
+// Удалить характеристику товара
+
+
+message RemoveCharFromProdRequest {
+    string product_id = 1;
+    string characteristic_id = 2;
+}
+
+
+// Получить характеристики товара
+
+message GetProdCharsRequest {
+    string product_id = 1;
+}
+
+message GetProdCharsResponse {
+    repeated ProductCharacteristic data = 1;
 }

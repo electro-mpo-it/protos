@@ -13,13 +13,13 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/categories;categori
 
 // Сервис категорий
 service Categories {
-    rpc Create (CreateRequest) returns (CreateResponse);
-    rpc GetById (GetByIDRequest) returns (GetByIDResponse);
-    rpc Find (FindRequest) returns (FindResponse);
-    rpc Update (UpdateRequest) returns (google.protobuf.Empty);
-    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty);
-    rpc Delete (DeleteRequest) returns (google.protobuf.Empty);
-    rpc SetSort (SetSortRequest) returns (google.protobuf.Empty);
+    rpc Create (CreateRequest) returns (CreateResponse); // Создать категорию
+    rpc GetById (GetByIDRequest) returns (GetByIDResponse); // Получить категорию по её ID
+    rpc Find (FindRequest) returns (FindResponse); // Поиск по категориям
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновить данные о категории
+    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить флаг видимости категории
+    rpc Delete (DeleteRequest) returns (google.protobuf.Empty); // Удалить категорию
+    rpc SetSort (SetSortRequest) returns (google.protobuf.Empty); // Установить порядок сортировки категорий в рамках одного parent_id (Аналог PUT запроса в REST)
 }
 
 message Category {
