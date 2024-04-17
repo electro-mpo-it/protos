@@ -23,7 +23,7 @@ service Products {
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
 
-    rpc AddCharsToProd (AddCharsToProdRequest) returns (google.protobuf.Empty); // Добавить характеристику к товару
+    rpc AddCharToProd (AddCharToProdRequest) returns (google.protobuf.Empty); // Добавить характеристику к товару
     rpc RemoveCharFromProd (RemoveCharFromProdRequest) returns (google.protobuf.Empty); // Удалить характеристику у товара
     rpc GetProdChars (GetProdCharsRequest) returns (GetProdCharsResponse); // Получить список характеристик товара с джоином самих характеристик
     // TODO: Метод обновления значения характеристики у товара
@@ -273,17 +273,13 @@ message DeleteCharacteristicRequest {
 // Добавление характеристики к товару
 
 
-message AddCharsToProdRequest {
-    message Data {
-        string characteristic_id = 1;
-        oneof value {
-            string text_value = 101;
-            double numeric_value = 102;
-        };
-    }
-
+message AddCharToProdRequest {
     string product_id = 1;
-    repeated Data data = 2;
+    string characteristic_id = 2;
+    oneof value {
+        string text_value = 101;
+        double numeric_value = 102;
+    };
 }
 
 
