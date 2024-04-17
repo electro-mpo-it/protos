@@ -300,17 +300,22 @@ class DeleteCharacteristicRequest(_message.Message):
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
 
-class AddCharToProdRequest(_message.Message):
-    __slots__ = ("product_id", "characteristic_id", "text_value", "numeric_value")
+class AddCharsToProdRequest(_message.Message):
+    __slots__ = ("product_id", "data")
+    class Data(_message.Message):
+        __slots__ = ("characteristic_id", "text_value", "numeric_value")
+        CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
+        TEXT_VALUE_FIELD_NUMBER: _ClassVar[int]
+        NUMERIC_VALUE_FIELD_NUMBER: _ClassVar[int]
+        characteristic_id: str
+        text_value: str
+        numeric_value: float
+        def __init__(self, characteristic_id: _Optional[str] = ..., text_value: _Optional[str] = ..., numeric_value: _Optional[float] = ...) -> None: ...
     PRODUCT_ID_FIELD_NUMBER: _ClassVar[int]
-    CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
-    TEXT_VALUE_FIELD_NUMBER: _ClassVar[int]
-    NUMERIC_VALUE_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
     product_id: str
-    characteristic_id: str
-    text_value: str
-    numeric_value: float
-    def __init__(self, product_id: _Optional[str] = ..., characteristic_id: _Optional[str] = ..., text_value: _Optional[str] = ..., numeric_value: _Optional[float] = ...) -> None: ...
+    data: _containers.RepeatedCompositeFieldContainer[AddCharsToProdRequest.Data]
+    def __init__(self, product_id: _Optional[str] = ..., data: _Optional[_Iterable[_Union[AddCharsToProdRequest.Data, _Mapping]]] = ...) -> None: ...
 
 class RemoveCharFromProdRequest(_message.Message):
     __slots__ = ("product_id", "characteristic_id")
