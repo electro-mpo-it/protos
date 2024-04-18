@@ -81,6 +81,11 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.GetProdCharsRequest.SerializeToString,
                 response_deserializer=products_dot_products__pb2.GetProdCharsResponse.FromString,
                 )
+        self.ApplyFilters = channel.unary_unary(
+                '/productspb.Products/ApplyFilters',
+                request_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
+                response_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
+                )
 
 
 class ProductsServicer(object):
@@ -178,6 +183,18 @@ class ProductsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def ApplyFilters(self, request, context):
+        """TODO: Метод обновления значения характеристики у товара
+
+        rpc AddCharacteristicToCategory (Request) returns (Response); // Добавить характеристику к категории
+        rpc DropCharacteristicFromCategory (Request) returns (Response); // Удалить характеристику у категории
+
+        Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ProductsServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -245,6 +262,11 @@ def add_ProductsServicer_to_server(servicer, server):
                     servicer.GetProdChars,
                     request_deserializer=products_dot_products__pb2.GetProdCharsRequest.FromString,
                     response_serializer=products_dot_products__pb2.GetProdCharsResponse.SerializeToString,
+            ),
+            'ApplyFilters': grpc.unary_unary_rpc_method_handler(
+                    servicer.ApplyFilters,
+                    request_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
+                    response_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -475,5 +497,22 @@ class Products(object):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/GetProdChars',
             products_dot_products__pb2.GetProdCharsRequest.SerializeToString,
             products_dot_products__pb2.GetProdCharsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ApplyFilters(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/ApplyFilters',
+            products_dot_products__pb2.ProductsFilter.SerializeToString,
+            products_dot_products__pb2.ProductsFilter.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

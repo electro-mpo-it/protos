@@ -88,6 +88,13 @@ class ProductCharacteristic(_message.Message):
     numeric_value: float
     def __init__(self, characteristic: _Optional[_Union[Characteristic, _Mapping]] = ..., text_value: _Optional[str] = ..., numeric_value: _Optional[float] = ...) -> None: ...
 
+class Range(_message.Message):
+    __slots__ = ("to",)
+    FROM_FIELD_NUMBER: _ClassVar[int]
+    TO_FIELD_NUMBER: _ClassVar[int]
+    to: float
+    def __init__(self, to: _Optional[float] = ..., **kwargs) -> None: ...
+
 class CharacteristicsFilter(_message.Message):
     __slots__ = ("text_values", "numeric_values")
     class TextValue(_message.Message):
@@ -99,22 +106,34 @@ class CharacteristicsFilter(_message.Message):
         def __init__(self, id: _Optional[str] = ..., values: _Optional[_Iterable[str]] = ...) -> None: ...
     class NumericValue(_message.Message):
         __slots__ = ("id", "values")
-        class Range(_message.Message):
-            __slots__ = ("to",)
-            FROM_FIELD_NUMBER: _ClassVar[int]
-            TO_FIELD_NUMBER: _ClassVar[int]
-            to: float
-            def __init__(self, to: _Optional[float] = ..., **kwargs) -> None: ...
         ID_FIELD_NUMBER: _ClassVar[int]
         VALUES_FIELD_NUMBER: _ClassVar[int]
         id: str
-        values: CharacteristicsFilter.NumericValue.Range
-        def __init__(self, id: _Optional[str] = ..., values: _Optional[_Union[CharacteristicsFilter.NumericValue.Range, _Mapping]] = ...) -> None: ...
+        values: Range
+        def __init__(self, id: _Optional[str] = ..., values: _Optional[_Union[Range, _Mapping]] = ...) -> None: ...
     TEXT_VALUES_FIELD_NUMBER: _ClassVar[int]
     NUMERIC_VALUES_FIELD_NUMBER: _ClassVar[int]
     text_values: _containers.RepeatedCompositeFieldContainer[CharacteristicsFilter.TextValue]
     numeric_values: _containers.RepeatedCompositeFieldContainer[CharacteristicsFilter.NumericValue]
     def __init__(self, text_values: _Optional[_Iterable[_Union[CharacteristicsFilter.TextValue, _Mapping]]] = ..., numeric_values: _Optional[_Iterable[_Union[CharacteristicsFilter.NumericValue, _Mapping]]] = ...) -> None: ...
+
+class ProductsFilter(_message.Message):
+    __slots__ = ("limit", "offset", "search", "price", "category_id", "characteristics", "is_visible")
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    OFFSET_FIELD_NUMBER: _ClassVar[int]
+    SEARCH_FIELD_NUMBER: _ClassVar[int]
+    PRICE_FIELD_NUMBER: _ClassVar[int]
+    CATEGORY_ID_FIELD_NUMBER: _ClassVar[int]
+    CHARACTERISTICS_FIELD_NUMBER: _ClassVar[int]
+    IS_VISIBLE_FIELD_NUMBER: _ClassVar[int]
+    limit: int
+    offset: int
+    search: str
+    price: Range
+    category_id: _wrappers_pb2.StringValue
+    characteristics: CharacteristicsFilter
+    is_visible: _wrappers_pb2.BoolValue
+    def __init__(self, limit: _Optional[int] = ..., offset: _Optional[int] = ..., search: _Optional[str] = ..., price: _Optional[_Union[Range, _Mapping]] = ..., category_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., characteristics: _Optional[_Union[CharacteristicsFilter, _Mapping]] = ..., is_visible: _Optional[_Union[_wrappers_pb2.BoolValue, _Mapping]] = ...) -> None: ...
 
 class Product(_message.Message):
     __slots__ = ("id", "name", "category_id", "description", "unit_of_measurement", "vat", "old_price", "discount_ratio", "price", "is_visible", "updated_at", "images")

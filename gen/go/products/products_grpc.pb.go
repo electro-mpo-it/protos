@@ -33,6 +33,7 @@ const (
 	Products_AddCharToProd_FullMethodName        = "/productspb.Products/AddCharToProd"
 	Products_RemoveCharFromProd_FullMethodName   = "/productspb.Products/RemoveCharFromProd"
 	Products_GetProdChars_FullMethodName         = "/productspb.Products/GetProdChars"
+	Products_ApplyFilters_FullMethodName         = "/productspb.Products/ApplyFilters"
 )
 
 // ProductsClient is the client API for Products service.
@@ -52,6 +53,7 @@ type ProductsClient interface {
 	AddCharToProd(ctx context.Context, in *AddCharToProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	RemoveCharFromProd(ctx context.Context, in *RemoveCharFromProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetProdChars(ctx context.Context, in *GetProdCharsRequest, opts ...grpc.CallOption) (*GetProdCharsResponse, error)
+	ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*ProductsFilter, error)
 }
 
 type productsClient struct {
@@ -179,6 +181,15 @@ func (c *productsClient) GetProdChars(ctx context.Context, in *GetProdCharsReque
 	return out, nil
 }
 
+func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*ProductsFilter, error) {
+	out := new(ProductsFilter)
+	err := c.cc.Invoke(ctx, Products_ApplyFilters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServer is the server API for Products service.
 // All implementations must embed UnimplementedProductsServer
 // for forward compatibility
@@ -196,6 +207,7 @@ type ProductsServer interface {
 	AddCharToProd(context.Context, *AddCharToProdRequest) (*emptypb.Empty, error)
 	RemoveCharFromProd(context.Context, *RemoveCharFromProdRequest) (*emptypb.Empty, error)
 	GetProdChars(context.Context, *GetProdCharsRequest) (*GetProdCharsResponse, error)
+	ApplyFilters(context.Context, *ProductsFilter) (*ProductsFilter, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -241,6 +253,9 @@ func (UnimplementedProductsServer) RemoveCharFromProd(context.Context, *RemoveCh
 }
 func (UnimplementedProductsServer) GetProdChars(context.Context, *GetProdCharsRequest) (*GetProdCharsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProdChars not implemented")
+}
+func (UnimplementedProductsServer) ApplyFilters(context.Context, *ProductsFilter) (*ProductsFilter, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApplyFilters not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
 
@@ -489,6 +504,24 @@ func _Products_GetProdChars_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Products_ApplyFilters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductsFilter)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).ApplyFilters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_ApplyFilters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).ApplyFilters(ctx, req.(*ProductsFilter))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Products_ServiceDesc is the grpc.ServiceDesc for Products service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -547,6 +580,10 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProdChars",
 			Handler:    _Products_GetProdChars_Handler,
+		},
+		{
+			MethodName: "ApplyFilters",
+			Handler:    _Products_ApplyFilters_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

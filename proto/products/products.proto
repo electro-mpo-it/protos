@@ -30,7 +30,8 @@ service Products {
 
     // rpc AddCharacteristicToCategory (Request) returns (Response); // Добавить характеристику к категории
     // rpc DropCharacteristicFromCategory (Request) returns (Response); // Удалить характеристику у категории
-    // rpc AvailableCharacteristics (Request) returns (Response); // Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
+
+    rpc ApplyFilters (ProductsFilter) returns (ProductsFilter); // Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
 }
 
 // Перечисление допустимых единиц измерения для товара
@@ -94,24 +95,39 @@ message ProductCharacteristic {
     };
 }
 
+
+// --- Фильтрация ---
+
+
+message Range {
+    double from = 1;
+    double to = 2;
+}
+
 // Фильтр по характеристикам товара
 message CharacteristicsFilter {
     message TextValue {
         string id = 1;
         repeated string values = 2;
     }
-    message NumericValue {
-        message Range {
-            double from = 1;
-            double to = 2;
-        }
 
+    message NumericValue {
         string id = 1;
         Range values = 2;
     }
 
     repeated TextValue text_values = 1;
     repeated NumericValue numeric_values = 2;
+}
+
+message ProductsFilter {
+    uint32 limit = 1;
+    uint64 offset = 2;
+    string search = 3;
+    Range price = 4;
+    google.protobuf.StringValue category_id = 5;
+    CharacteristicsFilter characteristics = 6;
+    google.protobuf.BoolValue is_visible = 7;
 }
 
 // Репрезентация товара с всеми полями
