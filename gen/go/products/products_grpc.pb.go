@@ -42,7 +42,7 @@ const (
 type ProductsClient interface {
 	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 	GetByID(ctx context.Context, in *GetByIDRequest, opts ...grpc.CallOption) (*GetByIDResponse, error)
-	Find(ctx context.Context, in *FindRequest, opts ...grpc.CallOption) (*FindResponse, error)
+	Find(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*FindResponse, error)
 	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -82,7 +82,7 @@ func (c *productsClient) GetByID(ctx context.Context, in *GetByIDRequest, opts .
 	return out, nil
 }
 
-func (c *productsClient) Find(ctx context.Context, in *FindRequest, opts ...grpc.CallOption) (*FindResponse, error) {
+func (c *productsClient) Find(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*FindResponse, error) {
 	out := new(FindResponse)
 	err := c.cc.Invoke(ctx, Products_Find_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -196,7 +196,7 @@ func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilter, o
 type ProductsServer interface {
 	Create(context.Context, *CreateRequest) (*CreateResponse, error)
 	GetByID(context.Context, *GetByIDRequest) (*GetByIDResponse, error)
-	Find(context.Context, *FindRequest) (*FindResponse, error)
+	Find(context.Context, *ProductsFilter) (*FindResponse, error)
 	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
 	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
 	UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error)
@@ -221,7 +221,7 @@ func (UnimplementedProductsServer) Create(context.Context, *CreateRequest) (*Cre
 func (UnimplementedProductsServer) GetByID(context.Context, *GetByIDRequest) (*GetByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetByID not implemented")
 }
-func (UnimplementedProductsServer) Find(context.Context, *FindRequest) (*FindResponse, error) {
+func (UnimplementedProductsServer) Find(context.Context, *ProductsFilter) (*FindResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Find not implemented")
 }
 func (UnimplementedProductsServer) Update(context.Context, *UpdateRequest) (*emptypb.Empty, error) {
@@ -307,7 +307,7 @@ func _Products_GetByID_Handler(srv interface{}, ctx context.Context, dec func(in
 }
 
 func _Products_Find_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FindRequest)
+	in := new(ProductsFilter)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -319,7 +319,7 @@ func _Products_Find_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: Products_Find_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).Find(ctx, req.(*FindRequest))
+		return srv.(ProductsServer).Find(ctx, req.(*ProductsFilter))
 	}
 	return interceptor(ctx, in, info, handler)
 }

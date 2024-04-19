@@ -28,7 +28,7 @@ class ProductsStub(object):
                 )
         self.Find = channel.unary_unary(
                 '/productspb.Products/Find',
-                request_serializer=products_dot_products__pb2.FindRequest.SerializeToString,
+                request_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
                 response_deserializer=products_dot_products__pb2.FindResponse.FromString,
                 )
         self.Update = channel.unary_unary(
@@ -210,7 +210,7 @@ def add_ProductsServicer_to_server(servicer, server):
             ),
             'Find': grpc.unary_unary_rpc_method_handler(
                     servicer.Find,
-                    request_deserializer=products_dot_products__pb2.FindRequest.FromString,
+                    request_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
                     response_serializer=products_dot_products__pb2.FindResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
@@ -325,7 +325,7 @@ class Products(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/Find',
-            products_dot_products__pb2.FindRequest.SerializeToString,
+            products_dot_products__pb2.ProductsFilter.SerializeToString,
             products_dot_products__pb2.FindResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

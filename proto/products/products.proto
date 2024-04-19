@@ -12,7 +12,7 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb
 service Products {
     rpc Create (CreateRequest) returns (CreateResponse); // Создание товара
     rpc GetByID (GetByIDRequest) returns (GetByIDResponse); // Получение товара по его ID
-    rpc Find (FindRequest) returns (FindResponse); // Поиск по товарам
+    rpc Find (ProductsFilter) returns (FindResponse); // Поиск по товарам
     rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновление данных о товаре
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить значение флага видимости для товара
 
@@ -179,15 +179,6 @@ message GetByIDResponse {
 
 // Поиск по товарам
 
-
-message FindRequest {
-    uint32 limit = 1;                               // Required
-    uint64 offset = 2;                              // Required (0 is valid)
-    google.protobuf.StringValue search = 3;         // If passed - search by string
-    google.protobuf.StringValue category_id = 4;    // If passed - result set will contains products in this category
-    google.protobuf.BoolValue is_visible = 5;       // If passed - result set wil contains products with visible flag is <value>
-    CharacteristicsFilter characteristics = 6;      // If passed - every product will contains id of characteristic and one of passed values
-}
 
 message FindResponse {
     repeated Product data = 1;

@@ -199,22 +199,6 @@ class GetByIDResponse(_message.Message):
     data: Product
     def __init__(self, data: _Optional[_Union[Product, _Mapping]] = ...) -> None: ...
 
-class FindRequest(_message.Message):
-    __slots__ = ("limit", "offset", "search", "category_id", "is_visible", "characteristics")
-    LIMIT_FIELD_NUMBER: _ClassVar[int]
-    OFFSET_FIELD_NUMBER: _ClassVar[int]
-    SEARCH_FIELD_NUMBER: _ClassVar[int]
-    CATEGORY_ID_FIELD_NUMBER: _ClassVar[int]
-    IS_VISIBLE_FIELD_NUMBER: _ClassVar[int]
-    CHARACTERISTICS_FIELD_NUMBER: _ClassVar[int]
-    limit: int
-    offset: int
-    search: _wrappers_pb2.StringValue
-    category_id: _wrappers_pb2.StringValue
-    is_visible: _wrappers_pb2.BoolValue
-    characteristics: CharacteristicsFilter
-    def __init__(self, limit: _Optional[int] = ..., offset: _Optional[int] = ..., search: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., category_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., is_visible: _Optional[_Union[_wrappers_pb2.BoolValue, _Mapping]] = ..., characteristics: _Optional[_Union[CharacteristicsFilter, _Mapping]] = ...) -> None: ...
-
 class FindResponse(_message.Message):
     __slots__ = ("data",)
     DATA_FIELD_NUMBER: _ClassVar[int]
