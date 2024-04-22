@@ -271,12 +271,14 @@ class CreateCharacteristicResponse(_message.Message):
     def __init__(self, id: _Optional[str] = ...) -> None: ...
 
 class FindCharacteristicsRequest(_message.Message):
-    __slots__ = ("limit", "search")
+    __slots__ = ("limit", "search", "ids")
     LIMIT_FIELD_NUMBER: _ClassVar[int]
     SEARCH_FIELD_NUMBER: _ClassVar[int]
+    IDS_FIELD_NUMBER: _ClassVar[int]
     limit: int
     search: _wrappers_pb2.StringValue
-    def __init__(self, limit: _Optional[int] = ..., search: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ...) -> None: ...
+    ids: _containers.RepeatedScalarFieldContainer[str]
+    def __init__(self, limit: _Optional[int] = ..., search: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., ids: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class FindCharacteristicsResponse(_message.Message):
     __slots__ = ("data",)

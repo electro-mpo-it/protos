@@ -248,7 +248,8 @@ message CreateCharacteristicResponse {
 
 message FindCharacteristicsRequest {
     uint32 limit = 1;                           // Required
-    google.protobuf.StringValue search = 2;     // If passed - applay full text search
+    google.protobuf.StringValue search = 2;     // If passed - apply full text search
+    repeated string ids = 3;                    // If passed 1 or more id - returns ids in this list. Length depends on limit
 }
 
 message FindCharacteristicsResponse {
