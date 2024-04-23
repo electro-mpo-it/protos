@@ -10,13 +10,14 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class Category(_message.Message):
-    __slots__ = ("id", "name", "parent_id", "image_url", "is_visible", "has_childs", "sort", "created_at", "updated_at")
+    __slots__ = ("id", "name", "parent_id", "image_url", "is_visible", "has_childs", "count_products", "sort", "created_at", "updated_at")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     PARENT_ID_FIELD_NUMBER: _ClassVar[int]
     IMAGE_URL_FIELD_NUMBER: _ClassVar[int]
     IS_VISIBLE_FIELD_NUMBER: _ClassVar[int]
     HAS_CHILDS_FIELD_NUMBER: _ClassVar[int]
+    COUNT_PRODUCTS_FIELD_NUMBER: _ClassVar[int]
     SORT_FIELD_NUMBER: _ClassVar[int]
     CREATED_AT_FIELD_NUMBER: _ClassVar[int]
     UPDATED_AT_FIELD_NUMBER: _ClassVar[int]
@@ -26,10 +27,11 @@ class Category(_message.Message):
     image_url: str
     is_visible: bool
     has_childs: bool
+    count_products: int
     sort: int
     created_at: _timestamp_pb2.Timestamp
     updated_at: _timestamp_pb2.Timestamp
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., image_url: _Optional[str] = ..., is_visible: bool = ..., has_childs: bool = ..., sort: _Optional[int] = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., parent_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., image_url: _Optional[str] = ..., is_visible: bool = ..., has_childs: bool = ..., count_products: _Optional[int] = ..., sort: _Optional[int] = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
 
 class CreateRequest(_message.Message):
     __slots__ = ("name", "parent_id", "image_url")

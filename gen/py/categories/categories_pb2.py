@@ -18,7 +18,7 @@ from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb
 from google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63\x61tegories/categories.proto\x12\x0c\x63\x61tegoriespb\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1cgoogle/protobuf/struct.proto\"\xfe\x01\n\x08\x43\x61tegory\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12/\n\tparent_id\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x11\n\timage_url\x18\x04 \x01(\t\x12\x12\n\nis_visible\x18\x05 \x01(\x08\x12\x12\n\nhas_childs\x18\x06 \x01(\x08\x12\x0c\n\x04sort\x18\x07 \x01(\x03\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nupdated_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"a\n\rCreateRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12/\n\tparent_id\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x11\n\timage_url\x18\x03 \x01(\t\"\x1c\n\x0e\x43reateResponse\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\x0eGetByIDRequest\x12\n\n\x02id\x18\x01 \x01(\t\"7\n\x0fGetByIDResponse\x12$\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x16.categoriespb.Category\"\x9c\x01\n\x0b\x46indRequest\x12,\n\x06search\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\tparent_id\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12.\n\nis_visible\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.BoolValue\"4\n\x0c\x46indResponse\x12$\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x16.categoriespb.Category\"\xe2\x01\n\rUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12.\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32 .categoriespb.UpdateRequest.Data\x1a\x94\x01\n\x04\x44\x61ta\x12*\n\x04name\x18\x01 \x01(\x0b\x32\x1c.categoriespb.NullNullString\x12/\n\tparent_id\x18\x02 \x01(\x0b\x32\x1c.categoriespb.NullNullString\x12/\n\timage_url\x18\x03 \x01(\x0b\x32\x1c.categoriespb.NullNullString\"o\n\x11SetVisibleRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x32\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32$.categoriespb.SetVisibleRequest.Data\x1a\x1a\n\x04\x44\x61ta\x12\x12\n\nis_visible\x18\x01 \x01(\x08\"\x1b\n\rDeleteRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x94\x01\n\x0eSetSortRequest\x12/\n\tparent_id\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.categoriespb.SetSortRequest.Sort\x1a \n\x04Sort\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04sort\x18\x02 \x01(\x03\"[\n\x0eNullNullString\x12\x30\n\nnull_value\x18\x01 \x01(\x0e\x32\x1a.google.protobuf.NullValueH\x00\x12\x0f\n\x05value\x18\x02 \x01(\tH\x00\x42\x06\n\x04kind2\xde\x03\n\nCategories\x12\x43\n\x06\x43reate\x12\x1b.categoriespb.CreateRequest\x1a\x1c.categoriespb.CreateResponse\x12\x46\n\x07GetById\x12\x1c.categoriespb.GetByIDRequest\x1a\x1d.categoriespb.GetByIDResponse\x12=\n\x04\x46ind\x12\x19.categoriespb.FindRequest\x1a\x1a.categoriespb.FindResponse\x12=\n\x06Update\x12\x1b.categoriespb.UpdateRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\nSetVisible\x12\x1f.categoriespb.SetVisibleRequest\x1a\x16.google.protobuf.Empty\x12=\n\x06\x44\x65lete\x12\x1b.categoriespb.DeleteRequest\x1a\x16.google.protobuf.Empty\x12?\n\x07SetSort\x12\x1c.categoriespb.SetSortRequest\x1a\x16.google.protobuf.EmptyBAZ?github.com/electro-mpo-it/protos/gen/go/categories;categoriespbb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x63\x61tegories/categories.proto\x12\x0c\x63\x61tegoriespb\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1cgoogle/protobuf/struct.proto\"\x96\x02\n\x08\x43\x61tegory\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12/\n\tparent_id\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x11\n\timage_url\x18\x04 \x01(\t\x12\x12\n\nis_visible\x18\x05 \x01(\x08\x12\x12\n\nhas_childs\x18\x06 \x01(\x08\x12\x16\n\x0e\x63ount_products\x18\x07 \x01(\x03\x12\x0c\n\x04sort\x18\x08 \x01(\x03\x12.\n\ncreated_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nupdated_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"a\n\rCreateRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12/\n\tparent_id\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x11\n\timage_url\x18\x03 \x01(\t\"\x1c\n\x0e\x43reateResponse\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\x0eGetByIDRequest\x12\n\n\x02id\x18\x01 \x01(\t\"7\n\x0fGetByIDResponse\x12$\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\x16.categoriespb.Category\"\x9c\x01\n\x0b\x46indRequest\x12,\n\x06search\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\tparent_id\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12.\n\nis_visible\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.BoolValue\"4\n\x0c\x46indResponse\x12$\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x16.categoriespb.Category\"\xe2\x01\n\rUpdateRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12.\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32 .categoriespb.UpdateRequest.Data\x1a\x94\x01\n\x04\x44\x61ta\x12*\n\x04name\x18\x01 \x01(\x0b\x32\x1c.categoriespb.NullNullString\x12/\n\tparent_id\x18\x02 \x01(\x0b\x32\x1c.categoriespb.NullNullString\x12/\n\timage_url\x18\x03 \x01(\x0b\x32\x1c.categoriespb.NullNullString\"o\n\x11SetVisibleRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x32\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32$.categoriespb.SetVisibleRequest.Data\x1a\x1a\n\x04\x44\x61ta\x12\x12\n\nis_visible\x18\x01 \x01(\x08\"\x1b\n\rDeleteRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x94\x01\n\x0eSetSortRequest\x12/\n\tparent_id\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32!.categoriespb.SetSortRequest.Sort\x1a \n\x04Sort\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04sort\x18\x02 \x01(\x03\"[\n\x0eNullNullString\x12\x30\n\nnull_value\x18\x01 \x01(\x0e\x32\x1a.google.protobuf.NullValueH\x00\x12\x0f\n\x05value\x18\x02 \x01(\tH\x00\x42\x06\n\x04kind2\xde\x03\n\nCategories\x12\x43\n\x06\x43reate\x12\x1b.categoriespb.CreateRequest\x1a\x1c.categoriespb.CreateResponse\x12\x46\n\x07GetById\x12\x1c.categoriespb.GetByIDRequest\x1a\x1d.categoriespb.GetByIDResponse\x12=\n\x04\x46ind\x12\x19.categoriespb.FindRequest\x1a\x1a.categoriespb.FindResponse\x12=\n\x06Update\x12\x1b.categoriespb.UpdateRequest\x1a\x16.google.protobuf.Empty\x12\x45\n\nSetVisible\x12\x1f.categoriespb.SetVisibleRequest\x1a\x16.google.protobuf.Empty\x12=\n\x06\x44\x65lete\x12\x1b.categoriespb.DeleteRequest\x1a\x16.google.protobuf.Empty\x12?\n\x07SetSort\x12\x1c.categoriespb.SetSortRequest\x1a\x16.google.protobuf.EmptyBAZ?github.com/electro-mpo-it/protos/gen/go/categories;categoriespbb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -27,35 +27,35 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['DESCRIPTOR']._options = None
   _globals['DESCRIPTOR']._serialized_options = b'Z?github.com/electro-mpo-it/protos/gen/go/categories;categoriespb'
   _globals['_CATEGORY']._serialized_start=170
-  _globals['_CATEGORY']._serialized_end=424
-  _globals['_CREATEREQUEST']._serialized_start=426
-  _globals['_CREATEREQUEST']._serialized_end=523
-  _globals['_CREATERESPONSE']._serialized_start=525
-  _globals['_CREATERESPONSE']._serialized_end=553
-  _globals['_GETBYIDREQUEST']._serialized_start=555
-  _globals['_GETBYIDREQUEST']._serialized_end=583
-  _globals['_GETBYIDRESPONSE']._serialized_start=585
-  _globals['_GETBYIDRESPONSE']._serialized_end=640
-  _globals['_FINDREQUEST']._serialized_start=643
-  _globals['_FINDREQUEST']._serialized_end=799
-  _globals['_FINDRESPONSE']._serialized_start=801
-  _globals['_FINDRESPONSE']._serialized_end=853
-  _globals['_UPDATEREQUEST']._serialized_start=856
-  _globals['_UPDATEREQUEST']._serialized_end=1082
-  _globals['_UPDATEREQUEST_DATA']._serialized_start=934
-  _globals['_UPDATEREQUEST_DATA']._serialized_end=1082
-  _globals['_SETVISIBLEREQUEST']._serialized_start=1084
-  _globals['_SETVISIBLEREQUEST']._serialized_end=1195
-  _globals['_SETVISIBLEREQUEST_DATA']._serialized_start=1169
-  _globals['_SETVISIBLEREQUEST_DATA']._serialized_end=1195
-  _globals['_DELETEREQUEST']._serialized_start=1197
-  _globals['_DELETEREQUEST']._serialized_end=1224
-  _globals['_SETSORTREQUEST']._serialized_start=1227
-  _globals['_SETSORTREQUEST']._serialized_end=1375
-  _globals['_SETSORTREQUEST_SORT']._serialized_start=1343
-  _globals['_SETSORTREQUEST_SORT']._serialized_end=1375
-  _globals['_NULLNULLSTRING']._serialized_start=1377
-  _globals['_NULLNULLSTRING']._serialized_end=1468
-  _globals['_CATEGORIES']._serialized_start=1471
-  _globals['_CATEGORIES']._serialized_end=1949
+  _globals['_CATEGORY']._serialized_end=448
+  _globals['_CREATEREQUEST']._serialized_start=450
+  _globals['_CREATEREQUEST']._serialized_end=547
+  _globals['_CREATERESPONSE']._serialized_start=549
+  _globals['_CREATERESPONSE']._serialized_end=577
+  _globals['_GETBYIDREQUEST']._serialized_start=579
+  _globals['_GETBYIDREQUEST']._serialized_end=607
+  _globals['_GETBYIDRESPONSE']._serialized_start=609
+  _globals['_GETBYIDRESPONSE']._serialized_end=664
+  _globals['_FINDREQUEST']._serialized_start=667
+  _globals['_FINDREQUEST']._serialized_end=823
+  _globals['_FINDRESPONSE']._serialized_start=825
+  _globals['_FINDRESPONSE']._serialized_end=877
+  _globals['_UPDATEREQUEST']._serialized_start=880
+  _globals['_UPDATEREQUEST']._serialized_end=1106
+  _globals['_UPDATEREQUEST_DATA']._serialized_start=958
+  _globals['_UPDATEREQUEST_DATA']._serialized_end=1106
+  _globals['_SETVISIBLEREQUEST']._serialized_start=1108
+  _globals['_SETVISIBLEREQUEST']._serialized_end=1219
+  _globals['_SETVISIBLEREQUEST_DATA']._serialized_start=1193
+  _globals['_SETVISIBLEREQUEST_DATA']._serialized_end=1219
+  _globals['_DELETEREQUEST']._serialized_start=1221
+  _globals['_DELETEREQUEST']._serialized_end=1248
+  _globals['_SETSORTREQUEST']._serialized_start=1251
+  _globals['_SETSORTREQUEST']._serialized_end=1399
+  _globals['_SETSORTREQUEST_SORT']._serialized_start=1367
+  _globals['_SETSORTREQUEST_SORT']._serialized_end=1399
+  _globals['_NULLNULLSTRING']._serialized_start=1401
+  _globals['_NULLNULLSTRING']._serialized_end=1492
+  _globals['_CATEGORIES']._serialized_start=1495
+  _globals['_CATEGORIES']._serialized_end=1973
 # @@protoc_insertion_point(module_scope)

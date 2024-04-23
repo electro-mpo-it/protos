@@ -5,7 +5,6 @@ package categoriespb;
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
-// import "proto/types.proto";
 import "google/protobuf/struct.proto";
 
 option go_package = "github.com/electro-mpo-it/protos/gen/go/categories;categoriespb";
@@ -13,13 +12,13 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/categories;categori
 
 // Сервис категорий
 service Categories {
-    rpc Create (CreateRequest) returns (CreateResponse); // Создать категорию
-    rpc GetById (GetByIDRequest) returns (GetByIDResponse); // Получить категорию по её ID
-    rpc Find (FindRequest) returns (FindResponse); // Поиск по категориям
-    rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновить данные о категории
+    rpc Create (CreateRequest) returns (CreateResponse);                // Создать категорию
+    rpc GetById (GetByIDRequest) returns (GetByIDResponse);             // Получить категорию по её ID
+    rpc Find (FindRequest) returns (FindResponse);                      // Поиск по категориям
+    rpc Update (UpdateRequest) returns (google.protobuf.Empty);         // Обновить данные о категории
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить флаг видимости категории
-    rpc Delete (DeleteRequest) returns (google.protobuf.Empty); // Удалить категорию
-    rpc SetSort (SetSortRequest) returns (google.protobuf.Empty); // Установить порядок сортировки категорий в рамках одного parent_id (Аналог PUT запроса в REST)
+    rpc Delete (DeleteRequest) returns (google.protobuf.Empty);         // Удалить категорию
+    rpc SetSort (SetSortRequest) returns (google.protobuf.Empty);       // Установить порядок сортировки категорий в рамках одного parent_id (Аналог PUT запроса в REST)
 }
 
 message Category {
@@ -29,9 +28,10 @@ message Category {
     string image_url = 4;
     bool is_visible = 5;
     bool has_childs = 6;
-    int64 sort = 7;
-    google.protobuf.Timestamp created_at = 8; 
-    google.protobuf.Timestamp updated_at = 9; 
+    int64 count_products = 7;
+    int64 sort = 8;
+    google.protobuf.Timestamp created_at = 9; 
+    google.protobuf.Timestamp updated_at = 10; 
 }
 
 // Создание категории
@@ -108,7 +108,7 @@ message SetSortRequest {
     }
 
     google.protobuf.StringValue parent_id = 1;  // Допускается быть NULL (для корневых категорий)
-    repeated Sort data = 2;                    // Обязательно.
+    repeated Sort data = 2;                     // Обязательно.
 }
 
 
