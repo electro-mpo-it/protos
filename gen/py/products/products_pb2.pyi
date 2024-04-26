@@ -318,7 +318,7 @@ class AvailableFilters(_message.Message):
     def __init__(self, price: _Optional[_Union[Range, _Mapping]] = ..., characteristics: _Optional[_Union[CharacteristicsFilter, _Mapping]] = ...) -> None: ...
 
 class Product(_message.Message):
-    __slots__ = ("id", "name", "category_id", "description", "unit_of_measurement", "vat", "old_price", "discount_ratio", "price", "is_visible", "updated_at", "images")
+    __slots__ = ("id", "name", "category_id", "description", "unit_of_measurement", "vat", "old_price", "discount_ratio", "price", "is_visible", "updated_at", "images", "created_at")
     ID_FIELD_NUMBER: _ClassVar[int]
     NAME_FIELD_NUMBER: _ClassVar[int]
     CATEGORY_ID_FIELD_NUMBER: _ClassVar[int]
@@ -331,6 +331,7 @@ class Product(_message.Message):
     IS_VISIBLE_FIELD_NUMBER: _ClassVar[int]
     UPDATED_AT_FIELD_NUMBER: _ClassVar[int]
     IMAGES_FIELD_NUMBER: _ClassVar[int]
+    CREATED_AT_FIELD_NUMBER: _ClassVar[int]
     id: str
     name: str
     category_id: str
@@ -343,4 +344,5 @@ class Product(_message.Message):
     is_visible: bool
     updated_at: _timestamp_pb2.Timestamp
     images: _containers.RepeatedCompositeFieldContainer[ProductImage]
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., category_id: _Optional[str] = ..., description: _Optional[str] = ..., unit_of_measurement: _Optional[_Union[UnitOfMeasurementENUM, str]] = ..., vat: _Optional[_Union[VATENUM, str]] = ..., old_price: _Optional[float] = ..., discount_ratio: _Optional[float] = ..., price: _Optional[float] = ..., is_visible: bool = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., images: _Optional[_Iterable[_Union[ProductImage, _Mapping]]] = ...) -> None: ...
+    created_at: _timestamp_pb2.Timestamp
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., category_id: _Optional[str] = ..., description: _Optional[str] = ..., unit_of_measurement: _Optional[_Union[UnitOfMeasurementENUM, str]] = ..., vat: _Optional[_Union[VATENUM, str]] = ..., old_price: _Optional[float] = ..., discount_ratio: _Optional[float] = ..., price: _Optional[float] = ..., is_visible: bool = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., images: _Optional[_Iterable[_Union[ProductImage, _Mapping]]] = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...

@@ -294,4 +294,5 @@ message Product {
     bool is_visible = 10;
     google.protobuf.Timestamp updated_at = 11;
     repeated ProductImage images = 12;
+    google.protobuf.Timestamp created_at = 13;
 }
