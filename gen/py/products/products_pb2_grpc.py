@@ -66,25 +66,25 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.AddCharToProd = channel.unary_unary(
-                '/productspb.Products/AddCharToProd',
-                request_serializer=products_dot_products__pb2.AddCharToProdRequest.SerializeToString,
+        self.AddProductCharacteristic = channel.unary_unary(
+                '/productspb.Products/AddProductCharacteristic',
+                request_serializer=products_dot_products__pb2.AddProductCharacteristicRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.RemoveCharFromProd = channel.unary_unary(
-                '/productspb.Products/RemoveCharFromProd',
-                request_serializer=products_dot_products__pb2.RemoveCharFromProdRequest.SerializeToString,
+        self.RemoveProductCharacteristic = channel.unary_unary(
+                '/productspb.Products/RemoveProductCharacteristic',
+                request_serializer=products_dot_products__pb2.RemoveProductCharacteristicRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.GetProdChars = channel.unary_unary(
-                '/productspb.Products/GetProdChars',
-                request_serializer=products_dot_products__pb2.GetProdCharsRequest.SerializeToString,
-                response_deserializer=products_dot_products__pb2.GetProdCharsResponse.FromString,
+        self.GetProductCharacteristics = channel.unary_unary(
+                '/productspb.Products/GetProductCharacteristics',
+                request_serializer=products_dot_products__pb2.GetProductCharacteristicsRequest.SerializeToString,
+                response_deserializer=products_dot_products__pb2.GetProductCharacteristicsResponse.FromString,
                 )
         self.ApplyFilters = channel.unary_unary(
                 '/productspb.Products/ApplyFilters',
                 request_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
-                response_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
+                response_deserializer=products_dot_products__pb2.AvailableFilters.FromString,
                 )
 
 
@@ -162,21 +162,22 @@ class ProductsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AddCharToProd(self, request, context):
-        """Добавить характеристику к товару
+    def AddProductCharacteristic(self, request, context):
+        """FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
+        Добавить характеристику к товару
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def RemoveCharFromProd(self, request, context):
+    def RemoveProductCharacteristic(self, request, context):
         """Удалить характеристику у товара
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetProdChars(self, request, context):
+    def GetProductCharacteristics(self, request, context):
         """Получить список характеристик товара с джоином самих характеристик
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -186,10 +187,8 @@ class ProductsServicer(object):
     def ApplyFilters(self, request, context):
         """TODO: Метод обновления значения характеристики у товара
 
-        rpc AddCharacteristicToCategory (Request) returns (Response); // Добавить характеристику к категории
-        rpc DropCharacteristicFromCategory (Request) returns (Response); // Удалить характеристику у категории
-
-        Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
+        FIX: Изменена структура response
+        <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -248,25 +247,25 @@ def add_ProductsServicer_to_server(servicer, server):
                     request_deserializer=products_dot_products__pb2.DeleteCharacteristicRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'AddCharToProd': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddCharToProd,
-                    request_deserializer=products_dot_products__pb2.AddCharToProdRequest.FromString,
+            'AddProductCharacteristic': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddProductCharacteristic,
+                    request_deserializer=products_dot_products__pb2.AddProductCharacteristicRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'RemoveCharFromProd': grpc.unary_unary_rpc_method_handler(
-                    servicer.RemoveCharFromProd,
-                    request_deserializer=products_dot_products__pb2.RemoveCharFromProdRequest.FromString,
+            'RemoveProductCharacteristic': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveProductCharacteristic,
+                    request_deserializer=products_dot_products__pb2.RemoveProductCharacteristicRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'GetProdChars': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetProdChars,
-                    request_deserializer=products_dot_products__pb2.GetProdCharsRequest.FromString,
-                    response_serializer=products_dot_products__pb2.GetProdCharsResponse.SerializeToString,
+            'GetProductCharacteristics': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProductCharacteristics,
+                    request_deserializer=products_dot_products__pb2.GetProductCharacteristicsRequest.FromString,
+                    response_serializer=products_dot_products__pb2.GetProductCharacteristicsResponse.SerializeToString,
             ),
             'ApplyFilters': grpc.unary_unary_rpc_method_handler(
                     servicer.ApplyFilters,
                     request_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
-                    response_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
+                    response_serializer=products_dot_products__pb2.AvailableFilters.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -450,7 +449,7 @@ class Products(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def AddCharToProd(request,
+    def AddProductCharacteristic(request,
             target,
             options=(),
             channel_credentials=None,
@@ -460,14 +459,14 @@ class Products(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/AddCharToProd',
-            products_dot_products__pb2.AddCharToProdRequest.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/AddProductCharacteristic',
+            products_dot_products__pb2.AddProductCharacteristicRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def RemoveCharFromProd(request,
+    def RemoveProductCharacteristic(request,
             target,
             options=(),
             channel_credentials=None,
@@ -477,14 +476,14 @@ class Products(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/RemoveCharFromProd',
-            products_dot_products__pb2.RemoveCharFromProdRequest.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/RemoveProductCharacteristic',
+            products_dot_products__pb2.RemoveProductCharacteristicRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetProdChars(request,
+    def GetProductCharacteristics(request,
             target,
             options=(),
             channel_credentials=None,
@@ -494,9 +493,9 @@ class Products(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/GetProdChars',
-            products_dot_products__pb2.GetProdCharsRequest.SerializeToString,
-            products_dot_products__pb2.GetProdCharsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/GetProductCharacteristics',
+            products_dot_products__pb2.GetProductCharacteristicsRequest.SerializeToString,
+            products_dot_products__pb2.GetProductCharacteristicsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -513,6 +512,6 @@ class Products(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/ApplyFilters',
             products_dot_products__pb2.ProductsFilter.SerializeToString,
-            products_dot_products__pb2.ProductsFilter.FromString,
+            products_dot_products__pb2.AvailableFilters.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -20,20 +20,20 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Products_Create_FullMethodName               = "/productspb.Products/Create"
-	Products_GetByID_FullMethodName              = "/productspb.Products/GetByID"
-	Products_Find_FullMethodName                 = "/productspb.Products/Find"
-	Products_Update_FullMethodName               = "/productspb.Products/Update"
-	Products_SetVisible_FullMethodName           = "/productspb.Products/SetVisible"
-	Products_UpdateImages_FullMethodName         = "/productspb.Products/UpdateImages"
-	Products_CreateCharacteristic_FullMethodName = "/productspb.Products/CreateCharacteristic"
-	Products_FindCharacteristics_FullMethodName  = "/productspb.Products/FindCharacteristics"
-	Products_UpdateCharacteristic_FullMethodName = "/productspb.Products/UpdateCharacteristic"
-	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
-	Products_AddCharToProd_FullMethodName        = "/productspb.Products/AddCharToProd"
-	Products_RemoveCharFromProd_FullMethodName   = "/productspb.Products/RemoveCharFromProd"
-	Products_GetProdChars_FullMethodName         = "/productspb.Products/GetProdChars"
-	Products_ApplyFilters_FullMethodName         = "/productspb.Products/ApplyFilters"
+	Products_Create_FullMethodName                      = "/productspb.Products/Create"
+	Products_GetByID_FullMethodName                     = "/productspb.Products/GetByID"
+	Products_Find_FullMethodName                        = "/productspb.Products/Find"
+	Products_Update_FullMethodName                      = "/productspb.Products/Update"
+	Products_SetVisible_FullMethodName                  = "/productspb.Products/SetVisible"
+	Products_UpdateImages_FullMethodName                = "/productspb.Products/UpdateImages"
+	Products_CreateCharacteristic_FullMethodName        = "/productspb.Products/CreateCharacteristic"
+	Products_FindCharacteristics_FullMethodName         = "/productspb.Products/FindCharacteristics"
+	Products_UpdateCharacteristic_FullMethodName        = "/productspb.Products/UpdateCharacteristic"
+	Products_DeleteCharacteristic_FullMethodName        = "/productspb.Products/DeleteCharacteristic"
+	Products_AddProductCharacteristic_FullMethodName    = "/productspb.Products/AddProductCharacteristic"
+	Products_RemoveProductCharacteristic_FullMethodName = "/productspb.Products/RemoveProductCharacteristic"
+	Products_GetProductCharacteristics_FullMethodName   = "/productspb.Products/GetProductCharacteristics"
+	Products_ApplyFilters_FullMethodName                = "/productspb.Products/ApplyFilters"
 )
 
 // ProductsClient is the client API for Products service.
@@ -50,10 +50,12 @@ type ProductsClient interface {
 	FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	AddCharToProd(ctx context.Context, in *AddCharToProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	RemoveCharFromProd(ctx context.Context, in *RemoveCharFromProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetProdChars(ctx context.Context, in *GetProdCharsRequest, opts ...grpc.CallOption) (*GetProdCharsResponse, error)
-	ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*ProductsFilter, error)
+	// FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
+	AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	RemoveProductCharacteristic(ctx context.Context, in *RemoveProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetProductCharacteristics(ctx context.Context, in *GetProductCharacteristicsRequest, opts ...grpc.CallOption) (*GetProductCharacteristicsResponse, error)
+	// FIX: Изменена структура response
+	ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*AvailableFilters, error)
 }
 
 type productsClient struct {
@@ -154,35 +156,35 @@ func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCha
 	return out, nil
 }
 
-func (c *productsClient) AddCharToProd(ctx context.Context, in *AddCharToProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *productsClient) AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_AddCharToProd_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Products_AddProductCharacteristic_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) RemoveCharFromProd(ctx context.Context, in *RemoveCharFromProdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *productsClient) RemoveProductCharacteristic(ctx context.Context, in *RemoveProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_RemoveCharFromProd_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Products_RemoveProductCharacteristic_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) GetProdChars(ctx context.Context, in *GetProdCharsRequest, opts ...grpc.CallOption) (*GetProdCharsResponse, error) {
-	out := new(GetProdCharsResponse)
-	err := c.cc.Invoke(ctx, Products_GetProdChars_FullMethodName, in, out, opts...)
+func (c *productsClient) GetProductCharacteristics(ctx context.Context, in *GetProductCharacteristicsRequest, opts ...grpc.CallOption) (*GetProductCharacteristicsResponse, error) {
+	out := new(GetProductCharacteristicsResponse)
+	err := c.cc.Invoke(ctx, Products_GetProductCharacteristics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*ProductsFilter, error) {
-	out := new(ProductsFilter)
+func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*AvailableFilters, error) {
+	out := new(AvailableFilters)
 	err := c.cc.Invoke(ctx, Products_ApplyFilters_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -204,10 +206,12 @@ type ProductsServer interface {
 	FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
 	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
-	AddCharToProd(context.Context, *AddCharToProdRequest) (*emptypb.Empty, error)
-	RemoveCharFromProd(context.Context, *RemoveCharFromProdRequest) (*emptypb.Empty, error)
-	GetProdChars(context.Context, *GetProdCharsRequest) (*GetProdCharsResponse, error)
-	ApplyFilters(context.Context, *ProductsFilter) (*ProductsFilter, error)
+	// FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
+	AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*emptypb.Empty, error)
+	RemoveProductCharacteristic(context.Context, *RemoveProductCharacteristicRequest) (*emptypb.Empty, error)
+	GetProductCharacteristics(context.Context, *GetProductCharacteristicsRequest) (*GetProductCharacteristicsResponse, error)
+	// FIX: Изменена структура response
+	ApplyFilters(context.Context, *ProductsFilter) (*AvailableFilters, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -245,16 +249,16 @@ func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *Update
 func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
 }
-func (UnimplementedProductsServer) AddCharToProd(context.Context, *AddCharToProdRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCharToProd not implemented")
+func (UnimplementedProductsServer) AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddProductCharacteristic not implemented")
 }
-func (UnimplementedProductsServer) RemoveCharFromProd(context.Context, *RemoveCharFromProdRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveCharFromProd not implemented")
+func (UnimplementedProductsServer) RemoveProductCharacteristic(context.Context, *RemoveProductCharacteristicRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveProductCharacteristic not implemented")
 }
-func (UnimplementedProductsServer) GetProdChars(context.Context, *GetProdCharsRequest) (*GetProdCharsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProdChars not implemented")
+func (UnimplementedProductsServer) GetProductCharacteristics(context.Context, *GetProductCharacteristicsRequest) (*GetProductCharacteristicsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProductCharacteristics not implemented")
 }
-func (UnimplementedProductsServer) ApplyFilters(context.Context, *ProductsFilter) (*ProductsFilter, error) {
+func (UnimplementedProductsServer) ApplyFilters(context.Context, *ProductsFilter) (*AvailableFilters, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyFilters not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
@@ -450,56 +454,56 @@ func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_AddCharToProd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddCharToProdRequest)
+func _Products_AddProductCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddProductCharacteristicRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).AddCharToProd(ctx, in)
+		return srv.(ProductsServer).AddProductCharacteristic(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Products_AddCharToProd_FullMethodName,
+		FullMethod: Products_AddProductCharacteristic_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).AddCharToProd(ctx, req.(*AddCharToProdRequest))
+		return srv.(ProductsServer).AddProductCharacteristic(ctx, req.(*AddProductCharacteristicRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_RemoveCharFromProd_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveCharFromProdRequest)
+func _Products_RemoveProductCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveProductCharacteristicRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).RemoveCharFromProd(ctx, in)
+		return srv.(ProductsServer).RemoveProductCharacteristic(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Products_RemoveCharFromProd_FullMethodName,
+		FullMethod: Products_RemoveProductCharacteristic_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).RemoveCharFromProd(ctx, req.(*RemoveCharFromProdRequest))
+		return srv.(ProductsServer).RemoveProductCharacteristic(ctx, req.(*RemoveProductCharacteristicRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_GetProdChars_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProdCharsRequest)
+func _Products_GetProductCharacteristics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProductCharacteristicsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).GetProdChars(ctx, in)
+		return srv.(ProductsServer).GetProductCharacteristics(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Products_GetProdChars_FullMethodName,
+		FullMethod: Products_GetProductCharacteristics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).GetProdChars(ctx, req.(*GetProdCharsRequest))
+		return srv.(ProductsServer).GetProductCharacteristics(ctx, req.(*GetProductCharacteristicsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -570,16 +574,16 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Products_DeleteCharacteristic_Handler,
 		},
 		{
-			MethodName: "AddCharToProd",
-			Handler:    _Products_AddCharToProd_Handler,
+			MethodName: "AddProductCharacteristic",
+			Handler:    _Products_AddProductCharacteristic_Handler,
 		},
 		{
-			MethodName: "RemoveCharFromProd",
-			Handler:    _Products_RemoveCharFromProd_Handler,
+			MethodName: "RemoveProductCharacteristic",
+			Handler:    _Products_RemoveProductCharacteristic_Handler,
 		},
 		{
-			MethodName: "GetProdChars",
-			Handler:    _Products_GetProdChars_Handler,
+			MethodName: "GetProductCharacteristics",
+			Handler:    _Products_GetProductCharacteristics_Handler,
 		},
 		{
 			MethodName: "ApplyFilters",

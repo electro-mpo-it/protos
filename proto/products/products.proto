@@ -23,16 +23,158 @@ service Products {
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
 
-    rpc AddCharToProd (AddCharToProdRequest) returns (google.protobuf.Empty); // Добавить характеристику к товару
-    rpc RemoveCharFromProd (RemoveCharFromProdRequest) returns (google.protobuf.Empty); // Удалить характеристику у товара
-    rpc GetProdChars (GetProdCharsRequest) returns (GetProdCharsResponse); // Получить список характеристик товара с джоином самих характеристик
+    // FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
+    rpc AddProductCharacteristic (AddProductCharacteristicRequest) returns (google.protobuf.Empty); // Добавить характеристику к товару
+    rpc RemoveProductCharacteristic (RemoveProductCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику у товара
+    rpc GetProductCharacteristics (GetProductCharacteristicsRequest) returns (GetProductCharacteristicsResponse); // Получить список характеристик товара с джоином самих характеристик
     // TODO: Метод обновления значения характеристики у товара
 
-    // rpc AddCharacteristicToCategory (Request) returns (Response); // Добавить характеристику к категории
-    // rpc DropCharacteristicFromCategory (Request) returns (Response); // Удалить характеристику у категории
-
-    rpc ApplyFilters (ProductsFilter) returns (ProductsFilter); // Получить доступные к дальнейшей фильтрации список характеристик, после применения фильтра (Метод можно рассматривать как рекурсивный)
+    // FIX: Изменена структура response
+    rpc ApplyFilters (ProductsFilter) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
 }
+
+
+// Создание товара
+
+message CreateRequest {
+    string name = 1;                                // Required.
+    string category_id = 2;                         // Required.
+    string description = 3;                         // Required.
+    UnitOfMeasurementENUM unit_of_measurement = 4;  // Required.
+    VATENUM vat = 5;                                // Required.
+    double old_price = 6;                           // Required.
+    double discount_ratio = 7;                      // Required.
+}
+
+message CreateResponse {
+    string id = 1; // Id of product
+}
+
+// Получение товара по его ID
+
+message GetByIDRequest {
+    string id = 1;  // Required. Id of product
+}
+
+message GetByIDResponse {
+    Product data = 1;
+}
+
+// Поиск по товарам
+
+message FindResponse {
+    repeated Product data = 1;
+}
+
+// Обновление данных о товаре
+
+message UpdateRequest { // Реализует логику частичного обновления
+    message Data {
+        google.protobuf.StringValue name = 1;                   // If passed - set new name
+        google.protobuf.StringValue category_id = 2;            // If passed - set new category id
+        google.protobuf.StringValue description = 3;            // If passed - set new description
+        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;  // If passed - set new unit of measurement
+        OptionalVATENUM vat = 5;                                // If passed - set new vat              AND calculate new price!!!
+        google.protobuf.DoubleValue old_price = 6;              // If passed - set new old_price        AND calculate new price!!!
+        google.protobuf.DoubleValue discount_ratio = 7;         // If passed - set new discount_raio    AND calculate new price!!!
+    }
+
+    string id = 1;  // ID of target product
+    Data data = 2;  // Data to update
+}
+
+// Установка флага видимости товара
+
+message SetVisibleRequest {
+    message Data {
+        bool is_visible = 1;  // Required. set new is_visible flag for target product
+    }
+
+    string id = 1; // ID of target product
+    Data data = 2; // Data to update
+}
+
+// Полное обновление изображений товара до указанных
+
+message UpdateImagesRequest {  // Реализует аналог PUT запроса в HTTP
+    message Data {
+        repeated ProductImage images = 1;
+    }
+
+    string id = 1; // ID of target product
+    Data data = 2; // Data to update
+}
+
+// Создание характеристики
+
+message CreateCharacteristicRequest {
+    string name = 1;                                // Required.
+    CharacteristicValuesTypeEnum values_type = 2;   // Required.
+}
+
+message CreateCharacteristicResponse {
+    string id = 1;
+}
+
+// Поиск по характеристикам
+
+message FindCharacteristicsRequest {
+    uint32 limit = 1;                           // Required
+    google.protobuf.StringValue search = 2;     // If passed - apply full text search
+    repeated string ids = 3;                    // If passed 1 or more id - returns ids in this list. Length depends on limit
+}
+
+message FindCharacteristicsResponse {
+    repeated Characteristic data = 1;
+}
+
+// Обновление данных о характеристике
+
+message UpdateCharacteristicRequest {
+    message Data {
+        google.protobuf.StringValue name = 1;
+    }
+
+    string id = 1;
+    Data data = 2;
+}
+
+// Удаление характеристики
+
+message DeleteCharacteristicRequest {
+    string id = 1;
+}
+
+// Добавление характеристики к товару
+
+message AddProductCharacteristicRequest {
+    string product_id = 1;
+    string characteristic_id = 2;
+    oneof value {
+        string text_value = 101;
+        double numeric_value = 102;
+    };
+}
+
+// Удалить характеристику товара
+
+message RemoveProductCharacteristicRequest {
+    string id = 1;
+}
+
+// Получить характеристики товара
+
+message GetProductCharacteristicsRequest {
+    string product_id = 1;
+}
+
+message GetProductCharacteristicsResponse {
+    repeated ProductCharacteristic data = 1;
+}
+
+
+                                    /* Типы данных и структуры */
+
 
 // Перечисление допустимых единиц измерения для товара
 enum UnitOfMeasurementENUM {  
@@ -88,7 +230,8 @@ message Characteristic {
 
 // Характеристика товара
 message ProductCharacteristic {
-    Characteristic characteristic = 1;
+    string id = 1;
+    string characteristic_id = 2;
     oneof value {
         string text_value = 101;
         double numeric_value = 102;
@@ -120,6 +263,7 @@ message CharacteristicsFilter {
     repeated NumericValue numeric_values = 2;
 }
 
+// Фильтр для товаров
 message ProductsFilter {
     uint32 limit = 1;
     uint64 offset = 2;
@@ -128,6 +272,12 @@ message ProductsFilter {
     google.protobuf.StringValue category_id = 5;
     CharacteristicsFilter characteristics = 6;
     google.protobuf.BoolValue is_visible = 7;
+}
+
+// Структура доступных фильтров для товаров (Должна имплементировать ProductsFilter по характеристикам, цене)
+message AvailableFilters {
+    Range price = 1;
+    CharacteristicsFilter characteristics = 2;
 }
 
 // Репрезентация товара с всеми полями
@@ -144,168 +294,4 @@ message Product {
     bool is_visible = 10;
     google.protobuf.Timestamp updated_at = 11;
     repeated ProductImage images = 12;
-}
-
-
-// Создание товара
-
-
-message CreateRequest {
-    string name = 1;                                // Required.
-    string category_id = 2;                         // Required.
-    string description = 3;                         // Required.
-    UnitOfMeasurementENUM unit_of_measurement = 4;  // Required.
-    VATENUM vat = 5;                                // Required.
-    double old_price = 6;                           // Required.
-    double discount_ratio = 7;                      // Required.
-}
-
-message CreateResponse {
-    string id = 1; // Id of product
-}
-
-
-// Получение товара по его ID
-
-
-message GetByIDRequest {
-    string id = 1;  // Required. Id of product
-}
-
-message GetByIDResponse {
-    Product data = 1;
-}
-
-
-// Поиск по товарам
-
-
-message FindResponse {
-    repeated Product data = 1;
-}
-
-
-// Обновление данных о товаре
-
-
-message UpdateRequest { // Реализует логику частичного обновления
-    message Data {
-        google.protobuf.StringValue name = 1;                   // If passed - set new name
-        google.protobuf.StringValue category_id = 2;            // If passed - set new category id
-        google.protobuf.StringValue description = 3;            // If passed - set new description
-        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;  // If passed - set new unit of measurement
-        OptionalVATENUM vat = 5;                                // If passed - set new vat              AND calculate new price!!!
-        google.protobuf.DoubleValue old_price = 6;              // If passed - set new old_price        AND calculate new price!!!
-        google.protobuf.DoubleValue discount_ratio = 7;         // If passed - set new discount_raio    AND calculate new price!!!
-    }
-
-    string id = 1;  // ID of target product
-    Data data = 2;  // Data to update
-}
-
-
-// Установка флага видимости товара
-
-
-message SetVisibleRequest {
-    message Data {
-        bool is_visible = 1;  // Required. set new is_visible flag for target product
-    }
-
-    string id = 1; // ID of target product
-    Data data = 2; // Data to update
-}
-
-
-// Полное обновление изображений товара до указанных
-
-
-message UpdateImagesRequest {  // Реализует аналог PUT запроса в HTTP
-    message Data {
-        repeated ProductImage images = 1;
-    }
-
-    string id = 1; // ID of target product
-    Data data = 2; // Data to update
-}
-
-
-// Создание характеристики
-
-
-message CreateCharacteristicRequest {
-    string name = 1;                                // Required.
-    CharacteristicValuesTypeEnum values_type = 2;   // Required.
-}
-
-message CreateCharacteristicResponse {
-    string id = 1;
-}
-
-
-// Поиск по характеристикам
-
-
-message FindCharacteristicsRequest {
-    uint32 limit = 1;                           // Required
-    google.protobuf.StringValue search = 2;     // If passed - apply full text search
-    repeated string ids = 3;                    // If passed 1 or more id - returns ids in this list. Length depends on limit
-}
-
-message FindCharacteristicsResponse {
-    repeated Characteristic data = 1;
-}
-
-
-// Обновление данных о характеристике
-
-
-message UpdateCharacteristicRequest {
-    message Data {
-        google.protobuf.StringValue name = 1;
-    }
-
-    string id = 1;
-    Data data = 2;
-}
-
-
-// Удаление характеристики
-
-
-message DeleteCharacteristicRequest {
-    string id = 1;
-}
-
-
-// Добавление характеристики к товару
-
-
-message AddCharToProdRequest {
-    string product_id = 1;
-    string characteristic_id = 2;
-    oneof value {
-        string text_value = 101;
-        double numeric_value = 102;
-    };
-}
-
-
-// Удалить характеристику товара
-
-
-message RemoveCharFromProdRequest {
-    string product_id = 1;
-    string characteristic_id = 2;
-}
-
-
-// Получить характеристики товара
-
-message GetProdCharsRequest {
-    string product_id = 1;
-}
-
-message GetProdCharsResponse {
-    repeated ProductCharacteristic data = 1;
 }
