@@ -97,12 +97,8 @@ message SetVisibleRequest {
 // Полное обновление изображений товара до указанных
 
 message UpdateImagesRequest {  // Реализует аналог PUT запроса в HTTP
-    message Data {
-        repeated ProductImage images = 1;
-    }
-
-    string id = 1; // ID of target product
-    Data data = 2; // Data to update
+    string id = 1;                      // ID of target product
+    repeated ProductImage images = 2;   // Data to update
 }
 
 // Создание характеристики
