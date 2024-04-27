@@ -197,6 +197,12 @@ class AddProductCharacteristicRequest(_message.Message):
     numeric_value: float
     def __init__(self, product_id: _Optional[str] = ..., characteristic_id: _Optional[str] = ..., text_value: _Optional[str] = ..., numeric_value: _Optional[float] = ...) -> None: ...
 
+class AddProductCharacteristicResponse(_message.Message):
+    __slots__ = ("id",)
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    def __init__(self, id: _Optional[str] = ...) -> None: ...
+
 class RemoveProductCharacteristicRequest(_message.Message):
     __slots__ = ("id",)
     ID_FIELD_NUMBER: _ClassVar[int]

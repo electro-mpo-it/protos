@@ -23,13 +23,11 @@ service Products {
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
 
-    // FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
-    rpc AddProductCharacteristic (AddProductCharacteristicRequest) returns (google.protobuf.Empty); // Добавить характеристику к товару
+    rpc AddProductCharacteristic (AddProductCharacteristicRequest) returns (AddProductCharacteristicResponse); // Добавить характеристику к товару
     rpc RemoveProductCharacteristic (RemoveProductCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику у товара
     rpc GetProductCharacteristics (GetProductCharacteristicsRequest) returns (GetProductCharacteristicsResponse); // Получить список характеристик товара с джоином самих характеристик
     // TODO: Метод обновления значения характеристики у товара
 
-    // FIX: Изменена структура response
     rpc ApplyFilters (ProductsFilter) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
 }
 
@@ -150,6 +148,10 @@ message AddProductCharacteristicRequest {
         string text_value = 101;
         double numeric_value = 102;
     };
+}
+
+message AddProductCharacteristicResponse {
+    string id = 1;
 }
 
 // Удалить характеристику товара

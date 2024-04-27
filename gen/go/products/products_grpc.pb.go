@@ -50,11 +50,9 @@ type ProductsClient interface {
 	FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	// FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
-	AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*AddProductCharacteristicResponse, error)
 	RemoveProductCharacteristic(ctx context.Context, in *RemoveProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetProductCharacteristics(ctx context.Context, in *GetProductCharacteristicsRequest, opts ...grpc.CallOption) (*GetProductCharacteristicsResponse, error)
-	// FIX: Изменена структура response
 	ApplyFilters(ctx context.Context, in *ProductsFilter, opts ...grpc.CallOption) (*AvailableFilters, error)
 }
 
@@ -156,8 +154,8 @@ func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCha
 	return out, nil
 }
 
-func (c *productsClient) AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
+func (c *productsClient) AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*AddProductCharacteristicResponse, error) {
+	out := new(AddProductCharacteristicResponse)
 	err := c.cc.Invoke(ctx, Products_AddProductCharacteristic_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -206,11 +204,9 @@ type ProductsServer interface {
 	FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
 	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
-	// FIX: Изменены названия методов; GetProductCharacteristicsResponse без джоина характеристик;
-	AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*emptypb.Empty, error)
+	AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*AddProductCharacteristicResponse, error)
 	RemoveProductCharacteristic(context.Context, *RemoveProductCharacteristicRequest) (*emptypb.Empty, error)
 	GetProductCharacteristics(context.Context, *GetProductCharacteristicsRequest) (*GetProductCharacteristicsResponse, error)
-	// FIX: Изменена структура response
 	ApplyFilters(context.Context, *ProductsFilter) (*AvailableFilters, error)
 	mustEmbedUnimplementedProductsServer()
 }
@@ -249,7 +245,7 @@ func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *Update
 func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
 }
-func (UnimplementedProductsServer) AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*emptypb.Empty, error) {
+func (UnimplementedProductsServer) AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*AddProductCharacteristicResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddProductCharacteristic not implemented")
 }
 func (UnimplementedProductsServer) RemoveProductCharacteristic(context.Context, *RemoveProductCharacteristicRequest) (*emptypb.Empty, error) {
