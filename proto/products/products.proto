@@ -116,6 +116,7 @@ message FindCharacteristicsRequest {
     uint32 limit = 1;                           // Required. Or Ids
     string search = 2;                          // If passed - apply full text search
     repeated string ids = 3;                    // Required. Or limit. If passed - returns ids in this list. Length equals max limit value
+    uint64 offset = 4;                          
 }
 
 message FindCharacteristicsResponse {
