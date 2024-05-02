@@ -28,7 +28,7 @@ class ProductsStub(object):
                 )
         self.Find = channel.unary_unary(
                 '/productspb.Products/Find',
-                request_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
+                request_serializer=products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
                 response_deserializer=products_dot_products__pb2.FindResponse.FromString,
                 )
         self.Update = channel.unary_unary(
@@ -83,7 +83,7 @@ class ProductsStub(object):
                 )
         self.ApplyFilters = channel.unary_unary(
                 '/productspb.Products/ApplyFilters',
-                request_serializer=products_dot_products__pb2.ProductsFilter.SerializeToString,
+                request_serializer=products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
                 response_deserializer=products_dot_products__pb2.AvailableFilters.FromString,
                 )
 
@@ -207,7 +207,7 @@ def add_ProductsServicer_to_server(servicer, server):
             ),
             'Find': grpc.unary_unary_rpc_method_handler(
                     servicer.Find,
-                    request_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
+                    request_deserializer=products_dot_products__pb2.ProductsFilterRequest.FromString,
                     response_serializer=products_dot_products__pb2.FindResponse.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
@@ -262,7 +262,7 @@ def add_ProductsServicer_to_server(servicer, server):
             ),
             'ApplyFilters': grpc.unary_unary_rpc_method_handler(
                     servicer.ApplyFilters,
-                    request_deserializer=products_dot_products__pb2.ProductsFilter.FromString,
+                    request_deserializer=products_dot_products__pb2.ProductsFilterRequest.FromString,
                     response_serializer=products_dot_products__pb2.AvailableFilters.SerializeToString,
             ),
     }
@@ -322,7 +322,7 @@ class Products(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/Find',
-            products_dot_products__pb2.ProductsFilter.SerializeToString,
+            products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
             products_dot_products__pb2.FindResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -509,7 +509,7 @@ class Products(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/ApplyFilters',
-            products_dot_products__pb2.ProductsFilter.SerializeToString,
+            products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
             products_dot_products__pb2.AvailableFilters.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

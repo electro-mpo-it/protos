@@ -292,7 +292,7 @@ class CharacteristicsFilter(_message.Message):
     numeric_values: _containers.RepeatedCompositeFieldContainer[CharacteristicsFilter.NumericValue]
     def __init__(self, text_values: _Optional[_Iterable[_Union[CharacteristicsFilter.TextValue, _Mapping]]] = ..., numeric_values: _Optional[_Iterable[_Union[CharacteristicsFilter.NumericValue, _Mapping]]] = ...) -> None: ...
 
-class ProductsFilter(_message.Message):
+class ProductsFilterRequest(_message.Message):
     __slots__ = ("limit", "offset", "search", "price", "category_id", "characteristics", "is_visible")
     LIMIT_FIELD_NUMBER: _ClassVar[int]
     OFFSET_FIELD_NUMBER: _ClassVar[int]

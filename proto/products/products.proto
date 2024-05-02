@@ -12,7 +12,7 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb
 service Products {
     rpc Create (CreateRequest) returns (CreateResponse); // Создание товара
     rpc GetByID (GetByIDRequest) returns (GetByIDResponse); // Получение товара по его ID
-    rpc Find (ProductsFilter) returns (FindResponse); // Поиск по товарам
+    rpc Find (ProductsFilterRequest) returns (FindResponse); // Поиск по товарам
     rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновление данных о товаре
     rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить значение флага видимости для товара
 
@@ -28,7 +28,7 @@ service Products {
     rpc GetProductCharacteristics (GetProductCharacteristicsRequest) returns (GetProductCharacteristicsResponse); // Получить список характеристик товара с джоином самих характеристик
     // TODO: Метод обновления значения характеристики у товара
 
-    rpc ApplyFilters (ProductsFilter) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
+    rpc ApplyFilters (ProductsFilterRequest) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
 }
 
 
@@ -262,7 +262,7 @@ message CharacteristicsFilter {
 }
 
 // Фильтр для товаров
-message ProductsFilter {
+message ProductsFilterRequest {
     uint32 limit = 1;
     uint64 offset = 2;
     string search = 3;
@@ -272,7 +272,7 @@ message ProductsFilter {
     google.protobuf.BoolValue is_visible = 7;
 }
 
-// Структура доступных фильтров для товаров (Должна имплементировать ProductsFilter по характеристикам, цене)
+// Структура доступных фильтров для товаров (Должна имплементировать ProductsFilterRequest по характеристикам, цене)
 message AvailableFilters {
     Range price = 1;
     CharacteristicsFilter characteristics = 2;
