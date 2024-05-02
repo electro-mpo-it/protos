@@ -156,9 +156,9 @@ class FindCharacteristicsRequest(_message.Message):
     SEARCH_FIELD_NUMBER: _ClassVar[int]
     IDS_FIELD_NUMBER: _ClassVar[int]
     limit: int
-    search: _wrappers_pb2.StringValue
+    search: str
     ids: _containers.RepeatedScalarFieldContainer[str]
-    def __init__(self, limit: _Optional[int] = ..., search: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., ids: _Optional[_Iterable[str]] = ...) -> None: ...
+    def __init__(self, limit: _Optional[int] = ..., search: _Optional[str] = ..., ids: _Optional[_Iterable[str]] = ...) -> None: ...
 
 class FindCharacteristicsResponse(_message.Message):
     __slots__ = ("data",)
