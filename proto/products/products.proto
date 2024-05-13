@@ -10,10 +10,10 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb
 
 // Сервис товаров
 service Products {
-    rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
-    rpc GetByID (GetByIDRequest) returns (GetByIDResponse); // Получение товара по его ID
-    rpc Find (ProductsFilterRequest) returns (FindResponse); // Поиск по товарам
-    // Todo: update product
+    rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse); // Создание товара
+    rpc GetProductByID (GetProductByIDRequest) returns (GetProductByIDResponse); // Получение товара по его ID
+    rpc FindProducts (ProductsFilterRequest) returns (FindProductsResponse); // Поиск по товарам
+    rpc UpdateProductByID (UpdateProductByIDRequest) returns (google.protobuf.Empty);  // Частичное обновление товара
 
     rpc CreateCharacteristic (CreateCharacteristicRequest) returns (CreateCharacteristicResponse); // Создать характеристику
     rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse); // Поиск по характеристикам
@@ -39,6 +39,41 @@ message CreateProductRequest {
     repeated ProductCharacteristic characteristics = 32;
 }
 
+message UpdateProductByIDRequest {
+    message Data {
+        message OptionalUnitOfMeasurementENUM {
+            UnitOfMeasurementENUM value = 1;
+        }
+        message OptionalVATENUM {
+            VATENUM value = 1;
+        }
+        message OptionalProductImages {
+            repeated ProductImage value = 1;
+        }
+        message OptionalProductCharacteristics {
+            repeated ProductCharacteristic value = 1;
+        }
+
+        google.protobuf.StringValue name = 1;
+        google.protobuf.StringValue category_id = 2;
+        google.protobuf.StringValue description = 3;
+    
+        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;
+        OptionalVATENUM vat = 5;
+
+        google.protobuf.DoubleValue old_price = 6;
+        google.protobuf.DoubleValue discount_ratio = 7;
+        google.protobuf.BoolValue is_visible = 8;
+
+        // Nested
+        OptionalProductImages images = 31;
+        OptionalProductCharacteristics characteristics = 32;
+    }
+
+    string id = 1;
+    Data data = 2;
+}
+
 message ProductCharacteristic {
     string characteristic_id = 1;
     oneof value {
@@ -48,23 +83,25 @@ message ProductCharacteristic {
 }
 
 
+
+
 message CreateProductResponse {
     string id = 1; // Id of product
 }
 
 // Получение товара по его ID
 
-message GetByIDRequest {
+message GetProductByIDRequest {
     string id = 1;  // Required. Id of product
 }
 
-message GetByIDResponse {
+message GetProductByIDResponse {
     Product data = 1;
 }
 
 // Поиск по товарам
 
-message FindResponse {
+message FindProductsResponse {
     repeated Product data = 1;
 }
 

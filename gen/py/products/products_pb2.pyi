@@ -72,6 +72,57 @@ class CreateProductRequest(_message.Message):
     characteristics: _containers.RepeatedCompositeFieldContainer[ProductCharacteristic]
     def __init__(self, name: _Optional[str] = ..., category_id: _Optional[str] = ..., description: _Optional[str] = ..., unit_of_measurement: _Optional[_Union[UnitOfMeasurementENUM, str]] = ..., vat: _Optional[_Union[VATENUM, str]] = ..., old_price: _Optional[float] = ..., discount_ratio: _Optional[float] = ..., is_visible: bool = ..., images: _Optional[_Iterable[_Union[ProductImage, _Mapping]]] = ..., characteristics: _Optional[_Iterable[_Union[ProductCharacteristic, _Mapping]]] = ...) -> None: ...
 
+class UpdateProductByIDRequest(_message.Message):
+    __slots__ = ("id", "data")
+    class Data(_message.Message):
+        __slots__ = ("name", "category_id", "description", "unit_of_measurement", "vat", "old_price", "discount_ratio", "is_visible", "images", "characteristics")
+        class OptionalUnitOfMeasurementENUM(_message.Message):
+            __slots__ = ("value",)
+            VALUE_FIELD_NUMBER: _ClassVar[int]
+            value: UnitOfMeasurementENUM
+            def __init__(self, value: _Optional[_Union[UnitOfMeasurementENUM, str]] = ...) -> None: ...
+        class OptionalVATENUM(_message.Message):
+            __slots__ = ("value",)
+            VALUE_FIELD_NUMBER: _ClassVar[int]
+            value: VATENUM
+            def __init__(self, value: _Optional[_Union[VATENUM, str]] = ...) -> None: ...
+        class OptionalProductImages(_message.Message):
+            __slots__ = ("value",)
+            VALUE_FIELD_NUMBER: _ClassVar[int]
+            value: _containers.RepeatedCompositeFieldContainer[ProductImage]
+            def __init__(self, value: _Optional[_Iterable[_Union[ProductImage, _Mapping]]] = ...) -> None: ...
+        class OptionalProductCharacteristics(_message.Message):
+            __slots__ = ("value",)
+            VALUE_FIELD_NUMBER: _ClassVar[int]
+            value: _containers.RepeatedCompositeFieldContainer[ProductCharacteristic]
+            def __init__(self, value: _Optional[_Iterable[_Union[ProductCharacteristic, _Mapping]]] = ...) -> None: ...
+        NAME_FIELD_NUMBER: _ClassVar[int]
+        CATEGORY_ID_FIELD_NUMBER: _ClassVar[int]
+        DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
+        UNIT_OF_MEASUREMENT_FIELD_NUMBER: _ClassVar[int]
+        VAT_FIELD_NUMBER: _ClassVar[int]
+        OLD_PRICE_FIELD_NUMBER: _ClassVar[int]
+        DISCOUNT_RATIO_FIELD_NUMBER: _ClassVar[int]
+        IS_VISIBLE_FIELD_NUMBER: _ClassVar[int]
+        IMAGES_FIELD_NUMBER: _ClassVar[int]
+        CHARACTERISTICS_FIELD_NUMBER: _ClassVar[int]
+        name: _wrappers_pb2.StringValue
+        category_id: _wrappers_pb2.StringValue
+        description: _wrappers_pb2.StringValue
+        unit_of_measurement: UpdateProductByIDRequest.Data.OptionalUnitOfMeasurementENUM
+        vat: UpdateProductByIDRequest.Data.OptionalVATENUM
+        old_price: _wrappers_pb2.DoubleValue
+        discount_ratio: _wrappers_pb2.DoubleValue
+        is_visible: _wrappers_pb2.BoolValue
+        images: UpdateProductByIDRequest.Data.OptionalProductImages
+        characteristics: UpdateProductByIDRequest.Data.OptionalProductCharacteristics
+        def __init__(self, name: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., category_id: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., description: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., unit_of_measurement: _Optional[_Union[UpdateProductByIDRequest.Data.OptionalUnitOfMeasurementENUM, _Mapping]] = ..., vat: _Optional[_Union[UpdateProductByIDRequest.Data.OptionalVATENUM, _Mapping]] = ..., old_price: _Optional[_Union[_wrappers_pb2.DoubleValue, _Mapping]] = ..., discount_ratio: _Optional[_Union[_wrappers_pb2.DoubleValue, _Mapping]] = ..., is_visible: _Optional[_Union[_wrappers_pb2.BoolValue, _Mapping]] = ..., images: _Optional[_Union[UpdateProductByIDRequest.Data.OptionalProductImages, _Mapping]] = ..., characteristics: _Optional[_Union[UpdateProductByIDRequest.Data.OptionalProductCharacteristics, _Mapping]] = ...) -> None: ...
+    ID_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    data: UpdateProductByIDRequest.Data
+    def __init__(self, id: _Optional[str] = ..., data: _Optional[_Union[UpdateProductByIDRequest.Data, _Mapping]] = ...) -> None: ...
+
 class ProductCharacteristic(_message.Message):
     __slots__ = ("characteristic_id", "text_value", "numeric_value")
     CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
@@ -88,19 +139,19 @@ class CreateProductResponse(_message.Message):
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
 
-class GetByIDRequest(_message.Message):
+class GetProductByIDRequest(_message.Message):
     __slots__ = ("id",)
     ID_FIELD_NUMBER: _ClassVar[int]
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
 
-class GetByIDResponse(_message.Message):
+class GetProductByIDResponse(_message.Message):
     __slots__ = ("data",)
     DATA_FIELD_NUMBER: _ClassVar[int]
     data: Product
     def __init__(self, data: _Optional[_Union[Product, _Mapping]] = ...) -> None: ...
 
-class FindResponse(_message.Message):
+class FindProductsResponse(_message.Message):
     __slots__ = ("data",)
     DATA_FIELD_NUMBER: _ClassVar[int]
     data: _containers.RepeatedCompositeFieldContainer[Product]
