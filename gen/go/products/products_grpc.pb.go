@@ -20,39 +20,27 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Products_Create_FullMethodName                      = "/productspb.Products/Create"
-	Products_GetByID_FullMethodName                     = "/productspb.Products/GetByID"
-	Products_Find_FullMethodName                        = "/productspb.Products/Find"
-	Products_Update_FullMethodName                      = "/productspb.Products/Update"
-	Products_SetVisible_FullMethodName                  = "/productspb.Products/SetVisible"
-	Products_UpdateImages_FullMethodName                = "/productspb.Products/UpdateImages"
-	Products_CreateCharacteristic_FullMethodName        = "/productspb.Products/CreateCharacteristic"
-	Products_FindCharacteristics_FullMethodName         = "/productspb.Products/FindCharacteristics"
-	Products_UpdateCharacteristic_FullMethodName        = "/productspb.Products/UpdateCharacteristic"
-	Products_DeleteCharacteristic_FullMethodName        = "/productspb.Products/DeleteCharacteristic"
-	Products_AddProductCharacteristic_FullMethodName    = "/productspb.Products/AddProductCharacteristic"
-	Products_RemoveProductCharacteristic_FullMethodName = "/productspb.Products/RemoveProductCharacteristic"
-	Products_GetProductCharacteristics_FullMethodName   = "/productspb.Products/GetProductCharacteristics"
-	Products_ApplyFilters_FullMethodName                = "/productspb.Products/ApplyFilters"
+	Products_CreateProduct_FullMethodName        = "/productspb.Products/CreateProduct"
+	Products_GetByID_FullMethodName              = "/productspb.Products/GetByID"
+	Products_Find_FullMethodName                 = "/productspb.Products/Find"
+	Products_CreateCharacteristic_FullMethodName = "/productspb.Products/CreateCharacteristic"
+	Products_FindCharacteristics_FullMethodName  = "/productspb.Products/FindCharacteristics"
+	Products_UpdateCharacteristic_FullMethodName = "/productspb.Products/UpdateCharacteristic"
+	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
+	Products_ApplyFilters_FullMethodName         = "/productspb.Products/ApplyFilters"
 )
 
 // ProductsClient is the client API for Products service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductsClient interface {
-	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
+	CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error)
 	GetByID(ctx context.Context, in *GetByIDRequest, opts ...grpc.CallOption) (*GetByIDResponse, error)
 	Find(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*FindResponse, error)
-	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	CreateCharacteristic(ctx context.Context, in *CreateCharacteristicRequest, opts ...grpc.CallOption) (*CreateCharacteristicResponse, error)
 	FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*AddProductCharacteristicResponse, error)
-	RemoveProductCharacteristic(ctx context.Context, in *RemoveProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	GetProductCharacteristics(ctx context.Context, in *GetProductCharacteristicsRequest, opts ...grpc.CallOption) (*GetProductCharacteristicsResponse, error)
 	ApplyFilters(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*AvailableFilters, error)
 }
 
@@ -64,9 +52,9 @@ func NewProductsClient(cc grpc.ClientConnInterface) ProductsClient {
 	return &productsClient{cc}
 }
 
-func (c *productsClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
-	out := new(CreateResponse)
-	err := c.cc.Invoke(ctx, Products_Create_FullMethodName, in, out, opts...)
+func (c *productsClient) CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error) {
+	out := new(CreateProductResponse)
+	err := c.cc.Invoke(ctx, Products_CreateProduct_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -85,33 +73,6 @@ func (c *productsClient) GetByID(ctx context.Context, in *GetByIDRequest, opts .
 func (c *productsClient) Find(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*FindResponse, error) {
 	out := new(FindResponse)
 	err := c.cc.Invoke(ctx, Products_Find_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productsClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_Update_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productsClient) SetVisible(ctx context.Context, in *SetVisibleRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_SetVisible_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productsClient) UpdateImages(ctx context.Context, in *UpdateImagesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_UpdateImages_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -154,33 +115,6 @@ func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCha
 	return out, nil
 }
 
-func (c *productsClient) AddProductCharacteristic(ctx context.Context, in *AddProductCharacteristicRequest, opts ...grpc.CallOption) (*AddProductCharacteristicResponse, error) {
-	out := new(AddProductCharacteristicResponse)
-	err := c.cc.Invoke(ctx, Products_AddProductCharacteristic_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productsClient) RemoveProductCharacteristic(ctx context.Context, in *RemoveProductCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, Products_RemoveProductCharacteristic_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *productsClient) GetProductCharacteristics(ctx context.Context, in *GetProductCharacteristicsRequest, opts ...grpc.CallOption) (*GetProductCharacteristicsResponse, error) {
-	out := new(GetProductCharacteristicsResponse)
-	err := c.cc.Invoke(ctx, Products_GetProductCharacteristics_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*AvailableFilters, error) {
 	out := new(AvailableFilters)
 	err := c.cc.Invoke(ctx, Products_ApplyFilters_FullMethodName, in, out, opts...)
@@ -194,19 +128,13 @@ func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilterReq
 // All implementations must embed UnimplementedProductsServer
 // for forward compatibility
 type ProductsServer interface {
-	Create(context.Context, *CreateRequest) (*CreateResponse, error)
+	CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error)
 	GetByID(context.Context, *GetByIDRequest) (*GetByIDResponse, error)
 	Find(context.Context, *ProductsFilterRequest) (*FindResponse, error)
-	Update(context.Context, *UpdateRequest) (*emptypb.Empty, error)
-	SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error)
-	UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error)
 	CreateCharacteristic(context.Context, *CreateCharacteristicRequest) (*CreateCharacteristicResponse, error)
 	FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
 	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
-	AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*AddProductCharacteristicResponse, error)
-	RemoveProductCharacteristic(context.Context, *RemoveProductCharacteristicRequest) (*emptypb.Empty, error)
-	GetProductCharacteristics(context.Context, *GetProductCharacteristicsRequest) (*GetProductCharacteristicsResponse, error)
 	ApplyFilters(context.Context, *ProductsFilterRequest) (*AvailableFilters, error)
 	mustEmbedUnimplementedProductsServer()
 }
@@ -215,23 +143,14 @@ type ProductsServer interface {
 type UnimplementedProductsServer struct {
 }
 
-func (UnimplementedProductsServer) Create(context.Context, *CreateRequest) (*CreateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (UnimplementedProductsServer) CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProduct not implemented")
 }
 func (UnimplementedProductsServer) GetByID(context.Context, *GetByIDRequest) (*GetByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetByID not implemented")
 }
 func (UnimplementedProductsServer) Find(context.Context, *ProductsFilterRequest) (*FindResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Find not implemented")
-}
-func (UnimplementedProductsServer) Update(context.Context, *UpdateRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
-}
-func (UnimplementedProductsServer) SetVisible(context.Context, *SetVisibleRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetVisible not implemented")
-}
-func (UnimplementedProductsServer) UpdateImages(context.Context, *UpdateImagesRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateImages not implemented")
 }
 func (UnimplementedProductsServer) CreateCharacteristic(context.Context, *CreateCharacteristicRequest) (*CreateCharacteristicResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCharacteristic not implemented")
@@ -244,15 +163,6 @@ func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *Update
 }
 func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
-}
-func (UnimplementedProductsServer) AddProductCharacteristic(context.Context, *AddProductCharacteristicRequest) (*AddProductCharacteristicResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddProductCharacteristic not implemented")
-}
-func (UnimplementedProductsServer) RemoveProductCharacteristic(context.Context, *RemoveProductCharacteristicRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveProductCharacteristic not implemented")
-}
-func (UnimplementedProductsServer) GetProductCharacteristics(context.Context, *GetProductCharacteristicsRequest) (*GetProductCharacteristicsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProductCharacteristics not implemented")
 }
 func (UnimplementedProductsServer) ApplyFilters(context.Context, *ProductsFilterRequest) (*AvailableFilters, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyFilters not implemented")
@@ -270,20 +180,20 @@ func RegisterProductsServer(s grpc.ServiceRegistrar, srv ProductsServer) {
 	s.RegisterService(&Products_ServiceDesc, srv)
 }
 
-func _Products_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRequest)
+func _Products_CreateProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateProductRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ProductsServer).Create(ctx, in)
+		return srv.(ProductsServer).CreateProduct(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Products_Create_FullMethodName,
+		FullMethod: Products_CreateProduct_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).Create(ctx, req.(*CreateRequest))
+		return srv.(ProductsServer).CreateProduct(ctx, req.(*CreateProductRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -320,60 +230,6 @@ func _Products_Find_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ProductsServer).Find(ctx, req.(*ProductsFilterRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Products_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Products_Update_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).Update(ctx, req.(*UpdateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Products_SetVisible_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetVisibleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServer).SetVisible(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Products_SetVisible_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).SetVisible(ctx, req.(*SetVisibleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Products_UpdateImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateImagesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServer).UpdateImages(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Products_UpdateImages_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).UpdateImages(ctx, req.(*UpdateImagesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -450,60 +306,6 @@ func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Products_AddProductCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddProductCharacteristicRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServer).AddProductCharacteristic(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Products_AddProductCharacteristic_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).AddProductCharacteristic(ctx, req.(*AddProductCharacteristicRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Products_RemoveProductCharacteristic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveProductCharacteristicRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServer).RemoveProductCharacteristic(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Products_RemoveProductCharacteristic_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).RemoveProductCharacteristic(ctx, req.(*RemoveProductCharacteristicRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Products_GetProductCharacteristics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProductCharacteristicsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ProductsServer).GetProductCharacteristics(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Products_GetProductCharacteristics_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProductsServer).GetProductCharacteristics(ctx, req.(*GetProductCharacteristicsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Products_ApplyFilters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ProductsFilterRequest)
 	if err := dec(in); err != nil {
@@ -530,8 +332,8 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ProductsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Create",
-			Handler:    _Products_Create_Handler,
+			MethodName: "CreateProduct",
+			Handler:    _Products_CreateProduct_Handler,
 		},
 		{
 			MethodName: "GetByID",
@@ -540,18 +342,6 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Find",
 			Handler:    _Products_Find_Handler,
-		},
-		{
-			MethodName: "Update",
-			Handler:    _Products_Update_Handler,
-		},
-		{
-			MethodName: "SetVisible",
-			Handler:    _Products_SetVisible_Handler,
-		},
-		{
-			MethodName: "UpdateImages",
-			Handler:    _Products_UpdateImages_Handler,
 		},
 		{
 			MethodName: "CreateCharacteristic",
@@ -568,18 +358,6 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCharacteristic",
 			Handler:    _Products_DeleteCharacteristic_Handler,
-		},
-		{
-			MethodName: "AddProductCharacteristic",
-			Handler:    _Products_AddProductCharacteristic_Handler,
-		},
-		{
-			MethodName: "RemoveProductCharacteristic",
-			Handler:    _Products_RemoveProductCharacteristic_Handler,
-		},
-		{
-			MethodName: "GetProductCharacteristics",
-			Handler:    _Products_GetProductCharacteristics_Handler,
 		},
 		{
 			MethodName: "ApplyFilters",

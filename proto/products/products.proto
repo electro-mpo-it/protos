@@ -10,41 +10,45 @@ option go_package = "github.com/electro-mpo-it/protos/gen/go/products;productspb
 
 // Сервис товаров
 service Products {
-    rpc Create (CreateRequest) returns (CreateResponse); // Создание товара
+    rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse);
     rpc GetByID (GetByIDRequest) returns (GetByIDResponse); // Получение товара по его ID
     rpc Find (ProductsFilterRequest) returns (FindResponse); // Поиск по товарам
-    rpc Update (UpdateRequest) returns (google.protobuf.Empty); // Обновление данных о товаре
-    rpc SetVisible (SetVisibleRequest) returns (google.protobuf.Empty); // Установить значение флага видимости для товара
-
-    rpc UpdateImages (UpdateImagesRequest) returns (google.protobuf.Empty); // Обновить изображения товара (Аналог PUT в REST)
+    // Todo: update product
 
     rpc CreateCharacteristic (CreateCharacteristicRequest) returns (CreateCharacteristicResponse); // Создать характеристику
     rpc FindCharacteristics (FindCharacteristicsRequest) returns (FindCharacteristicsResponse); // Поиск по характеристикам
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
 
-    rpc AddProductCharacteristic (AddProductCharacteristicRequest) returns (AddProductCharacteristicResponse); // Добавить характеристику к товару
-    rpc RemoveProductCharacteristic (RemoveProductCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику у товара
-    rpc GetProductCharacteristics (GetProductCharacteristicsRequest) returns (GetProductCharacteristicsResponse); // Получить список характеристик товара с джоином самих характеристик
-    // TODO: Метод обновления значения характеристики у товара
-
     rpc ApplyFilters (ProductsFilterRequest) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
 }
 
 
-// Создание товара
+message CreateProductRequest {
+    string name = 1;
+    string category_id = 2;
+    string description = 3;
+    UnitOfMeasurementENUM unit_of_measurement = 4;
+    VATENUM vat = 5;
+    double old_price = 6;
+    double discount_ratio = 7;
+    bool is_visible = 8;
 
-message CreateRequest {
-    string name = 1;                                // Required.
-    string category_id = 2;                         // Required.
-    string description = 3;                         // Required.
-    UnitOfMeasurementENUM unit_of_measurement = 4;  // Required.
-    VATENUM vat = 5;                                // Required.
-    double old_price = 6;                           // Required.
-    double discount_ratio = 7;                      // Required.
+    // Nested
+    repeated ProductImage images = 31;
+    repeated ProductCharacteristic characteristics = 32;
 }
 
-message CreateResponse {
+message ProductCharacteristic {
+    string characteristic_id = 1;
+    oneof value {
+        string text_value = 101;
+        double numeric_value = 102;
+    };
+}
+
+
+message CreateProductResponse {
     string id = 1; // Id of product
 }
 
@@ -62,41 +66,6 @@ message GetByIDResponse {
 
 message FindResponse {
     repeated Product data = 1;
-}
-
-// Обновление данных о товаре
-
-message UpdateRequest { // Реализует логику частичного обновления
-    message Data {
-        google.protobuf.StringValue name = 1;                   // If passed - set new name
-        google.protobuf.StringValue category_id = 2;            // If passed - set new category id
-        google.protobuf.StringValue description = 3;            // If passed - set new description
-        OptionalUnitOfMeasurementENUM unit_of_measurement = 4;  // If passed - set new unit of measurement
-        OptionalVATENUM vat = 5;                                // If passed - set new vat              AND calculate new price!!!
-        google.protobuf.DoubleValue old_price = 6;              // If passed - set new old_price        AND calculate new price!!!
-        google.protobuf.DoubleValue discount_ratio = 7;         // If passed - set new discount_raio    AND calculate new price!!!
-    }
-
-    string id = 1;  // ID of target product
-    Data data = 2;  // Data to update
-}
-
-// Установка флага видимости товара
-
-message SetVisibleRequest {
-    message Data {
-        bool is_visible = 1;  // Required. set new is_visible flag for target product
-    }
-
-    string id = 1; // ID of target product
-    Data data = 2; // Data to update
-}
-
-// Полное обновление изображений товара до указанных
-
-message UpdateImagesRequest {  // Реализует аналог PUT запроса в HTTP
-    string id = 1;                      // ID of target product
-    repeated ProductImage images = 2;   // Data to update
 }
 
 // Создание характеристики
@@ -140,38 +109,6 @@ message DeleteCharacteristicRequest {
     string id = 1;
 }
 
-// Добавление характеристики к товару
-
-message AddProductCharacteristicRequest {
-    string product_id = 1;
-    string characteristic_id = 2;
-    oneof value {
-        string text_value = 101;
-        double numeric_value = 102;
-    };
-}
-
-message AddProductCharacteristicResponse {
-    string id = 1;
-}
-
-// Удалить характеристику товара
-
-message RemoveProductCharacteristicRequest {
-    string id = 1;
-}
-
-// Получить характеристики товара
-
-message GetProductCharacteristicsRequest {
-    string product_id = 1;
-}
-
-message GetProductCharacteristicsResponse {
-    repeated ProductCharacteristic data = 1;
-}
-
-
                                     /* Типы данных и структуры */
 
 
@@ -189,21 +126,11 @@ enum UnitOfMeasurementENUM {
     CUBIC_METER = 9;   // Кубический метр
 }
 
-// Обёртка для случаев когда ENUM опционален
-message OptionalUnitOfMeasurementENUM {
-    UnitOfMeasurementENUM value = 1;
-} 
-
 // Перечисление допустимого налога для товара
 enum VATENUM {  
     NDS20 = 0;   // Налог 20%
     NDS10 = 1;   // Налог 10%
     NDS0 = 2;    // Налог 0%
-}
-
-// Обёртка для случаев когда ENUM опционален
-message OptionalVATENUM {
-    VATENUM value = 1;
 }
 
 // Изображение товара
@@ -224,17 +151,6 @@ message Characteristic {
     string id = 1;
     string name = 2;
     CharacteristicValuesTypeEnum values_type = 3;
-}
-
-
-// Характеристика товара
-message ProductCharacteristic {
-    string id = 1;
-    string characteristic_id = 2;
-    oneof value {
-        string text_value = 101;
-        double numeric_value = 102;
-    };
 }
 
 

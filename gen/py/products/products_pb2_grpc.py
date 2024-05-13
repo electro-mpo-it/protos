@@ -16,10 +16,10 @@ class ProductsStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Create = channel.unary_unary(
-                '/productspb.Products/Create',
-                request_serializer=products_dot_products__pb2.CreateRequest.SerializeToString,
-                response_deserializer=products_dot_products__pb2.CreateResponse.FromString,
+        self.CreateProduct = channel.unary_unary(
+                '/productspb.Products/CreateProduct',
+                request_serializer=products_dot_products__pb2.CreateProductRequest.SerializeToString,
+                response_deserializer=products_dot_products__pb2.CreateProductResponse.FromString,
                 )
         self.GetByID = channel.unary_unary(
                 '/productspb.Products/GetByID',
@@ -30,21 +30,6 @@ class ProductsStub(object):
                 '/productspb.Products/Find',
                 request_serializer=products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
                 response_deserializer=products_dot_products__pb2.FindResponse.FromString,
-                )
-        self.Update = channel.unary_unary(
-                '/productspb.Products/Update',
-                request_serializer=products_dot_products__pb2.UpdateRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
-        self.SetVisible = channel.unary_unary(
-                '/productspb.Products/SetVisible',
-                request_serializer=products_dot_products__pb2.SetVisibleRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
-        self.UpdateImages = channel.unary_unary(
-                '/productspb.Products/UpdateImages',
-                request_serializer=products_dot_products__pb2.UpdateImagesRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
         self.CreateCharacteristic = channel.unary_unary(
                 '/productspb.Products/CreateCharacteristic',
@@ -66,21 +51,6 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.AddProductCharacteristic = channel.unary_unary(
-                '/productspb.Products/AddProductCharacteristic',
-                request_serializer=products_dot_products__pb2.AddProductCharacteristicRequest.SerializeToString,
-                response_deserializer=products_dot_products__pb2.AddProductCharacteristicResponse.FromString,
-                )
-        self.RemoveProductCharacteristic = channel.unary_unary(
-                '/productspb.Products/RemoveProductCharacteristic',
-                request_serializer=products_dot_products__pb2.RemoveProductCharacteristicRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
-        self.GetProductCharacteristics = channel.unary_unary(
-                '/productspb.Products/GetProductCharacteristics',
-                request_serializer=products_dot_products__pb2.GetProductCharacteristicsRequest.SerializeToString,
-                response_deserializer=products_dot_products__pb2.GetProductCharacteristicsResponse.FromString,
-                )
         self.ApplyFilters = channel.unary_unary(
                 '/productspb.Products/ApplyFilters',
                 request_serializer=products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
@@ -92,9 +62,8 @@ class ProductsServicer(object):
     """Сервис товаров
     """
 
-    def Create(self, request, context):
-        """Создание товара
-        """
+    def CreateProduct(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -113,29 +82,10 @@ class ProductsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Update(self, request, context):
-        """Обновление данных о товаре
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def SetVisible(self, request, context):
-        """Установить значение флага видимости для товара
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def UpdateImages(self, request, context):
-        """Обновить изображения товара (Аналог PUT в REST)
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def CreateCharacteristic(self, request, context):
-        """Создать характеристику
+        """Todo: update product
+
+        Создать характеристику
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -162,31 +112,8 @@ class ProductsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AddProductCharacteristic(self, request, context):
-        """Добавить характеристику к товару
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def RemoveProductCharacteristic(self, request, context):
-        """Удалить характеристику у товара
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetProductCharacteristics(self, request, context):
-        """Получить список характеристик товара с джоином самих характеристик
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def ApplyFilters(self, request, context):
-        """TODO: Метод обновления значения характеристики у товара
-
-        <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
+        """<<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -195,10 +122,10 @@ class ProductsServicer(object):
 
 def add_ProductsServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Create': grpc.unary_unary_rpc_method_handler(
-                    servicer.Create,
-                    request_deserializer=products_dot_products__pb2.CreateRequest.FromString,
-                    response_serializer=products_dot_products__pb2.CreateResponse.SerializeToString,
+            'CreateProduct': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateProduct,
+                    request_deserializer=products_dot_products__pb2.CreateProductRequest.FromString,
+                    response_serializer=products_dot_products__pb2.CreateProductResponse.SerializeToString,
             ),
             'GetByID': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByID,
@@ -209,21 +136,6 @@ def add_ProductsServicer_to_server(servicer, server):
                     servicer.Find,
                     request_deserializer=products_dot_products__pb2.ProductsFilterRequest.FromString,
                     response_serializer=products_dot_products__pb2.FindResponse.SerializeToString,
-            ),
-            'Update': grpc.unary_unary_rpc_method_handler(
-                    servicer.Update,
-                    request_deserializer=products_dot_products__pb2.UpdateRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ),
-            'SetVisible': grpc.unary_unary_rpc_method_handler(
-                    servicer.SetVisible,
-                    request_deserializer=products_dot_products__pb2.SetVisibleRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ),
-            'UpdateImages': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateImages,
-                    request_deserializer=products_dot_products__pb2.UpdateImagesRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'CreateCharacteristic': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateCharacteristic,
@@ -245,21 +157,6 @@ def add_ProductsServicer_to_server(servicer, server):
                     request_deserializer=products_dot_products__pb2.DeleteCharacteristicRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'AddProductCharacteristic': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddProductCharacteristic,
-                    request_deserializer=products_dot_products__pb2.AddProductCharacteristicRequest.FromString,
-                    response_serializer=products_dot_products__pb2.AddProductCharacteristicResponse.SerializeToString,
-            ),
-            'RemoveProductCharacteristic': grpc.unary_unary_rpc_method_handler(
-                    servicer.RemoveProductCharacteristic,
-                    request_deserializer=products_dot_products__pb2.RemoveProductCharacteristicRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ),
-            'GetProductCharacteristics': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetProductCharacteristics,
-                    request_deserializer=products_dot_products__pb2.GetProductCharacteristicsRequest.FromString,
-                    response_serializer=products_dot_products__pb2.GetProductCharacteristicsResponse.SerializeToString,
-            ),
             'ApplyFilters': grpc.unary_unary_rpc_method_handler(
                     servicer.ApplyFilters,
                     request_deserializer=products_dot_products__pb2.ProductsFilterRequest.FromString,
@@ -277,7 +174,7 @@ class Products(object):
     """
 
     @staticmethod
-    def Create(request,
+    def CreateProduct(request,
             target,
             options=(),
             channel_credentials=None,
@@ -287,9 +184,9 @@ class Products(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/Create',
-            products_dot_products__pb2.CreateRequest.SerializeToString,
-            products_dot_products__pb2.CreateResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/CreateProduct',
+            products_dot_products__pb2.CreateProductRequest.SerializeToString,
+            products_dot_products__pb2.CreateProductResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -324,57 +221,6 @@ class Products(object):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/Find',
             products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
             products_dot_products__pb2.FindResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def Update(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/Update',
-            products_dot_products__pb2.UpdateRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def SetVisible(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/SetVisible',
-            products_dot_products__pb2.SetVisibleRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def UpdateImages(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/UpdateImages',
-            products_dot_products__pb2.UpdateImagesRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -443,57 +289,6 @@ class Products(object):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/DeleteCharacteristic',
             products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def AddProductCharacteristic(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/AddProductCharacteristic',
-            products_dot_products__pb2.AddProductCharacteristicRequest.SerializeToString,
-            products_dot_products__pb2.AddProductCharacteristicResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def RemoveProductCharacteristic(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/RemoveProductCharacteristic',
-            products_dot_products__pb2.RemoveProductCharacteristicRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetProductCharacteristics(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/productspb.Products/GetProductCharacteristics',
-            products_dot_products__pb2.GetProductCharacteristicsRequest.SerializeToString,
-            products_dot_products__pb2.GetProductCharacteristicsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
