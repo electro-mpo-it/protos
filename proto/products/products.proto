@@ -83,8 +83,6 @@ message ProductCharacteristic {
 }
 
 
-
-
 message CreateProductResponse {
     string id = 1; // Id of product
 }
@@ -247,4 +245,5 @@ message Product {
     google.protobuf.Timestamp updated_at = 11;
     repeated ProductImage images = 12;
     google.protobuf.Timestamp created_at = 13;
+    repeated ProductCharacteristic product_characteristics = 14;
 }
