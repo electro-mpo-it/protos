@@ -20,15 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Products_CreateProduct_FullMethodName        = "/productspb.Products/CreateProduct"
-	Products_GetProductByID_FullMethodName       = "/productspb.Products/GetProductByID"
-	Products_FindProducts_FullMethodName         = "/productspb.Products/FindProducts"
-	Products_UpdateProductByID_FullMethodName    = "/productspb.Products/UpdateProductByID"
-	Products_CreateCharacteristic_FullMethodName = "/productspb.Products/CreateCharacteristic"
-	Products_FindCharacteristics_FullMethodName  = "/productspb.Products/FindCharacteristics"
-	Products_UpdateCharacteristic_FullMethodName = "/productspb.Products/UpdateCharacteristic"
-	Products_DeleteCharacteristic_FullMethodName = "/productspb.Products/DeleteCharacteristic"
-	Products_ApplyFilters_FullMethodName         = "/productspb.Products/ApplyFilters"
+	Products_CreateProduct_FullMethodName                     = "/productspb.Products/CreateProduct"
+	Products_GetProductByID_FullMethodName                    = "/productspb.Products/GetProductByID"
+	Products_FindProducts_FullMethodName                      = "/productspb.Products/FindProducts"
+	Products_UpdateProductByID_FullMethodName                 = "/productspb.Products/UpdateProductByID"
+	Products_CreateCharacteristic_FullMethodName              = "/productspb.Products/CreateCharacteristic"
+	Products_FindCharacteristics_FullMethodName               = "/productspb.Products/FindCharacteristics"
+	Products_UpdateCharacteristic_FullMethodName              = "/productspb.Products/UpdateCharacteristic"
+	Products_DeleteCharacteristic_FullMethodName              = "/productspb.Products/DeleteCharacteristic"
+	Products_AddCharacteristicsToCategories_FullMethodName    = "/productspb.Products/AddCharacteristicsToCategories"
+	Products_DropCharacteristicsFromCategories_FullMethodName = "/productspb.Products/DropCharacteristicsFromCategories"
+	Products_ApplyFilters_FullMethodName                      = "/productspb.Products/ApplyFilters"
 )
 
 // ProductsClient is the client API for Products service.
@@ -43,6 +45,8 @@ type ProductsClient interface {
 	FindCharacteristics(ctx context.Context, in *FindCharacteristicsRequest, opts ...grpc.CallOption) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(ctx context.Context, in *UpdateCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeleteCharacteristic(ctx context.Context, in *DeleteCharacteristicRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddCharacteristicsToCategories(ctx context.Context, in *AddCharacteristicsToCategoriesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DropCharacteristicsFromCategories(ctx context.Context, in *DropCharacteristicsFromCategoriesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	ApplyFilters(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*AvailableFilters, error)
 }
 
@@ -126,6 +130,24 @@ func (c *productsClient) DeleteCharacteristic(ctx context.Context, in *DeleteCha
 	return out, nil
 }
 
+func (c *productsClient) AddCharacteristicsToCategories(ctx context.Context, in *AddCharacteristicsToCategoriesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_AddCharacteristicsToCategories_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) DropCharacteristicsFromCategories(ctx context.Context, in *DropCharacteristicsFromCategoriesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_DropCharacteristicsFromCategories_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*AvailableFilters, error) {
 	out := new(AvailableFilters)
 	err := c.cc.Invoke(ctx, Products_ApplyFilters_FullMethodName, in, out, opts...)
@@ -147,6 +169,8 @@ type ProductsServer interface {
 	FindCharacteristics(context.Context, *FindCharacteristicsRequest) (*FindCharacteristicsResponse, error)
 	UpdateCharacteristic(context.Context, *UpdateCharacteristicRequest) (*emptypb.Empty, error)
 	DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error)
+	AddCharacteristicsToCategories(context.Context, *AddCharacteristicsToCategoriesRequest) (*emptypb.Empty, error)
+	DropCharacteristicsFromCategories(context.Context, *DropCharacteristicsFromCategoriesRequest) (*emptypb.Empty, error)
 	ApplyFilters(context.Context, *ProductsFilterRequest) (*AvailableFilters, error)
 	mustEmbedUnimplementedProductsServer()
 }
@@ -178,6 +202,12 @@ func (UnimplementedProductsServer) UpdateCharacteristic(context.Context, *Update
 }
 func (UnimplementedProductsServer) DeleteCharacteristic(context.Context, *DeleteCharacteristicRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCharacteristic not implemented")
+}
+func (UnimplementedProductsServer) AddCharacteristicsToCategories(context.Context, *AddCharacteristicsToCategoriesRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCharacteristicsToCategories not implemented")
+}
+func (UnimplementedProductsServer) DropCharacteristicsFromCategories(context.Context, *DropCharacteristicsFromCategoriesRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DropCharacteristicsFromCategories not implemented")
 }
 func (UnimplementedProductsServer) ApplyFilters(context.Context, *ProductsFilterRequest) (*AvailableFilters, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyFilters not implemented")
@@ -339,6 +369,42 @@ func _Products_DeleteCharacteristic_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Products_AddCharacteristicsToCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddCharacteristicsToCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).AddCharacteristicsToCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_AddCharacteristicsToCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).AddCharacteristicsToCategories(ctx, req.(*AddCharacteristicsToCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_DropCharacteristicsFromCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DropCharacteristicsFromCategoriesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).DropCharacteristicsFromCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_DropCharacteristicsFromCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).DropCharacteristicsFromCategories(ctx, req.(*DropCharacteristicsFromCategoriesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Products_ApplyFilters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ProductsFilterRequest)
 	if err := dec(in); err != nil {
@@ -395,6 +461,14 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCharacteristic",
 			Handler:    _Products_DeleteCharacteristic_Handler,
+		},
+		{
+			MethodName: "AddCharacteristicsToCategories",
+			Handler:    _Products_AddCharacteristicsToCategories_Handler,
+		},
+		{
+			MethodName: "DropCharacteristicsFromCategories",
+			Handler:    _Products_DropCharacteristicsFromCategories_Handler,
 		},
 		{
 			MethodName: "ApplyFilters",

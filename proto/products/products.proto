@@ -20,7 +20,10 @@ service Products {
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
 
-    rpc ApplyFilters (ProductsFilterRequest) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
+    rpc AddCharacteristicsToCategories (AddCharacteristicsToCategoriesRequest) returns (google.protobuf.Empty);
+    rpc DropCharacteristicsFromCategories (DropCharacteristicsFromCategoriesRequest) returns (google.protobuf.Empty);
+
+    rpc ApplyFilters (ProductsFilterRequest) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики
 }
 
 
@@ -186,6 +189,22 @@ message Characteristic {
     string id = 1;
     string name = 2;
     CharacteristicValuesTypeEnum values_type = 3;
+}
+
+message AddCharacteristicsToCategoriesRequest{
+    message CategoryCharacteristic {
+        string category_id = 1;
+        string characteristic_id = 2;
+    }
+    repeated CategoryCharacteristic data = 1;
+}
+
+message DropCharacteristicsFromCategoriesRequest{
+    message CategoryCharacteristic {
+        string category_id = 1;
+        string characteristic_id = 2;
+    }
+    repeated CategoryCharacteristic data = 1;
 }
 
 

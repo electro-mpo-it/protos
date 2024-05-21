@@ -56,6 +56,16 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
+        self.AddCharacteristicsToCategories = channel.unary_unary(
+                '/productspb.Products/AddCharacteristicsToCategories',
+                request_serializer=products_dot_products__pb2.AddCharacteristicsToCategoriesRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.DropCharacteristicsFromCategories = channel.unary_unary(
+                '/productspb.Products/DropCharacteristicsFromCategories',
+                request_serializer=products_dot_products__pb2.DropCharacteristicsFromCategoriesRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
         self.ApplyFilters = channel.unary_unary(
                 '/productspb.Products/ApplyFilters',
                 request_serializer=products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
@@ -123,8 +133,20 @@ class ProductsServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AddCharacteristicsToCategories(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DropCharacteristicsFromCategories(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def ApplyFilters(self, request, context):
-        """<<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики (Непосредственно товары метод не фильтрует.)
+        """<<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -171,6 +193,16 @@ def add_ProductsServicer_to_server(servicer, server):
             'DeleteCharacteristic': grpc.unary_unary_rpc_method_handler(
                     servicer.DeleteCharacteristic,
                     request_deserializer=products_dot_products__pb2.DeleteCharacteristicRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddCharacteristicsToCategories': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddCharacteristicsToCategories,
+                    request_deserializer=products_dot_products__pb2.AddCharacteristicsToCategoriesRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DropCharacteristicsFromCategories': grpc.unary_unary_rpc_method_handler(
+                    servicer.DropCharacteristicsFromCategories,
+                    request_deserializer=products_dot_products__pb2.DropCharacteristicsFromCategoriesRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
             'ApplyFilters': grpc.unary_unary_rpc_method_handler(
@@ -321,6 +353,40 @@ class Products(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/DeleteCharacteristic',
             products_dot_products__pb2.DeleteCharacteristicRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddCharacteristicsToCategories(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/AddCharacteristicsToCategories',
+            products_dot_products__pb2.AddCharacteristicsToCategoriesRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DropCharacteristicsFromCategories(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/DropCharacteristicsFromCategories',
+            products_dot_products__pb2.DropCharacteristicsFromCategoriesRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -226,6 +226,32 @@ class Characteristic(_message.Message):
     values_type: CharacteristicValuesTypeEnum
     def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., values_type: _Optional[_Union[CharacteristicValuesTypeEnum, str]] = ...) -> None: ...
 
+class AddCharacteristicsToCategoriesRequest(_message.Message):
+    __slots__ = ("data",)
+    class CategoryCharacteristic(_message.Message):
+        __slots__ = ("category_id", "characteristic_id")
+        CATEGORY_ID_FIELD_NUMBER: _ClassVar[int]
+        CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
+        category_id: str
+        characteristic_id: str
+        def __init__(self, category_id: _Optional[str] = ..., characteristic_id: _Optional[str] = ...) -> None: ...
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[AddCharacteristicsToCategoriesRequest.CategoryCharacteristic]
+    def __init__(self, data: _Optional[_Iterable[_Union[AddCharacteristicsToCategoriesRequest.CategoryCharacteristic, _Mapping]]] = ...) -> None: ...
+
+class DropCharacteristicsFromCategoriesRequest(_message.Message):
+    __slots__ = ("data",)
+    class CategoryCharacteristic(_message.Message):
+        __slots__ = ("category_id", "characteristic_id")
+        CATEGORY_ID_FIELD_NUMBER: _ClassVar[int]
+        CHARACTERISTIC_ID_FIELD_NUMBER: _ClassVar[int]
+        category_id: str
+        characteristic_id: str
+        def __init__(self, category_id: _Optional[str] = ..., characteristic_id: _Optional[str] = ...) -> None: ...
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[DropCharacteristicsFromCategoriesRequest.CategoryCharacteristic]
+    def __init__(self, data: _Optional[_Iterable[_Union[DropCharacteristicsFromCategoriesRequest.CategoryCharacteristic, _Mapping]]] = ...) -> None: ...
+
 class Range(_message.Message):
     __slots__ = ("to",)
     FROM_FIELD_NUMBER: _ClassVar[int]
