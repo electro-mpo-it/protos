@@ -20,10 +20,18 @@ service Products {
     rpc UpdateCharacteristic (UpdateCharacteristicRequest) returns (google.protobuf.Empty); // Обновить данные о характеристике (Кроме типа данных!)
     rpc DeleteCharacteristic (DeleteCharacteristicRequest) returns (google.protobuf.Empty); // Удалить характеристику
 
-    rpc AddCharacteristicsToCategories (AddCharacteristicsToCategoriesRequest) returns (google.protobuf.Empty);
-    rpc DropCharacteristicsFromCategories (DropCharacteristicsFromCategoriesRequest) returns (google.protobuf.Empty);
+    rpc AddCharacteristicsToCategories (AddCharacteristicsToCategoriesRequest) returns (google.protobuf.Empty); // Добавляет характеристики к категориям
+    rpc DropCharacteristicsFromCategories (DropCharacteristicsFromCategoriesRequest) returns (google.protobuf.Empty); // Удаляет характеристики из категорий
 
     rpc ApplyFilters (ProductsFilterRequest) returns (AvailableFilters); // <<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики
+
+    rpc CreateTag (CreateTagRequest) returns (CreateTagResponse); // Создаёт тег
+    rpc UpdateTagByID (UpdateTagByIDRequest) returns (google.protobuf.Empty); // Частично обновляет тег
+    rpc FindTags (FindTagsRequest) returns (FindTagsResponse); // Выполняет поиск по тегам
+    rpc DeleteTag (DeleteTagRequest) returns (google.protobuf.Empty); // Удаляет тег
+
+    rpc AddTagsToProducts (AddTagsToProductsRequest) returns (google.protobuf.Empty); // Добавляет теги к товарам
+    rpc DropTagsFromProducts (DropTagsFromProductsRequest) returns (google.protobuf.Empty); // Удаляет теги из товаров
 }
 
 
@@ -90,8 +98,6 @@ message CreateProductResponse {
     string id = 1; // Id of product
 }
 
-// Получение товара по его ID
-
 message GetProductByIDRequest {
     string id = 1;  // Required. Id of product
 }
@@ -100,13 +106,9 @@ message GetProductByIDResponse {
     Product data = 1;
 }
 
-// Поиск по товарам
-
 message FindProductsResponse {
     repeated Product data = 1;
 }
-
-// Создание характеристики
 
 message CreateCharacteristicRequest {
     string name = 1;                                // Required.
@@ -116,8 +118,6 @@ message CreateCharacteristicRequest {
 message CreateCharacteristicResponse {
     string id = 1;
 }
-
-// Поиск по характеристикам
 
 message FindCharacteristicsRequest {
     uint32 limit = 1;                           // Required. Or Ids
@@ -131,8 +131,6 @@ message FindCharacteristicsResponse {
     repeated Characteristic data = 1;
 }
 
-// Обновление данных о характеристике
-
 message UpdateCharacteristicRequest {
     message Data {
         google.protobuf.StringValue name = 1;
@@ -142,16 +140,73 @@ message UpdateCharacteristicRequest {
     Data data = 2;
 }
 
-// Удаление характеристики
-
 message DeleteCharacteristicRequest {
     string id = 1;
+}
+
+message CreateTagRequest {
+    string name = 1;
+    string background_color = 2;  // In HEX fmt
+    string text_color = 3;  // In HEX fmt
+}
+
+message CreateTagResponse {
+    string id = 1;
+}
+
+message UpdateTagByIDRequest {
+    message Data {
+        google.protobuf.StringValue name = 1;
+        google.protobuf.StringValue background_color = 2;  // In HEX fmt
+        google.protobuf.StringValue text_color = 3;  // In HEX fmt
+    }
+
+    string id = 1;
+    Data data = 2;
+}
+
+message FindTagsRequest {
+    uint32 limit = 1;
+    uint64 offset = 2;
+    string search = 3;
+}
+
+message FindTagsResponse {
+    repeated Tag data = 1;
+}
+
+message DeleteTagRequest {
+    string id = 1;
+}
+
+message AddTagsToProductsRequest {
+    message ProductTag {
+        string product_id = 1;
+        string tag_id = 2;
+    }
+
+    repeated ProductTag data = 1;
+}
+
+message DropTagsFromProductsRequest {
+    message ProductTag {
+        string product_id = 1;
+        string tag_id = 2;
+    }
+
+    repeated ProductTag data = 1;
 }
 
                                     /* Типы данных и структуры */
 
 
-// Перечисление допустимых единиц измерения для товара
+message Tag {
+    string id = 1;
+    string name = 2;
+    string background_color = 3;  // In HEX fmt
+    string text_color = 4;  // In HEX fmt
+}
+
 enum UnitOfMeasurementENUM {  
     PIECE = 0;         // Штука
     PAIR = 1;          // Пара
@@ -165,27 +220,22 @@ enum UnitOfMeasurementENUM {
     CUBIC_METER = 9;   // Кубический метр
 }
 
-// Перечисление допустимого налога для товара
 enum VATENUM {  
     NDS20 = 0;   // Налог 20%
     NDS10 = 1;   // Налог 10%
     NDS0 = 2;    // Налог 0%
 }
 
-// Изображение товара
 message ProductImage {
     string image_url = 1;
     uint32 sort = 2;
 }
 
-
-// Перечисление возможных типов данных значений характеристики
 enum CharacteristicValuesTypeEnum {
     TEXT = 0;
     NUMERIC = 1;
 }
 
-// Характеристика
 message Characteristic {
     string id = 1;
     string name = 2;
@@ -208,16 +258,11 @@ message DropCharacteristicsFromCategoriesRequest{
     repeated CategoryCharacteristic data = 1;
 }
 
-
-// --- Фильтрация ---
-
-
 message Range {
     double from = 1;
     double to = 2;
 }
 
-// Фильтр по характеристикам товара
 message CharacteristicsFilter {
     message TextValue {
         string id = 1;
@@ -233,7 +278,6 @@ message CharacteristicsFilter {
     repeated NumericValue numeric_values = 2;
 }
 
-// Фильтр для товаров
 message ProductsFilterRequest {
     uint32 limit = 1;
     uint64 offset = 2;
@@ -244,13 +288,11 @@ message ProductsFilterRequest {
     google.protobuf.BoolValue is_visible = 7;
 }
 
-// Структура доступных фильтров для товаров (Должна имплементировать ProductsFilterRequest по характеристикам, цене)
 message AvailableFilters {
     Range price = 1;
     CharacteristicsFilter characteristics = 2;
 }
 
-// Репрезентация товара с всеми полями
 message Product {
     string id = 1;
     string name = 2;

@@ -71,6 +71,36 @@ class ProductsStub(object):
                 request_serializer=products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
                 response_deserializer=products_dot_products__pb2.AvailableFilters.FromString,
                 )
+        self.CreateTag = channel.unary_unary(
+                '/productspb.Products/CreateTag',
+                request_serializer=products_dot_products__pb2.CreateTagRequest.SerializeToString,
+                response_deserializer=products_dot_products__pb2.CreateTagResponse.FromString,
+                )
+        self.UpdateTagByID = channel.unary_unary(
+                '/productspb.Products/UpdateTagByID',
+                request_serializer=products_dot_products__pb2.UpdateTagByIDRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.FindTags = channel.unary_unary(
+                '/productspb.Products/FindTags',
+                request_serializer=products_dot_products__pb2.FindTagsRequest.SerializeToString,
+                response_deserializer=products_dot_products__pb2.FindTagsResponse.FromString,
+                )
+        self.DeleteTag = channel.unary_unary(
+                '/productspb.Products/DeleteTag',
+                request_serializer=products_dot_products__pb2.DeleteTagRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.AddTagsToProducts = channel.unary_unary(
+                '/productspb.Products/AddTagsToProducts',
+                request_serializer=products_dot_products__pb2.AddTagsToProductsRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.DropTagsFromProducts = channel.unary_unary(
+                '/productspb.Products/DropTagsFromProducts',
+                request_serializer=products_dot_products__pb2.DropTagsFromProductsRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
 
 
 class ProductsServicer(object):
@@ -134,19 +164,63 @@ class ProductsServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def AddCharacteristicsToCategories(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Добавляет характеристики к категориям
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DropCharacteristicsFromCategories(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """Удаляет характеристики из категорий
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def ApplyFilters(self, request, context):
         """<<Фасетная фильтрация товаров>> Выводит доступные для дальнейшей фильтрации цену и характеристики
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateTag(self, request, context):
+        """Создаёт тег
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateTagByID(self, request, context):
+        """Частично обновляет тег
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def FindTags(self, request, context):
+        """Выполняет поиск по тегам
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteTag(self, request, context):
+        """Удаляет тег
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddTagsToProducts(self, request, context):
+        """Добавляет теги к товарам
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DropTagsFromProducts(self, request, context):
+        """Удаляет теги из товаров
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -209,6 +283,36 @@ def add_ProductsServicer_to_server(servicer, server):
                     servicer.ApplyFilters,
                     request_deserializer=products_dot_products__pb2.ProductsFilterRequest.FromString,
                     response_serializer=products_dot_products__pb2.AvailableFilters.SerializeToString,
+            ),
+            'CreateTag': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateTag,
+                    request_deserializer=products_dot_products__pb2.CreateTagRequest.FromString,
+                    response_serializer=products_dot_products__pb2.CreateTagResponse.SerializeToString,
+            ),
+            'UpdateTagByID': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateTagByID,
+                    request_deserializer=products_dot_products__pb2.UpdateTagByIDRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'FindTags': grpc.unary_unary_rpc_method_handler(
+                    servicer.FindTags,
+                    request_deserializer=products_dot_products__pb2.FindTagsRequest.FromString,
+                    response_serializer=products_dot_products__pb2.FindTagsResponse.SerializeToString,
+            ),
+            'DeleteTag': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteTag,
+                    request_deserializer=products_dot_products__pb2.DeleteTagRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'AddTagsToProducts': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddTagsToProducts,
+                    request_deserializer=products_dot_products__pb2.AddTagsToProductsRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DropTagsFromProducts': grpc.unary_unary_rpc_method_handler(
+                    servicer.DropTagsFromProducts,
+                    request_deserializer=products_dot_products__pb2.DropTagsFromProductsRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -405,5 +509,107 @@ class Products(object):
         return grpc.experimental.unary_unary(request, target, '/productspb.Products/ApplyFilters',
             products_dot_products__pb2.ProductsFilterRequest.SerializeToString,
             products_dot_products__pb2.AvailableFilters.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreateTag(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/CreateTag',
+            products_dot_products__pb2.CreateTagRequest.SerializeToString,
+            products_dot_products__pb2.CreateTagResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateTagByID(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/UpdateTagByID',
+            products_dot_products__pb2.UpdateTagByIDRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def FindTags(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/FindTags',
+            products_dot_products__pb2.FindTagsRequest.SerializeToString,
+            products_dot_products__pb2.FindTagsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteTag(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/DeleteTag',
+            products_dot_products__pb2.DeleteTagRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddTagsToProducts(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/AddTagsToProducts',
+            products_dot_products__pb2.AddTagsToProductsRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DropTagsFromProducts(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/productspb.Products/DropTagsFromProducts',
+            products_dot_products__pb2.DropTagsFromProductsRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

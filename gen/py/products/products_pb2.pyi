@@ -210,6 +210,99 @@ class DeleteCharacteristicRequest(_message.Message):
     id: str
     def __init__(self, id: _Optional[str] = ...) -> None: ...
 
+class CreateTagRequest(_message.Message):
+    __slots__ = ("name", "background_color", "text_color")
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    BACKGROUND_COLOR_FIELD_NUMBER: _ClassVar[int]
+    TEXT_COLOR_FIELD_NUMBER: _ClassVar[int]
+    name: str
+    background_color: str
+    text_color: str
+    def __init__(self, name: _Optional[str] = ..., background_color: _Optional[str] = ..., text_color: _Optional[str] = ...) -> None: ...
+
+class CreateTagResponse(_message.Message):
+    __slots__ = ("id",)
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    def __init__(self, id: _Optional[str] = ...) -> None: ...
+
+class UpdateTagByIDRequest(_message.Message):
+    __slots__ = ("id", "data")
+    class Data(_message.Message):
+        __slots__ = ("name", "background_color", "text_color")
+        NAME_FIELD_NUMBER: _ClassVar[int]
+        BACKGROUND_COLOR_FIELD_NUMBER: _ClassVar[int]
+        TEXT_COLOR_FIELD_NUMBER: _ClassVar[int]
+        name: _wrappers_pb2.StringValue
+        background_color: _wrappers_pb2.StringValue
+        text_color: _wrappers_pb2.StringValue
+        def __init__(self, name: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., background_color: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., text_color: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ...) -> None: ...
+    ID_FIELD_NUMBER: _ClassVar[int]
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    data: UpdateTagByIDRequest.Data
+    def __init__(self, id: _Optional[str] = ..., data: _Optional[_Union[UpdateTagByIDRequest.Data, _Mapping]] = ...) -> None: ...
+
+class FindTagsRequest(_message.Message):
+    __slots__ = ("limit", "offset", "search")
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    OFFSET_FIELD_NUMBER: _ClassVar[int]
+    SEARCH_FIELD_NUMBER: _ClassVar[int]
+    limit: int
+    offset: int
+    search: str
+    def __init__(self, limit: _Optional[int] = ..., offset: _Optional[int] = ..., search: _Optional[str] = ...) -> None: ...
+
+class FindTagsResponse(_message.Message):
+    __slots__ = ("data",)
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[Tag]
+    def __init__(self, data: _Optional[_Iterable[_Union[Tag, _Mapping]]] = ...) -> None: ...
+
+class DeleteTagRequest(_message.Message):
+    __slots__ = ("id",)
+    ID_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    def __init__(self, id: _Optional[str] = ...) -> None: ...
+
+class AddTagsToProductsRequest(_message.Message):
+    __slots__ = ("data",)
+    class ProductTag(_message.Message):
+        __slots__ = ("product_id", "tag_id")
+        PRODUCT_ID_FIELD_NUMBER: _ClassVar[int]
+        TAG_ID_FIELD_NUMBER: _ClassVar[int]
+        product_id: str
+        tag_id: str
+        def __init__(self, product_id: _Optional[str] = ..., tag_id: _Optional[str] = ...) -> None: ...
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[AddTagsToProductsRequest.ProductTag]
+    def __init__(self, data: _Optional[_Iterable[_Union[AddTagsToProductsRequest.ProductTag, _Mapping]]] = ...) -> None: ...
+
+class DropTagsFromProductsRequest(_message.Message):
+    __slots__ = ("data",)
+    class ProductTag(_message.Message):
+        __slots__ = ("product_id", "tag_id")
+        PRODUCT_ID_FIELD_NUMBER: _ClassVar[int]
+        TAG_ID_FIELD_NUMBER: _ClassVar[int]
+        product_id: str
+        tag_id: str
+        def __init__(self, product_id: _Optional[str] = ..., tag_id: _Optional[str] = ...) -> None: ...
+    DATA_FIELD_NUMBER: _ClassVar[int]
+    data: _containers.RepeatedCompositeFieldContainer[DropTagsFromProductsRequest.ProductTag]
+    def __init__(self, data: _Optional[_Iterable[_Union[DropTagsFromProductsRequest.ProductTag, _Mapping]]] = ...) -> None: ...
+
+class Tag(_message.Message):
+    __slots__ = ("id", "name", "background_color", "text_color")
+    ID_FIELD_NUMBER: _ClassVar[int]
+    NAME_FIELD_NUMBER: _ClassVar[int]
+    BACKGROUND_COLOR_FIELD_NUMBER: _ClassVar[int]
+    TEXT_COLOR_FIELD_NUMBER: _ClassVar[int]
+    id: str
+    name: str
+    background_color: str
+    text_color: str
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., background_color: _Optional[str] = ..., text_color: _Optional[str] = ...) -> None: ...
+
 class ProductImage(_message.Message):
     __slots__ = ("image_url", "sort")
     IMAGE_URL_FIELD_NUMBER: _ClassVar[int]

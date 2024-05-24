@@ -31,6 +31,12 @@ const (
 	Products_AddCharacteristicsToCategories_FullMethodName    = "/productspb.Products/AddCharacteristicsToCategories"
 	Products_DropCharacteristicsFromCategories_FullMethodName = "/productspb.Products/DropCharacteristicsFromCategories"
 	Products_ApplyFilters_FullMethodName                      = "/productspb.Products/ApplyFilters"
+	Products_CreateTag_FullMethodName                         = "/productspb.Products/CreateTag"
+	Products_UpdateTagByID_FullMethodName                     = "/productspb.Products/UpdateTagByID"
+	Products_FindTags_FullMethodName                          = "/productspb.Products/FindTags"
+	Products_DeleteTag_FullMethodName                         = "/productspb.Products/DeleteTag"
+	Products_AddTagsToProducts_FullMethodName                 = "/productspb.Products/AddTagsToProducts"
+	Products_DropTagsFromProducts_FullMethodName              = "/productspb.Products/DropTagsFromProducts"
 )
 
 // ProductsClient is the client API for Products service.
@@ -48,6 +54,12 @@ type ProductsClient interface {
 	AddCharacteristicsToCategories(ctx context.Context, in *AddCharacteristicsToCategoriesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DropCharacteristicsFromCategories(ctx context.Context, in *DropCharacteristicsFromCategoriesRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	ApplyFilters(ctx context.Context, in *ProductsFilterRequest, opts ...grpc.CallOption) (*AvailableFilters, error)
+	CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*CreateTagResponse, error)
+	UpdateTagByID(ctx context.Context, in *UpdateTagByIDRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	FindTags(ctx context.Context, in *FindTagsRequest, opts ...grpc.CallOption) (*FindTagsResponse, error)
+	DeleteTag(ctx context.Context, in *DeleteTagRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	AddTagsToProducts(ctx context.Context, in *AddTagsToProductsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	DropTagsFromProducts(ctx context.Context, in *DropTagsFromProductsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type productsClient struct {
@@ -157,6 +169,60 @@ func (c *productsClient) ApplyFilters(ctx context.Context, in *ProductsFilterReq
 	return out, nil
 }
 
+func (c *productsClient) CreateTag(ctx context.Context, in *CreateTagRequest, opts ...grpc.CallOption) (*CreateTagResponse, error) {
+	out := new(CreateTagResponse)
+	err := c.cc.Invoke(ctx, Products_CreateTag_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) UpdateTagByID(ctx context.Context, in *UpdateTagByIDRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_UpdateTagByID_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) FindTags(ctx context.Context, in *FindTagsRequest, opts ...grpc.CallOption) (*FindTagsResponse, error) {
+	out := new(FindTagsResponse)
+	err := c.cc.Invoke(ctx, Products_FindTags_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) DeleteTag(ctx context.Context, in *DeleteTagRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_DeleteTag_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) AddTagsToProducts(ctx context.Context, in *AddTagsToProductsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_AddTagsToProducts_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productsClient) DropTagsFromProducts(ctx context.Context, in *DropTagsFromProductsRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Products_DropTagsFromProducts_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductsServer is the server API for Products service.
 // All implementations must embed UnimplementedProductsServer
 // for forward compatibility
@@ -172,6 +238,12 @@ type ProductsServer interface {
 	AddCharacteristicsToCategories(context.Context, *AddCharacteristicsToCategoriesRequest) (*emptypb.Empty, error)
 	DropCharacteristicsFromCategories(context.Context, *DropCharacteristicsFromCategoriesRequest) (*emptypb.Empty, error)
 	ApplyFilters(context.Context, *ProductsFilterRequest) (*AvailableFilters, error)
+	CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error)
+	UpdateTagByID(context.Context, *UpdateTagByIDRequest) (*emptypb.Empty, error)
+	FindTags(context.Context, *FindTagsRequest) (*FindTagsResponse, error)
+	DeleteTag(context.Context, *DeleteTagRequest) (*emptypb.Empty, error)
+	AddTagsToProducts(context.Context, *AddTagsToProductsRequest) (*emptypb.Empty, error)
+	DropTagsFromProducts(context.Context, *DropTagsFromProductsRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedProductsServer()
 }
 
@@ -211,6 +283,24 @@ func (UnimplementedProductsServer) DropCharacteristicsFromCategories(context.Con
 }
 func (UnimplementedProductsServer) ApplyFilters(context.Context, *ProductsFilterRequest) (*AvailableFilters, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ApplyFilters not implemented")
+}
+func (UnimplementedProductsServer) CreateTag(context.Context, *CreateTagRequest) (*CreateTagResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateTag not implemented")
+}
+func (UnimplementedProductsServer) UpdateTagByID(context.Context, *UpdateTagByIDRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateTagByID not implemented")
+}
+func (UnimplementedProductsServer) FindTags(context.Context, *FindTagsRequest) (*FindTagsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindTags not implemented")
+}
+func (UnimplementedProductsServer) DeleteTag(context.Context, *DeleteTagRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTag not implemented")
+}
+func (UnimplementedProductsServer) AddTagsToProducts(context.Context, *AddTagsToProductsRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTagsToProducts not implemented")
+}
+func (UnimplementedProductsServer) DropTagsFromProducts(context.Context, *DropTagsFromProductsRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DropTagsFromProducts not implemented")
 }
 func (UnimplementedProductsServer) mustEmbedUnimplementedProductsServer() {}
 
@@ -423,6 +513,114 @@ func _Products_ApplyFilters_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Products_CreateTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).CreateTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_CreateTag_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).CreateTag(ctx, req.(*CreateTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_UpdateTagByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateTagByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).UpdateTagByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_UpdateTagByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).UpdateTagByID(ctx, req.(*UpdateTagByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_FindTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindTagsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).FindTags(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_FindTags_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).FindTags(ctx, req.(*FindTagsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_DeleteTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteTagRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).DeleteTag(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_DeleteTag_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).DeleteTag(ctx, req.(*DeleteTagRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_AddTagsToProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTagsToProductsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).AddTagsToProducts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_AddTagsToProducts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).AddTagsToProducts(ctx, req.(*AddTagsToProductsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Products_DropTagsFromProducts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DropTagsFromProductsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductsServer).DropTagsFromProducts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Products_DropTagsFromProducts_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductsServer).DropTagsFromProducts(ctx, req.(*DropTagsFromProductsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Products_ServiceDesc is the grpc.ServiceDesc for Products service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -473,6 +671,30 @@ var Products_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ApplyFilters",
 			Handler:    _Products_ApplyFilters_Handler,
+		},
+		{
+			MethodName: "CreateTag",
+			Handler:    _Products_CreateTag_Handler,
+		},
+		{
+			MethodName: "UpdateTagByID",
+			Handler:    _Products_UpdateTagByID_Handler,
+		},
+		{
+			MethodName: "FindTags",
+			Handler:    _Products_FindTags_Handler,
+		},
+		{
+			MethodName: "DeleteTag",
+			Handler:    _Products_DeleteTag_Handler,
+		},
+		{
+			MethodName: "AddTagsToProducts",
+			Handler:    _Products_AddTagsToProducts_Handler,
+		},
+		{
+			MethodName: "DropTagsFromProducts",
+			Handler:    _Products_DropTagsFromProducts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
