@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package userspb;
+
+// import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/electro-mpo-it/protos/gen/go/users;userspb";
+
+
+// Сервис пользователей
+service Users {
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+    rpc GetUserByID (GetUserByIDRequest) returns (GetUserByIDResponse);
+    rpc FindUsers (FindUsersRequest) returns (FindUsersResponse);
+    // TODO: rpc DeleteUserByID (DeleteUserByIDRequest) returns (DeleteUserByIDResponse); // Удаляет всю информацию о пользователе, каскадно через брокер сообщений в других сервисах
+    // TODO: rpc SendUserEmailConfirmCode (SendUserEmailConfirmCodeRequest) returns (google.protobuf.Empty); // Отправляет код подтверждения на Email юзера. Код потребуется в методе обновления Email
+    // TODO: rpc ConfirmUserEmail (ConfirmUserEmailRequest) returns (google.protobuf.Empty);
+}
+
+message CreateUserRequest {
+    google.protobuf.StringValue first_name = 1;
+    google.protobuf.StringValue last_name = 2;
+    google.protobuf.StringValue image_url = 3;
+    google.protobuf.StringValue email = 4;
+    google.protobuf.StringValue phone = 5;
+    string password = 6;
+}
+
+message CreateUserResponse {
+    string id = 1;
+}
+
+message GetUserByIDRequest {
+    string id = 1;
+}
+
+message GetUserByIDResponse {
+    User data = 1;
+}
+
+message FindUsersRequest {
+    repeated string ids = 1;
+    string email = 2;
+    string phone = 3;
+    google.protobuf.BoolValue is_blocked = 4;
+}
+
+message FindUsersResponse {
+    repeated User data = 1;
+}
+
+                                                        /* Структуры данных */
+
+message User {
+    string id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    string image_url = 4;
+    string email = 5;
+    string phone = 6;
+    bool is_blocked = 7;
+    bool is_email_verified = 8;
+    bool is_phone_verified = 9;
+    google.protobuf.Timestamp created_at = 10;
+}
