@@ -72,13 +72,13 @@ class User(_message.Message):
     IS_PHONE_VERIFIED_FIELD_NUMBER: _ClassVar[int]
     CREATED_AT_FIELD_NUMBER: _ClassVar[int]
     id: str
-    first_name: str
-    last_name: str
-    image_url: str
-    email: str
-    phone: str
+    first_name: _wrappers_pb2.StringValue
+    last_name: _wrappers_pb2.StringValue
+    image_url: _wrappers_pb2.StringValue
+    email: _wrappers_pb2.StringValue
+    phone: _wrappers_pb2.StringValue
     is_blocked: bool
     is_email_verified: bool
     is_phone_verified: bool
     created_at: _timestamp_pb2.Timestamp
-    def __init__(self, id: _Optional[str] = ..., first_name: _Optional[str] = ..., last_name: _Optional[str] = ..., image_url: _Optional[str] = ..., email: _Optional[str] = ..., phone: _Optional[str] = ..., is_blocked: bool = ..., is_email_verified: bool = ..., is_phone_verified: bool = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., first_name: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., last_name: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., image_url: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., email: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., phone: _Optional[_Union[_wrappers_pb2.StringValue, _Mapping]] = ..., is_blocked: bool = ..., is_email_verified: bool = ..., is_phone_verified: bool = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
