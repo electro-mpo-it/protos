@@ -42,16 +42,20 @@ class GetUserByIDResponse(_message.Message):
     def __init__(self, data: _Optional[_Union[User, _Mapping]] = ...) -> None: ...
 
 class FindUsersRequest(_message.Message):
-    __slots__ = ("ids", "email", "phone", "is_blocked")
+    __slots__ = ("ids", "email", "phone", "is_blocked", "limit", "offset")
     IDS_FIELD_NUMBER: _ClassVar[int]
     EMAIL_FIELD_NUMBER: _ClassVar[int]
     PHONE_FIELD_NUMBER: _ClassVar[int]
     IS_BLOCKED_FIELD_NUMBER: _ClassVar[int]
+    LIMIT_FIELD_NUMBER: _ClassVar[int]
+    OFFSET_FIELD_NUMBER: _ClassVar[int]
     ids: _containers.RepeatedScalarFieldContainer[str]
     email: str
     phone: str
     is_blocked: _wrappers_pb2.BoolValue
-    def __init__(self, ids: _Optional[_Iterable[str]] = ..., email: _Optional[str] = ..., phone: _Optional[str] = ..., is_blocked: _Optional[_Union[_wrappers_pb2.BoolValue, _Mapping]] = ...) -> None: ...
+    limit: int
+    offset: int
+    def __init__(self, ids: _Optional[_Iterable[str]] = ..., email: _Optional[str] = ..., phone: _Optional[str] = ..., is_blocked: _Optional[_Union[_wrappers_pb2.BoolValue, _Mapping]] = ..., limit: _Optional[int] = ..., offset: _Optional[int] = ...) -> None: ...
 
 class FindUsersResponse(_message.Message):
     __slots__ = ("data",)

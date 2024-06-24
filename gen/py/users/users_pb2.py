@@ -16,7 +16,7 @@ from google.protobuf import wrappers_pb2 as google_dot_protobuf_dot_wrappers__pb
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11users/users.proto\x12\x07userspb\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x93\x02\n\x11\x43reateUserRequest\x12\x30\n\nfirst_name\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\tlast_name\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\timage_url\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05\x65mail\x18\x04 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05phone\x18\x05 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x10\n\x08password\x18\x06 \x01(\t\" \n\x12\x43reateUserResponse\x12\n\n\x02id\x18\x01 \x01(\t\" \n\x12GetUserByIDRequest\x12\n\n\x02id\x18\x01 \x01(\t\"2\n\x13GetUserByIDResponse\x12\x1b\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\r.userspb.User\"m\n\x10\x46indUsersRequest\x12\x0b\n\x03ids\x18\x01 \x03(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\r\n\x05phone\x18\x03 \x01(\t\x12.\n\nis_blocked\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.BoolValue\"0\n\x11\x46indUsersResponse\x12\x1b\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\r.userspb.User\"\xfa\x02\n\x04User\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\nfirst_name\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\tlast_name\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\timage_url\x18\x04 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05\x65mail\x18\x05 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05phone\x18\x06 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x12\n\nis_blocked\x18\x07 \x01(\x08\x12\x19\n\x11is_email_verified\x18\x08 \x01(\x08\x12\x19\n\x11is_phone_verified\x18\t \x01(\x08\x12.\n\ncreated_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xdc\x01\n\x05Users\x12\x45\n\nCreateUser\x12\x1a.userspb.CreateUserRequest\x1a\x1b.userspb.CreateUserResponse\x12H\n\x0bGetUserByID\x12\x1b.userspb.GetUserByIDRequest\x1a\x1c.userspb.GetUserByIDResponse\x12\x42\n\tFindUsers\x12\x19.userspb.FindUsersRequest\x1a\x1a.userspb.FindUsersResponseB7Z5github.com/electro-mpo-it/protos/gen/go/users;userspbb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x11users/users.proto\x12\x07userspb\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x93\x02\n\x11\x43reateUserRequest\x12\x30\n\nfirst_name\x18\x01 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\tlast_name\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\timage_url\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05\x65mail\x18\x04 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05phone\x18\x05 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x10\n\x08password\x18\x06 \x01(\t\" \n\x12\x43reateUserResponse\x12\n\n\x02id\x18\x01 \x01(\t\" \n\x12GetUserByIDRequest\x12\n\n\x02id\x18\x01 \x01(\t\"2\n\x13GetUserByIDResponse\x12\x1b\n\x04\x64\x61ta\x18\x01 \x01(\x0b\x32\r.userspb.User\"\x8c\x01\n\x10\x46indUsersRequest\x12\x0b\n\x03ids\x18\x01 \x03(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\r\n\x05phone\x18\x03 \x01(\t\x12.\n\nis_blocked\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.BoolValue\x12\r\n\x05limit\x18\x05 \x01(\r\x12\x0e\n\x06offset\x18\x06 \x01(\x04\"0\n\x11\x46indUsersResponse\x12\x1b\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\r.userspb.User\"\xfa\x02\n\x04User\x12\n\n\x02id\x18\x01 \x01(\t\x12\x30\n\nfirst_name\x18\x02 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\tlast_name\x18\x03 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12/\n\timage_url\x18\x04 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05\x65mail\x18\x05 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12+\n\x05phone\x18\x06 \x01(\x0b\x32\x1c.google.protobuf.StringValue\x12\x12\n\nis_blocked\x18\x07 \x01(\x08\x12\x19\n\x11is_email_verified\x18\x08 \x01(\x08\x12\x19\n\x11is_phone_verified\x18\t \x01(\x08\x12.\n\ncreated_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xdc\x01\n\x05Users\x12\x45\n\nCreateUser\x12\x1a.userspb.CreateUserRequest\x1a\x1b.userspb.CreateUserResponse\x12H\n\x0bGetUserByID\x12\x1b.userspb.GetUserByIDRequest\x1a\x1c.userspb.GetUserByIDResponse\x12\x42\n\tFindUsers\x12\x19.userspb.FindUsersRequest\x1a\x1a.userspb.FindUsersResponseB7Z5github.com/electro-mpo-it/protos/gen/go/users;userspbb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -32,12 +32,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_GETUSERBYIDREQUEST']._serialized_end=439
   _globals['_GETUSERBYIDRESPONSE']._serialized_start=441
   _globals['_GETUSERBYIDRESPONSE']._serialized_end=491
-  _globals['_FINDUSERSREQUEST']._serialized_start=493
-  _globals['_FINDUSERSREQUEST']._serialized_end=602
-  _globals['_FINDUSERSRESPONSE']._serialized_start=604
-  _globals['_FINDUSERSRESPONSE']._serialized_end=652
-  _globals['_USER']._serialized_start=655
-  _globals['_USER']._serialized_end=1033
-  _globals['_USERS']._serialized_start=1036
-  _globals['_USERS']._serialized_end=1256
+  _globals['_FINDUSERSREQUEST']._serialized_start=494
+  _globals['_FINDUSERSREQUEST']._serialized_end=634
+  _globals['_FINDUSERSRESPONSE']._serialized_start=636
+  _globals['_FINDUSERSRESPONSE']._serialized_end=684
+  _globals['_USER']._serialized_start=687
+  _globals['_USER']._serialized_end=1065
+  _globals['_USERS']._serialized_start=1068
+  _globals['_USERS']._serialized_end=1288
 # @@protoc_insertion_point(module_scope)
